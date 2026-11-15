@@ -1,0 +1,65 @@
+{
+  "_notes": "Condition list for the drug-disease check. The ICD-10-CM codes and code prefixes were entered by hand and MUST be checked against the official CMS ICD-10-CM code list before anyone relies on them. A value such as \"I50\" is a prefix that covers every code beneath it. Labels are plain-English and are not the official code descriptions.",
+  "conditions": [
+    {
+      "id": "parkinson-disease",
+      "label": "Parkinson disease",
+      "codes": ["G20"],
+      "synonyms": ["parkinsons", "parkinson's", "pd", "parkinsonism"]
+    },
+    {
+      "id": "heart-failure",
+      "label": "Heart failure",
+      "codes": ["I50"],
+      "synonyms": ["chf", "congestive heart failure", "hf", "weak heart", "cardiac failure"]
+    },
+    {
+      "id": "dementia",
+      "label": "Dementia or cognitive impairment",
+      "codes": ["F01", "F02", "F03", "G30", "G31.84"],
+      "synonyms": ["alzheimer", "alzheimers", "alzheimer's", "memory loss", "mild cognitive impairment", "mci", "vascular dementia"]
+    },
+    {
+      "id": "delirium",
+      "label": "Delirium",
+      "codes": ["F05"],
+      "synonyms": ["acute confusion", "confusional state", "sudden confusion"]
+    },
+    {
+      "id": "syncope",
+      "label": "Syncope (fainting)",
+      "codes": ["R55"],
+      "synonyms": ["fainting", "passing out", "blackout", "blackouts", "collapse"]
+    },
+    {
+      "id": "falls-fractures",
+      "label": "History of falls or fractures",
+      "codes": ["Z91.81", "Z87.81", "Z87.31"],
+      "synonyms": ["fall", "falling", "broken bone", "broken hip", "hip fracture", "fracture"]
+    },
+    {
+      "id": "peptic-ulcer",
+      "label": "History of stomach or duodenal ulcer",
+      "codes": ["K25", "K26", "K27", "Z87.11"],
+      "synonyms": ["gastric ulcer", "peptic ulcer", "duodenal ulcer", "stomach ulcer", "pud", "ulcers"]
+    },
+    {
+      "id": "ckd-stage-4-5",
+      "label": "Chronic kidney disease, stage 4 or higher",
+      "codes": ["N18.4", "N18.5", "N18.6"],
+      "synonyms": ["ckd", "kidney disease", "kidney failure", "renal failure", "esrd", "dialysis", "low kidney function"]
+    },
+    {
+      "id": "bph",
+      "label": "Enlarged prostate with urinary symptoms (BPH)",
+      "codes": ["N40.1"],
+      "synonyms": ["bph", "benign prostatic hyperplasia", "prostate", "luts", "trouble urinating", "weak stream"]
+    },
+    {
+      "id": "urinary-incontinence-women",
+      "label": "Urinary incontinence (women)",
+      "codes": ["N39.3", "N39.4", "R32"],
+      "synonyms": ["incontinence", "bladder leakage", "leaking urine", "stress incontinence", "urge incontinence", "overactive bladder"]
+    }
+  ]
+}

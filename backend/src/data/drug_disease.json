@@ -1,0 +1,425 @@
+{
+  "_notes": "Entered by hand from Table 3 of the published 2023 AGS Beers Criteria (drugs to avoid in older adults with certain diseases or syndromes). This is a partial list, the wording is paraphrased, and every entry and every drug name MUST be verified against the published table before anyone relies on it. Drugs whose name alone cannot separate a flagged form from an unflagged one (for example oral vs. topical, or a dose threshold) were left out on purpose. An absent flag does not mean a medication is safe. Not medical advice.",
+  "sources": {
+    "beers-2023-table-3": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Table 3."
+  },
+  "classes": {
+    "_comment": "Class-to-generics map. Entries name classes in `drugClasses`; every generic is listed here explicitly so nothing is inferred.",
+    "antipsychotics": {
+      "generics": ["aripiprazole", "chlorpromazine", "clozapine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "quetiapine", "risperidone", "thioridazine", "ziprasidone"],
+      "brands": ["abilify", "clozaril", "haldol", "latuda", "zyprexa", "invega", "seroquel", "risperdal", "geodon"]
+    },
+    "antipsychotics-except-parkinson-exempt": {
+      "generics": ["aripiprazole", "chlorpromazine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "risperidone", "thioridazine", "ziprasidone"],
+      "brands": ["abilify", "haldol", "latuda", "zyprexa", "invega", "risperdal", "geodon"]
+    },
+    "benzodiazepines": {
+      "generics": ["alprazolam", "chlordiazepoxide", "clobazam", "clonazepam", "clorazepate", "diazepam", "estazolam", "lorazepam", "midazolam", "oxazepam", "temazepam", "triazolam"],
+      "brands": ["xanax", "librium", "klonopin", "valium", "ativan", "restoril", "halcion"]
+    },
+    "z-drugs": {
+      "generics": ["eszopiclone", "zaleplon", "zolpidem"],
+      "brands": ["lunesta", "sonata", "ambien"]
+    },
+    "anticholinergics-non-urinary": {
+      "generics": [
+        "brompheniramine", "chlorpheniramine", "cyproheptadine", "dimenhydrinate", "diphenhydramine", "doxylamine", "hydroxyzine", "meclizine", "promethazine", "triprolidine",
+        "amitriptyline", "amoxapine", "clomipramine", "desipramine", "imipramine", "nortriptyline", "paroxetine",
+        "dicyclomine", "hyoscyamine", "scopolamine",
+        "benztropine", "trihexyphenidyl",
+        "cyclobenzaprine", "orphenadrine",
+        "prochlorperazine"
+      ],
+      "brands": [
+        "benadryl", "zzzquil", "tylenol pm", "advil pm", "aleve pm", "unisom", "chlor-trimeton", "dramamine", "vistaril", "atarax", "antivert", "phenergan",
+        "elavil", "anafranil", "norpramin", "tofranil", "pamelor", "paxil",
+        "bentyl", "levsin", "cogentin", "flexeril", "norflex", "compazine"
+      ]
+    },
+    "urinary-antimuscarinics": {
+      "generics": ["darifenacin", "fesoterodine", "flavoxate", "oxybutynin", "solifenacin", "tolterodine", "trospium"],
+      "brands": ["enablex", "toviaz", "ditropan", "vesicare", "detrol", "sanctura"]
+    },
+    "oral-nsaids-nonselective": {
+      "generics": ["diflunisal", "etodolac", "flurbiprofen", "ibuprofen", "indomethacin", "meloxicam", "nabumetone", "naproxen", "oxaprozin", "piroxicam", "sulindac"],
+      "brands": ["advil", "motrin", "aleve", "naprosyn", "mobic", "feldene", "indocin"]
+    },
+    "cox2-inhibitors": {
+      "generics": ["celecoxib"],
+      "brands": ["celebrex"]
+    },
+    "peripheral-alpha-1-blockers": {
+      "generics": ["doxazosin", "prazosin", "terazosin"],
+      "brands": ["cardura", "minipress", "hytrin"]
+    },
+    "antidepressants-tca-ssri-snri": {
+      "generics": [
+        "amitriptyline", "clomipramine", "desipramine", "imipramine", "nortriptyline",
+        "citalopram", "escitalopram", "fluoxetine", "fluvoxamine", "paroxetine", "sertraline",
+        "desvenlafaxine", "duloxetine", "venlafaxine"
+      ],
+      "brands": ["elavil", "anafranil", "norpramin", "tofranil", "pamelor", "celexa", "lexapro", "prozac", "luvox", "paxil", "zoloft", "pristiq", "cymbalta", "effexor"]
+    },
+    "antiepileptics": {
+      "generics": ["carbamazepine", "divalproex", "gabapentin", "lamotrigine", "levetiracetam", "oxcarbazepine", "phenytoin", "pregabalin", "topiramate", "valproate", "valproic acid"],
+      "brands": ["tegretol", "depakote", "neurontin", "lamictal", "keppra", "trileptal", "dilantin", "lyrica", "topamax", "depakene"]
+    },
+    "opioids": {
+      "generics": ["codeine", "fentanyl", "hydrocodone", "hydromorphone", "meperidine", "methadone", "morphine", "oxycodone", "tapentadol", "tramadol"],
+      "brands": ["norco", "vicodin", "dilaudid", "demerol", "ms contin", "oxycontin", "percocet", "nucynta", "ultram", "duragesic"]
+    }
+  },
+  "entries": [
+    {
+      "id": "parkinson-antiemetics",
+      "conditionId": "parkinson-disease",
+      "generics": ["metoclopramide", "prochlorperazine", "promethazine"],
+      "brands": ["reglan", "compazine", "phenergan"],
+      "class": "Antiemetic that blocks dopamine",
+      "reason": "These medicines block dopamine receptors and can worsen Parkinson disease symptoms.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "parkinson-antipsychotics",
+      "conditionId": "parkinson-disease",
+      "drugClasses": ["antipsychotics-except-parkinson-exempt"],
+      "generics": [],
+      "brands": [],
+      "class": "Antipsychotic",
+      "reason": "Antipsychotics block dopamine receptors and can worsen Parkinson disease symptoms. Quetiapine, clozapine and pimavanserin are exceptions and are not flagged.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "heart-failure-cilostazol",
+      "conditionId": "heart-failure",
+      "generics": ["cilostazol"],
+      "brands": ["pletal"],
+      "class": "Cilostazol",
+      "reason": "May promote fluid retention or worsen heart failure, and may increase the risk of death in people with heart failure.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "heart-failure-nondihydropyridine-ccb",
+      "conditionId": "heart-failure",
+      "generics": ["diltiazem", "verapamil"],
+      "brands": ["cardizem", "tiazac", "calan", "verelan"],
+      "class": "Non-dihydropyridine calcium channel blocker",
+      "reason": "Can weaken the heart's pumping action and worsen heart failure.",
+      "recommendation": "Avoid in heart failure with reduced ejection fraction. This does not apply to heart failure with preserved ejection fraction.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "heart-failure-nsaids",
+      "conditionId": "heart-failure",
+      "drugClasses": ["oral-nsaids-nonselective", "cox2-inhibitors"],
+      "generics": [],
+      "brands": [],
+      "class": "NSAID or COX-2 inhibitor",
+      "reason": "May promote fluid retention and worsen heart failure.",
+      "recommendation": "Use with caution in heart failure without symptoms. Avoid in heart failure with symptoms.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "heart-failure-thiazolidinediones",
+      "conditionId": "heart-failure",
+      "generics": ["pioglitazone", "rosiglitazone"],
+      "brands": ["actos", "avandia"],
+      "class": "Thiazolidinedione (diabetes medicine)",
+      "reason": "May promote fluid retention and worsen heart failure.",
+      "recommendation": "Use with caution in heart failure without symptoms. Avoid in heart failure with symptoms.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "dementia-anticholinergics",
+      "conditionId": "dementia",
+      "drugClasses": ["anticholinergics-non-urinary", "urinary-antimuscarinics"],
+      "generics": [],
+      "brands": [],
+      "class": "Strongly anticholinergic medicine",
+      "reason": "Anticholinergic medicines have adverse effects on the brain and can worsen memory and thinking.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "dementia-benzodiazepines",
+      "conditionId": "dementia",
+      "drugClasses": ["benzodiazepines"],
+      "generics": [],
+      "brands": [],
+      "class": "Benzodiazepine",
+      "reason": "Adverse effects on the brain; can worsen memory and thinking.",
+      "recommendation": "Avoid. Do not stop suddenly.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "dementia-z-drugs",
+      "conditionId": "dementia",
+      "drugClasses": ["z-drugs"],
+      "generics": [],
+      "brands": [],
+      "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
+      "reason": "Adverse effects on the brain; can worsen memory and thinking.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "dementia-antipsychotics",
+      "conditionId": "dementia",
+      "drugClasses": ["antipsychotics"],
+      "generics": [],
+      "brands": [],
+      "class": "Antipsychotic",
+      "reason": "Antipsychotics are associated with a greater risk of stroke and death in people with dementia.",
+      "recommendation": "Avoid for behavioral problems of dementia unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-anticholinergics",
+      "conditionId": "delirium",
+      "drugClasses": ["anticholinergics-non-urinary", "urinary-antimuscarinics"],
+      "generics": [],
+      "brands": [],
+      "class": "Strongly anticholinergic medicine",
+      "reason": "Can bring on or worsen delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-benzodiazepines",
+      "conditionId": "delirium",
+      "drugClasses": ["benzodiazepines"],
+      "generics": [],
+      "brands": [],
+      "class": "Benzodiazepine",
+      "reason": "Can bring on or worsen delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it. Do not stop suddenly.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-z-drugs",
+      "conditionId": "delirium",
+      "drugClasses": ["z-drugs"],
+      "generics": [],
+      "brands": [],
+      "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
+      "reason": "Can bring on or worsen delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-antipsychotics",
+      "conditionId": "delirium",
+      "drugClasses": ["antipsychotics"],
+      "generics": [],
+      "brands": [],
+      "class": "Antipsychotic",
+      "reason": "Can bring on or worsen delirium, and antipsychotics carry a greater risk of stroke and death in people with dementia.",
+      "recommendation": "Avoid for behavioral problems of delirium unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-h2-blockers",
+      "conditionId": "delirium",
+      "generics": ["cimetidine", "famotidine", "nizatidine"],
+      "brands": ["tagamet", "pepcid", "axid"],
+      "class": "H2-receptor blocker (acid reducer)",
+      "reason": "Can bring on or worsen delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "delirium-corticosteroids",
+      "conditionId": "delirium",
+      "generics": ["prednisone", "methylprednisolone"],
+      "brands": ["medrol", "deltasone"],
+      "class": "Corticosteroid (oral or injected)",
+      "reason": "Can bring on or worsen delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it. If needed, use the lowest dose for the shortest time and watch for delirium.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "syncope-cholinesterase-inhibitors",
+      "conditionId": "syncope",
+      "generics": ["donepezil", "galantamine", "rivastigmine"],
+      "brands": ["aricept", "razadyne", "exelon"],
+      "class": "Cholinesterase inhibitor (dementia medicine)",
+      "reason": "Can slow the heart rate, and should be avoided in people whose fainting may be caused by a slow heart rate.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "syncope-alpha-1-blockers",
+      "conditionId": "syncope",
+      "drugClasses": ["peripheral-alpha-1-blockers"],
+      "generics": [],
+      "brands": [],
+      "class": "Peripheral alpha-1 blocker",
+      "reason": "Can cause a drop in blood pressure on standing, and should be avoided in people whose fainting may be caused by this.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "syncope-tertiary-tcas",
+      "conditionId": "syncope",
+      "generics": ["amitriptyline", "clomipramine", "imipramine"],
+      "brands": ["elavil", "anafranil", "tofranil"],
+      "class": "Tertiary tricyclic antidepressant",
+      "reason": "Increases the risk of a drop in blood pressure on standing.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "syncope-antipsychotics",
+      "conditionId": "syncope",
+      "generics": ["chlorpromazine", "olanzapine", "thioridazine"],
+      "brands": ["zyprexa"],
+      "class": "Antipsychotic (chlorpromazine, olanzapine, thioridazine)",
+      "reason": "Increases the risk of a drop in blood pressure on standing.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-benzodiazepines",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["benzodiazepines"],
+      "generics": [],
+      "brands": [],
+      "class": "Benzodiazepine",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available. Do not stop suddenly.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-z-drugs",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["z-drugs"],
+      "generics": [],
+      "brands": [],
+      "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-antipsychotics",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["antipsychotics"],
+      "generics": [],
+      "brands": [],
+      "class": "Antipsychotic",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-antidepressants",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["antidepressants-tca-ssri-snri"],
+      "generics": [],
+      "brands": [],
+      "class": "Antidepressant (tricyclic, SSRI or SNRI)",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-antiepileptics",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["antiepileptics"],
+      "generics": [],
+      "brands": [],
+      "class": "Antiepileptic",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available. Does not apply when used for seizures or mood disorders.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "falls-opioids",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["opioids"],
+      "generics": [],
+      "brands": [],
+      "class": "Opioid",
+      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "recommendation": "Avoid unless safer alternatives are not available, except for severe acute pain such as a recent fracture or joint replacement.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "peptic-ulcer-nsaids",
+      "conditionId": "peptic-ulcer",
+      "drugClasses": ["oral-nsaids-nonselective"],
+      "generics": [],
+      "brands": [],
+      "class": "Oral NSAID (non-COX-2-selective)",
+      "reason": "May worsen existing ulcers or cause new ones.",
+      "recommendation": "Avoid unless other options are not effective and a stomach-protecting medicine can be taken.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "ckd-nsaids",
+      "conditionId": "ckd-stage-4-5",
+      "drugClasses": ["oral-nsaids-nonselective", "cox2-inhibitors"],
+      "generics": [],
+      "brands": [],
+      "class": "NSAID or COX-2 inhibitor",
+      "reason": "May increase the risk of acute kidney injury and further loss of kidney function.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "bph-anticholinergics",
+      "conditionId": "bph",
+      "drugClasses": ["anticholinergics-non-urinary"],
+      "generics": [],
+      "brands": [],
+      "class": "Strongly anticholinergic medicine",
+      "reason": "May decrease urine flow and cause urinary retention.",
+      "recommendation": "Avoid in men. Antimuscarinic medicines prescribed for urinary incontinence are an exception and are not flagged.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    },
+    {
+      "id": "incontinence-alpha-1-blockers",
+      "conditionId": "urinary-incontinence-women",
+      "drugClasses": ["peripheral-alpha-1-blockers"],
+      "generics": [],
+      "brands": [],
+      "class": "Peripheral alpha-1 blocker",
+      "reason": "Can make urinary incontinence worse.",
+      "recommendation": "Avoid in women.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3"
+    }
+  ]
+}
