@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractLabel, summarizeInteraction } from './groq.js';
 import { fetchInteractionText } from './firecrawl.js';
+import { checkBeers, beersApplies, BEERS_SOURCE } from './beers.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -30,6 +31,7 @@ const limiter = (max) =>
 const scanLimiter = limiter(10); // vision call per request
 const interactionLimiter = limiter(30); // up to 3 scrapes + 1 LLM call per request
 const stackLimiter = limiter(10); // fans out to every pair in the stack
+const beersLimiter = limiter(30); // local lookup only, no upstream calls
 
 const MAX_STACK_SIZE = 10; // 10 drugs = 45 pairs
 const MAX_DRUG_NAME_LENGTH = 80;
@@ -115,6 +117,33 @@ const pairs = [];
   res.json({ pairs, summary });
 });
 
+// ---- Beers Criteria check (adults 65+) ----
+// Body: { age: 72, drugs: ["diphenhydramine", ...] }
+// Pure lookup against the static 2023 AGS Beers Criteria data file — never
+// calls Groq or Firecrawl.
+app.post('/api/beers-check', beersLimiter, (req, res) => {
+  const { age, drugs } = req.body || {};
+  if (!Number.isInteger(age) || age < 0 || age > 120) {
+    return res.status(400).json({ error: 'Age must be a whole number from 0 to 120.' });
+  }
+  if (!Array.isArray(drugs)) {
+    return res.status(400).json({ error: 'Need a drugs array.' });
+  }
+  if (drugs.length > MAX_STACK_SIZE) {
+    return res
+      .status(400)
+      .json({ error: `Too many medications — the limit is ${MAX_STACK_SIZE} per check.` });
+  }
+  if (!drugs.every(isDrugName)) {
+    return res.status(400).json({ error: 'Each medication must be a short text name.' });
+  }
+  res.json({
+    applies: beersApplies(age),
+    flags: checkBeers(age, drugs),
+    source: BEERS_SOURCE,
+  });
+});
+
 /**
  * Core resolution: resolve the specific pairwise page live (Firecrawl -> Groq).
  * A genuine "no interaction listed" becomes green; a live failure becomes an
@@ -180,4 +209,10 @@ const clientDir = path.join(__dirname, '..', 'public');
 app.use(express.static(clientDir));
 app.get('*', (_req, res) => res.sendFile(path.join(clientDir, 'index.html')));
 
-app.listen(PORT, () => console.log(`MedStack backend listening on :${PORT}`));
+// Always listen, except under `node --test` (which sets NODE_TEST_CONTEXT), so
+// tests can import the app and bind their own throwaway port.
+if (!process.env.NODE_TEST_CONTEXT) {
+  app.listen(PORT, () => console.log(`MedStack backend listening on :${PORT}`));
+}
+
+export { app };
