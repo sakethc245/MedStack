@@ -2,6 +2,8 @@
 
 Audit date: 2026-11-15. Branch: `data-verification`.
 
+> **Later changes.** This report describes the data as it stood at the end of the audit. Follow-up work on the branch `data-followups` then changed the data: 24 reason sentences were corrected to the table wording, heart failure was split by ejection fraction, gabapentin and pregabalin were removed from the antiepileptics list, and 14 entries from section 6 were added. The counts and tables below do not include those changes. Each entry's own `verified`, `verifiedAgainst` and `verificationNote` fields are the current record, and `docs/SPOT_CHECK.md` lists the 15 entries most worth checking by hand.
+
 This records an entry-by-entry check of MedStack's clinical data files against their primary sources. Every verdict below comes from source text retrieved and read during the audit session, not from memory. The data was originally entered from memory, so this audit is the first time it was compared with the sources.
 
 This is a data-fidelity audit, not a clinical review. It shows that the files match the cited sources; it does not show that the app is safe or appropriate to use for medical decisions. The paraphrased wording has not been reviewed by a clinician.
