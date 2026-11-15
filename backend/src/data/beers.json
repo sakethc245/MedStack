@@ -1,0 +1,214 @@
+{
+  "_notes": "Entered by hand from Table 2 of the published 2023 AGS Beers Criteria (potentially inappropriate medication use in older adults). This is a partial list, the wording is paraphrased, and every entry MUST be checked against the published table before anyone relies on it. Many entries only apply at certain doses, durations or indications, which this app does not know; the recommendation text states those conditions. Not medical advice.",
+  "source": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081.",
+  "minimumAge": 65,
+  "entries": [
+    {
+      "id": "first-gen-antihistamines",
+      "generics": ["brompheniramine", "chlorpheniramine", "cyproheptadine", "dimenhydrinate", "diphenhydramine", "doxylamine", "hydroxyzine", "meclizine", "promethazine", "triprolidine"],
+      "brands": ["benadryl", "zzzquil", "tylenol pm", "advil pm", "aleve pm", "unisom", "chlor-trimeton", "dramamine", "vistaril", "atarax", "antivert", "phenergan"],
+      "class": "First-generation antihistamine",
+      "reason": "Strongly anticholinergic. Older adults clear these drugs more slowly, and they can cause confusion, dry mouth, constipation and other anticholinergic effects.",
+      "recommendation": "Avoid. Short-term use of diphenhydramine for a severe allergic reaction may be appropriate.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "benzodiazepines",
+      "generics": ["alprazolam", "chlordiazepoxide", "clobazam", "clonazepam", "clorazepate", "diazepam", "estazolam", "lorazepam", "midazolam", "oxazepam", "temazepam", "triazolam"],
+      "brands": ["xanax", "librium", "klonopin", "valium", "ativan", "restoril", "halcion"],
+      "class": "Benzodiazepine",
+      "reason": "Older adults are more sensitive to benzodiazepines and break down the long-acting ones more slowly. They raise the risk of cognitive impairment, delirium, falls, fractures and car crashes.",
+      "recommendation": "Avoid. May be appropriate for certain conditions such as seizure disorders, alcohol or benzodiazepine withdrawal, and severe generalized anxiety disorder. Do not stop suddenly.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "z-drugs",
+      "generics": ["eszopiclone", "zaleplon", "zolpidem"],
+      "brands": ["lunesta", "sonata", "ambien"],
+      "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
+      "reason": "Side effects in older adults are similar to benzodiazepines (delirium, falls, fractures, more emergency visits and hospital stays, car crashes), with little improvement in sleep.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "anticholinergic-antidepressants",
+      "generics": ["amitriptyline", "amoxapine", "clomipramine", "desipramine", "doxepin", "imipramine", "nortriptyline", "paroxetine"],
+      "brands": ["elavil", "anafranil", "norpramin", "sinequan", "tofranil", "pamelor", "paxil"],
+      "class": "Antidepressant with strong anticholinergic activity",
+      "reason": "Highly anticholinergic and sedating, and can cause a drop in blood pressure on standing.",
+      "recommendation": "Avoid. For doxepin this applies to doses above 6 mg per day; lower doses have a safety profile similar to placebo.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "skeletal-muscle-relaxants",
+      "generics": ["carisoprodol", "chlorzoxazone", "cyclobenzaprine", "metaxalone", "methocarbamol", "orphenadrine"],
+      "brands": ["soma", "flexeril", "skelaxin", "robaxin", "norflex"],
+      "class": "Skeletal muscle relaxant",
+      "reason": "Poorly tolerated by older adults because of anticholinergic effects, sedation and a higher risk of fractures. Effectiveness at doses older adults can tolerate is questionable.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "sulfonylureas",
+      "generics": ["gliclazide", "glimepiride", "glipizide", "glyburide", "glibenclamide"],
+      "brands": ["amaryl", "glucotrol", "diabeta", "glynase"],
+      "class": "Sulfonylurea (diabetes medicine)",
+      "reason": "Higher risk of cardiovascular events, death from any cause, and low blood sugar than alternative agents. Long-acting ones (glyburide, glimepiride) carry a higher risk of prolonged low blood sugar.",
+      "recommendation": "Avoid as first- or second-line therapy unless there are substantial barriers to safer, more effective agents. If one is used, a short-acting agent such as glipizide is preferred over a long-acting one.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "proton-pump-inhibitors",
+      "generics": ["dexlansoprazole", "esomeprazole", "lansoprazole", "omeprazole", "pantoprazole", "rabeprazole"],
+      "brands": ["dexilant", "nexium", "prevacid", "prilosec", "protonix", "aciphex"],
+      "class": "Proton-pump inhibitor",
+      "reason": "Long-term use is linked to C. difficile infection, pneumonia, gastrointestinal cancers, bone loss and fractures.",
+      "recommendation": "Avoid scheduled use for more than 8 weeks unless there is a clear reason, such as regular oral corticosteroid or NSAID use, erosive esophagitis, Barrett esophagus, or a demonstrated need for maintenance treatment.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "oral-nsaids",
+      "generics": ["diclofenac", "diflunisal", "etodolac", "flurbiprofen", "ibuprofen", "meloxicam", "nabumetone", "naproxen", "oxaprozin", "piroxicam", "sulindac"],
+      "brands": ["advil", "motrin", "aleve", "naprosyn", "mobic", "feldene"],
+      "class": "Oral NSAID (non-COX-2-selective)",
+      "reason": "Higher risk of stomach or intestinal bleeding and ulcers, especially over age 75 or when taken with corticosteroids, blood thinners or antiplatelet medicines. Can also raise blood pressure and harm the kidneys.",
+      "recommendation": "Avoid chronic use unless other options are not effective and a stomach-protecting medicine can be taken. Avoid short-term scheduled use together with corticosteroids, anticoagulants or antiplatelet agents unless a stomach-protecting medicine can be taken. Applies to oral use.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "indomethacin-ketorolac",
+      "generics": ["indomethacin", "ketorolac"],
+      "brands": ["indocin", "toradol"],
+      "class": "NSAID (indomethacin, ketorolac)",
+      "reason": "Higher risk of stomach or intestinal bleeding, ulcers and kidney injury in older adults. Of all NSAIDs, indomethacin has the most side effects, including effects on the brain.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "aspirin-primary-prevention",
+      "generics": ["aspirin", "acetylsalicylic acid"],
+      "brands": ["ecotrin", "bufferin"],
+      "class": "Aspirin for primary prevention of cardiovascular disease",
+      "reason": "The risk of major bleeding from aspirin rises sharply with age, and studies show no net benefit when it is started for primary prevention in older adults.",
+      "recommendation": "Avoid starting aspirin for primary prevention of cardiovascular disease, and consider stopping it in people already taking it for primary prevention. This does not apply to aspirin taken after a heart attack, stroke or stent.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "warfarin",
+      "generics": ["warfarin"],
+      "brands": ["coumadin", "jantoven"],
+      "class": "Anticoagulant (warfarin)",
+      "reason": "Compared with direct oral anticoagulants, warfarin has a higher risk of major bleeding, particularly bleeding in the brain, with similar or lower effectiveness for nonvalvular atrial fibrillation and venous thromboembolism.",
+      "recommendation": "Avoid starting warfarin as initial therapy for nonvalvular atrial fibrillation or venous thromboembolism unless alternatives are contraindicated or there are substantial barriers to their use. For people who have used warfarin long-term, it may be reasonable to continue it, particularly with well-controlled INRs and no adverse effects.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "barbiturates",
+      "generics": ["butalbital", "phenobarbital", "primidone"],
+      "brands": ["fioricet", "fiorinal", "mysoline"],
+      "class": "Barbiturate",
+      "reason": "High rate of physical dependence, tolerance to sleep benefits, and a greater risk of overdose at low doses.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "antipsychotics",
+      "generics": ["aripiprazole", "haloperidol", "olanzapine", "quetiapine", "risperidone", "ziprasidone"],
+      "brands": ["abilify", "haldol", "zyprexa", "seroquel", "risperdal", "geodon"],
+      "class": "Antipsychotic",
+      "reason": "Increased risk of stroke, and a greater rate of cognitive decline and death in people with dementia.",
+      "recommendation": "Avoid, except for FDA-approved indications such as schizophrenia, bipolar disorder, Parkinson disease psychosis, add-on treatment of major depressive disorder, or short-term use for nausea.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "peripheral-alpha-1-blockers",
+      "generics": ["doxazosin", "prazosin", "terazosin"],
+      "brands": ["cardura", "minipress", "hytrin"],
+      "class": "Peripheral alpha-1 blocker",
+      "reason": "High risk of a drop in blood pressure on standing and related harms. Other blood pressure medicines have a better balance of risk and benefit.",
+      "recommendation": "Avoid use as a treatment for high blood pressure.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "central-alpha-agonists",
+      "generics": ["clonidine", "guanfacine"],
+      "brands": ["catapres", "tenex"],
+      "class": "Central alpha-agonist",
+      "reason": "High risk of side effects on the brain and nervous system, and may cause a slow heart rate and a drop in blood pressure on standing.",
+      "recommendation": "Avoid clonidine as a first-line treatment for high blood pressure. Avoid other central alpha-agonists for high blood pressure.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "digoxin",
+      "generics": ["digoxin"],
+      "brands": ["lanoxin"],
+      "class": "Digoxin",
+      "reason": "Safer and more effective options exist for atrial fibrillation and heart failure. Older adults clear digoxin more slowly, and higher doses add risk of toxicity without added benefit.",
+      "recommendation": "Avoid as first-line therapy for atrial fibrillation or heart failure. If used, avoid doses above 0.125 mg per day.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "amiodarone",
+      "generics": ["amiodarone"],
+      "brands": ["pacerone"],
+      "class": "Amiodarone",
+      "reason": "Effective for keeping a normal heart rhythm, but has greater toxicities than other medicines used for atrial fibrillation.",
+      "recommendation": "Avoid as first-line therapy for atrial fibrillation unless the person has heart failure or substantial thickening of the left ventricle.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "nitrofurantoin",
+      "generics": ["nitrofurantoin"],
+      "brands": ["macrobid", "macrodantin"],
+      "class": "Nitrofurantoin",
+      "reason": "Potential for lung and liver toxicity and nerve damage, especially with long-term use.",
+      "recommendation": "Avoid in people with creatinine clearance below 30 mL/min, and avoid long-term use to suppress infections.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "antispasmodics",
+      "generics": ["dicyclomine", "hyoscyamine", "scopolamine"],
+      "brands": ["bentyl", "levsin"],
+      "class": "Antispasmodic",
+      "reason": "Highly anticholinergic, with uncertain effectiveness.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "metoclopramide",
+      "generics": ["metoclopramide"],
+      "brands": ["reglan"],
+      "class": "Metoclopramide",
+      "reason": "Can cause movement disorders, including tardive dyskinesia. The risk may be greater in frail older adults and with prolonged use.",
+      "recommendation": "Avoid, unless for gastroparesis, and then generally for no longer than 12 weeks.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "megestrol",
+      "generics": ["megestrol"],
+      "brands": ["megace"],
+      "class": "Megestrol",
+      "reason": "Minimal effect on weight, and increases the risk of blood clots and possibly death in older adults.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "meperidine",
+      "generics": ["meperidine", "pethidine"],
+      "brands": ["demerol"],
+      "class": "Opioid (meperidine)",
+      "reason": "Not an effective oral pain reliever at commonly used doses, and has a higher risk of neurotoxicity, including delirium, than other opioids.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    },
+    {
+      "id": "desmopressin",
+      "generics": ["desmopressin"],
+      "brands": ["ddavp", "noctiva", "nocdurna"],
+      "class": "Desmopressin",
+      "reason": "High risk of low blood sodium. Safer alternatives exist.",
+      "recommendation": "Avoid for treatment of nighttime urination.",
+      "source": "AGS 2023 Beers Criteria, Table 2"
+    }
+  ]
+}
