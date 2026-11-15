@@ -80,4 +80,18 @@ export type BeersFlag = {
   source: string;
 };
 
+/** A stacked-drug pattern returned by /api/stack-patterns. */
+export type StackPattern = {
+  id: string;
+  label: string;
+  /** 'pair' = one class with another; 'count' = several drugs from a group. */
+  type: 'pair' | 'count';
+  drugsInvolved: string[];
+  /** Each [drug, drug] combination for a 'pair' pattern; empty for 'count'. */
+  pairs: string[][];
+  reason: string;
+  recommendation: string;
+  source: string;
+};
+
 export type Summary = { red: number; yellow: number; green: number };

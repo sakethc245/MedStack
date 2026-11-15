@@ -31,15 +31,20 @@ export default function NodeMap({
   drugs,
   pairs,
   notes,
+  hubCounts,
   labelFor,
   onSelectPair,
+  onSelectHub,
 }: {
   drugs: Drug[];
   pairs: Pair[];
   /** Beers and condition flag counts per medication, keyed by lowercased name. */
   notes: NoteCounts;
+  /** Hub drugs (lowercased name) and how many other drugs each interacts with. */
+  hubCounts: Map<string, number>;
   labelFor: (name: string) => string;
   onSelectPair: (p: Pair) => void;
+  onSelectHub: (name: string) => void;
 }) {
   const W = 340,
     H = 340,
@@ -80,12 +85,16 @@ export default function NodeMap({
         const label = labelFor(d.name);
         const short = label.length > 9 ? label.slice(0, 8) + '.' : label;
         const note = notes.get(d.name.toLowerCase());
+        const hubCount = hubCounts.get(d.name.toLowerCase());
+        const selectHub = hubCount ? () => onSelectHub(d.name) : undefined;
         const beersOnly = !!note && note.beers > 0 && note.conditions === 0;
         const hasCondition = !!note && note.conditions > 0;
         const tagText = note && note.beers > 0 ? `${note.beers + note.conditions} notes` : 'Condition';
         return (
           <React.Fragment key={d.id}>
-            <Circle cx={pos[i].x} cy={pos[i].y} r={30} fill="#fff" stroke={COLORS.inkFaint} strokeWidth={2} />
+            {/* Hub: a dark outer ring (ink, not a severity color) marks a drug that interacts with several others. */}
+            {!!hubCount && <Circle cx={pos[i].x} cy={pos[i].y} r={35} fill="none" stroke={COLORS.ink} strokeWidth={2} onPress={selectHub} />}
+            <Circle cx={pos[i].x} cy={pos[i].y} r={30} fill="#fff" stroke={hubCount ? COLORS.ink : COLORS.inkFaint} strokeWidth={2} onPress={selectHub} />
             <SvgText x={pos[i].x} y={pos[i].y - 1} fontSize={11} fontWeight="600" fill={COLORS.ink} textAnchor="middle">
               {short}
             </SvgText>
@@ -93,6 +102,14 @@ export default function NodeMap({
               <SvgText x={pos[i].x} y={pos[i].y + 12} fontSize={8.5} fill={COLORS.inkFaint} textAnchor="middle">
                 {d.dosage}
               </SvgText>
+            )}
+            {!!hubCount && (
+              <React.Fragment>
+                <Circle cx={pos[i].x + 25} cy={pos[i].y + 24} r={9} fill={COLORS.ink} stroke="#fff" strokeWidth={1.5} onPress={selectHub} />
+                <SvgText x={pos[i].x + 25} y={pos[i].y + 27.5} fontSize={10} fontWeight="700" fill="#fff" textAnchor="middle" onPress={selectHub}>
+                  {hubCount}
+                </SvgText>
+              </React.Fragment>
             )}
             {beersOnly && (
               <React.Fragment>

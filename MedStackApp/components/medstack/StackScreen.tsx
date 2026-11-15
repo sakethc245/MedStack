@@ -7,6 +7,8 @@ import { flaggedNames, flagsForDrug } from '@/lib/beers';
 import { conditionFlaggedCount, conditionFlagsForDrug } from '@/lib/conditions';
 import { BeersDetail, BeersSummary } from './Beers';
 import { ConditionDetail, ConditionSummary, MedNoteBadge } from './Conditions';
+import { StackInsightsCard } from './StackInsights';
+import type { InsightsResult } from '@/lib/insights';
 import type { BeersFlag, ConditionFlag, Drug, Group, Pair, Summary } from '@/types/medstack';
 
 export default function StackScreen({
@@ -17,6 +19,8 @@ export default function StackScreen({
   beersFlags,
   conditionFlags,
   conditionsChecked,
+  insights,
+  patternsChecked,
   onRemove,
   onRename,
   onCreateGroup,
@@ -32,6 +36,8 @@ export default function StackScreen({
   conditionFlags: ConditionFlag[];
   /** True once the drug-disease check has run for the current stack. */
   conditionsChecked: boolean;
+  insights: InsightsResult;
+  patternsChecked: boolean;
   onRemove: (id: string) => void;
   onRename: (id: string, displayName: string | null) => void;
   onCreateGroup: (name: string) => void;
@@ -130,6 +136,7 @@ export default function StackScreen({
         </View>
         <BeersSummary count={beersCount} />
         <ConditionSummary count={conditionFlaggedCount(conditionFlags)} checked={conditionsChecked} />
+        {drugs.length >= 2 && <StackInsightsCard insights={insights} patternsChecked={patternsChecked} />}
       </View>
 
       <View style={{ gap: 10, marginTop: 12 }}>

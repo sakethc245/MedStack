@@ -10,6 +10,9 @@ import { flaggedNames } from '@/lib/beers';
 import { conditionFlaggedCount, countNotes } from '@/lib/conditions';
 import { BeersSummary } from './Beers';
 import { ConditionSummary } from './Conditions';
+import { HubDetail, StackInsightsCard } from './StackInsights';
+import { findHubs } from '@/lib/hubs';
+import { pairKey, type InsightsResult } from '@/lib/insights';
 import type { BeersFlag, ConditionFlag, Drug, Group, MapType, Pair } from '@/types/medstack';
 
 const MAP_TABS: { type: MapType; label: string }[] = [
@@ -25,6 +28,8 @@ export default function MapScreen({
   beersFlags,
   conditionFlags,
   conditionsChecked,
+  insights,
+  patternsChecked,
   mapType,
   onChangeMapType,
   labelFor,
@@ -36,12 +41,16 @@ export default function MapScreen({
   beersFlags: BeersFlag[];
   conditionFlags: ConditionFlag[];
   conditionsChecked: boolean;
+  /** Whole-stack insights (not limited to the group being viewed). */
+  insights: InsightsResult;
+  patternsChecked: boolean;
   mapType: MapType;
   onChangeMapType: (t: MapType) => void;
   labelFor: (name: string) => string;
 }) {
   const [groupId, setGroupId] = useState<'all' | string>('all');
   const [selected, setSelected] = useState<Pair | null>(null);
+  const [hubName, setHubName] = useState<string | null>(null);
 
   const viewDrugs = groupId === 'all' ? drugs : drugs.filter((d) => d.groupId === groupId);
   const viewNames = useMemo(() => new Set(viewDrugs.map((d) => d.name.toLowerCase())), [viewDrugs]);
@@ -70,6 +79,19 @@ export default function MapScreen({
     [conditionFlags, viewNames]
   );
   const notes = useMemo(() => countNotes(viewBeersFlags, viewConditionFlags), [viewBeersFlags, viewConditionFlags]);
+  // Hubs for the drugs on screen, so the rings match the lines that are drawn.
+  const viewHubs = useMemo(() => findHubs(viewDrugs.map((d) => d.name), viewPairs), [viewDrugs, viewPairs]);
+  const hubCounts = useMemo(
+    () => new Map(viewHubs.map((h) => [h.drug.toLowerCase(), h.partners.length])),
+    [viewHubs]
+  );
+  const activeHub = (hubName && viewHubs.find((h) => h.drug.toLowerCase() === hubName.toLowerCase())) || null;
+  const selectPartner = (partner: string) => {
+    if (!activeHub) return;
+    const key = pairKey(activeHub.drug, partner);
+    const found = viewPairs.find((p) => pairKey(p.drugA, p.drugB) === key);
+    if (found) setSelected(found);
+  };
   const hottest = sortBySeverityDesc(viewPairs)[0];
   const active = (selected && viewPairs.includes(selected) ? selected : null) || hottest || null;
 
@@ -115,6 +137,7 @@ export default function MapScreen({
 
       <BeersSummary count={beersNames.size} />
       <ConditionSummary count={conditionFlaggedCount(viewConditionFlags)} checked={conditionsChecked} />
+      <StackInsightsCard insights={insights} patternsChecked={patternsChecked} />
 
       <View style={styles.mapTypeRow}>
         {MAP_TABS.map((t) => {
@@ -134,13 +157,28 @@ export default function MapScreen({
       ) : (
         <View style={[sharedStyles.card, { marginTop: 10, padding: mapType === 'node' ? 8 : 12 }]}>
           {loading && <Text style={styles.loadingText}>Checking live interactions...</Text>}
-          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} notes={notes} labelFor={labelFor} onSelectPair={setSelected} />}
+          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} notes={notes} hubCounts={hubCounts} labelFor={labelFor} onSelectPair={setSelected} onSelectHub={setHubName} />}
           {mapType === 'list' && <ListMap pairs={viewPairs} selected={selected} notes={notes} labelFor={labelFor} onSelectPair={setSelected} />}
-          <Text style={styles.mapHint}>Tap any medication pair for details</Text>
+          <Text style={styles.mapHint}>
+            Tap any medication pair for details
+            {mapType === 'node' && hubCounts.size > 0 ? '. A ringed medication interacts with several others: tap it to see which.' : ''}
+          </Text>
         </View>
       )}
 
-      {active && <DetailCard pair={active} labelFor={labelFor} beersFlags={viewBeersFlags} conditionFlags={viewConditionFlags} />}
+      {mapType === 'node' && activeHub && (
+        <HubDetail hub={activeHub} labelFor={labelFor} onSelectPartner={selectPartner} onClose={() => setHubName(null)} />
+      )}
+
+      {active && (
+        <DetailCard
+          pair={active}
+          labelFor={labelFor}
+          beersFlags={viewBeersFlags}
+          conditionFlags={viewConditionFlags}
+          patternNotes={insights.pairNotes.get(pairKey(active.drugA, active.drugB))}
+        />
+      )}
     </ScrollView>
   );
 }

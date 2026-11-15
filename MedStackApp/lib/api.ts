@@ -33,6 +33,8 @@ export const api = {
   beersCheck: (age: number, drugs: string[]) =>
     post("/api/beers-check", { age, drugs }),
   conditions: () => get("/api/conditions"),
+  stackPatterns: (age: number, drugs: string[]) =>
+    post("/api/stack-patterns", { age, drugs }),
   drugDiseaseCheck: (age: number, conditions: string[], drugs: string[]) =>
     post("/api/drug-disease-check", { age, conditions, drugs }),
 };

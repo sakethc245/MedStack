@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
@@ -13,7 +13,9 @@ import MapScreen from '@/components/medstack/MapScreen';
 import { AgePrompt } from '@/components/medstack/Beers';
 import { ConditionsPicker } from '@/components/medstack/Conditions';
 import { BEERS_MIN_AGE } from '@/lib/beers';
-import type { BeersFlag, ConditionFlag, Drug, Group, MapType, Pair, Summary, User } from '@/types/medstack';
+import { findHubs } from '@/lib/hubs';
+import { buildInsights } from '@/lib/insights';
+import type { BeersFlag, ConditionFlag, Drug, Group, MapType, Pair, StackPattern, Summary, User } from '@/types/medstack';
 
 const SEED: Drug[] = [
   { id: 'seed-1', name: 'metformin', dosage: '500 mg', frequency: '2x daily' },
@@ -25,6 +27,7 @@ type Tab = 'scan' | 'stack' | 'map';
 
 const NO_FLAGS: BeersFlag[] = [];
 const NO_CONDITION_FLAGS: ConditionFlag[] = [];
+const NO_PATTERNS: StackPattern[] = [];
 
 function newId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -47,6 +50,7 @@ export default function HomeScreen() {
   const [editingAge, setEditingAge] = useState(false);
   const [conditionResult, setConditionResult] = useState<{ key: string; flags: ConditionFlag[] } | null>(null);
   const [editingConditions, setEditingConditions] = useState(false);
+  const [patternResult, setPatternResult] = useState<{ key: string; patterns: StackPattern[] } | null>(null);
 
   const tab: Tab = showOnboarding ? (STEPS[onboardStep].tab as Tab) : selectedTab;
 
@@ -133,6 +137,34 @@ export default function HomeScreen() {
   // Only show flags that belong to the current age + conditions + stack.
   const conditionsChecked = !!conditionKey && conditionResult?.key === conditionKey;
   const conditionFlags = conditionsChecked && conditionResult ? conditionResult.flags : NO_CONDITION_FLAGS;
+
+  // Stacked-drug patterns (e.g. an opioid with a benzodiazepine). Same shape as
+  // the checks above: separate from the scan and interaction flow, and a
+  // failure just means no pattern insights. The server applies each pattern's
+  // minimum age.
+  const patternKey =
+    typeof age === 'number' && drugs.length >= 2 ? JSON.stringify([age, drugs.map((d) => d.name)]) : null;
+  useEffect(() => {
+    if (!patternKey) return;
+    const [checkAge, names] = JSON.parse(patternKey) as [number, string[]];
+    let cancelled = false;
+    api
+      .stackPatterns(checkAge, names)
+      .then((data) => {
+        if (!cancelled) setPatternResult({ key: patternKey, patterns: Array.isArray(data?.insights) ? data.insights : [] });
+      })
+      .catch(() => {
+        // Leave it empty: hubs and everything else work without it.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [patternKey]);
+  const patternsLoaded = !!patternKey && patternResult?.key === patternKey;
+  const patterns = patternsLoaded && patternResult ? patternResult.patterns : NO_PATTERNS;
+  // Every pattern is currently 65+, so under that age the card says the
+  // combination checks were not applied rather than "none found".
+  const patternsChecked = patternsLoaded && typeof age === 'number' && age >= BEERS_MIN_AGE;
 
   // `conditions: []` records "asked, none selected" so the prompt only appears once.
   const saveConditions = useCallback(
@@ -234,6 +266,7 @@ export default function HomeScreen() {
     setEditingAge(false);
     setConditionResult(null);
     setEditingConditions(false);
+    setPatternResult(null);
     setSelectedTab('stack');
     setShowOnboarding(false);
   }, []);
@@ -328,6 +361,13 @@ export default function HomeScreen() {
     [drugs]
   );
 
+  // Whole-stack insights: hub drugs come straight from the pair results the
+  // app already has (no extra request); patterns come from the check above.
+  const insights = useMemo(
+    () => buildInsights(findHubs(drugs.map((d) => d.name), pairs), patterns, pairs, labelFor),
+    [drugs, pairs, patterns, labelFor]
+  );
+
   if (booting) {
     return (
       <View style={[styles.app, { alignItems: 'center', justifyContent: 'center' }]}>
@@ -374,6 +414,8 @@ export default function HomeScreen() {
             beersFlags={beersFlags}
             conditionFlags={conditionFlags}
             conditionsChecked={conditionsChecked}
+            insights={insights}
+            patternsChecked={patternsChecked}
             onRemove={removeDrug}
             onRename={renameDrug}
             onCreateGroup={createGroup}
@@ -391,6 +433,8 @@ export default function HomeScreen() {
             beersFlags={beersFlags}
             conditionFlags={conditionFlags}
             conditionsChecked={conditionsChecked}
+            insights={insights}
+            patternsChecked={patternsChecked}
             mapType={mapType}
             onChangeMapType={changeMapType}
             labelFor={labelFor}

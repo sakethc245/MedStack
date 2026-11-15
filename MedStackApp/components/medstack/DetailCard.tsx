@@ -3,24 +3,28 @@ import { SEV_META } from "@/lib/severity";
 import { sharedStyles } from "@/styles/shared";
 import { flagsForDrug } from "@/lib/beers";
 import { conditionFlagsForDrug } from "@/lib/conditions";
-import type { BeersFlag, ConditionFlag, Pair } from "@/types/medstack";
+import type { BeersFlag, ConditionFlag, Pair, StackPattern } from "@/types/medstack";
 import * as Speech from "expo-speech";
 import * as WebBrowser from "expo-web-browser";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { BeersDetail } from "./Beers";
 import { ConditionDetail } from "./Conditions";
+import { PairPatternNote } from "./StackInsights";
 
 export default function DetailCard({
   pair,
   labelFor,
   beersFlags = [],
   conditionFlags = [],
+  patternNotes = [],
 }: {
   pair: Pair;
   labelFor: (name: string) => string;
   beersFlags?: BeersFlag[];
   conditionFlags?: ConditionFlag[];
+  /** Stacked-drug patterns that repeat this (red) pair, shown here instead of in the insights card. */
+  patternNotes?: StackPattern[];
 }) {
   const meta = SEV_META[pair.severity];
   const [spoken, setSpoken] = useState(false);
@@ -85,6 +89,7 @@ export default function DetailCard({
           <Text style={styles.sourceLink}>Source</Text>
         </TouchableOpacity>
       )}
+      <PairPatternNote patterns={patternNotes} />
       <BeersDetail flags={beersA} drugLabel={nameA} />
       <BeersDetail flags={beersB} drugLabel={nameB} />
       <ConditionDetail flags={conditionsA} drugLabel={nameA} />
