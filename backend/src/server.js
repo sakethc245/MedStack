@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { extractLabel, summarizeInteraction } from './groq.js';
 import { fetchInteractionText } from './firecrawl.js';
 import { checkBeers, beersApplies, BEERS_SOURCE } from './beers.js';
+import { CONDITIONS, isKnownCondition, checkDrugDisease } from './drugDisease.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -32,9 +33,13 @@ const scanLimiter = limiter(10); // vision call per request
 const interactionLimiter = limiter(30); // up to 3 scrapes + 1 LLM call per request
 const stackLimiter = limiter(10); // fans out to every pair in the stack
 const beersLimiter = limiter(30); // local lookup only, no upstream calls
+const conditionsLimiter = limiter(30); // static list
+const drugDiseaseLimiter = limiter(30); // local lookup only, no upstream calls
 
 const MAX_STACK_SIZE = 10; // 10 drugs = 45 pairs
 const MAX_DRUG_NAME_LENGTH = 80;
+const MAX_CONDITIONS = 20;
+const isValidAge = (age) => Number.isInteger(age) && age >= 0 && age <= 120;
 const isDrugName = (d) =>
   typeof d === 'string' && d.trim().length > 0 && d.length <= MAX_DRUG_NAME_LENGTH;
 
@@ -123,7 +128,7 @@ const pairs = [];
 // calls Groq or Firecrawl.
 app.post('/api/beers-check', beersLimiter, (req, res) => {
   const { age, drugs } = req.body || {};
-  if (!Number.isInteger(age) || age < 0 || age > 120) {
+  if (!isValidAge(age)) {
     return res.status(400).json({ error: 'Age must be a whole number from 0 to 120.' });
   }
   if (!Array.isArray(drugs)) {
@@ -142,6 +147,45 @@ app.post('/api/beers-check', beersLimiter, (req, res) => {
     flags: checkBeers(age, drugs),
     source: BEERS_SOURCE,
   });
+});
+
+// ---- Conditions list for the picker ----
+app.get('/api/conditions', conditionsLimiter, (_req, res) => {
+  res.json({ conditions: CONDITIONS });
+});
+
+// ---- Drug-disease check ----
+// Body: { age: 72, conditions: ["parkinson-disease"], drugs: ["metoclopramide"] }
+// Pure lookup against static data files. Conditions are health data: they are
+// never logged, stored, or passed to Groq, Firecrawl or any other service.
+app.post('/api/drug-disease-check', drugDiseaseLimiter, (req, res) => {
+  const { age, conditions, drugs } = req.body || {};
+  if (!isValidAge(age)) {
+    return res.status(400).json({ error: 'Age must be a whole number from 0 to 120.' });
+  }
+  if (!Array.isArray(conditions)) {
+    return res.status(400).json({ error: 'Need a conditions array.' });
+  }
+  if (conditions.length > MAX_CONDITIONS) {
+    return res
+      .status(400)
+      .json({ error: `Too many conditions — the limit is ${MAX_CONDITIONS} per check.` });
+  }
+  if (!conditions.every(isKnownCondition)) {
+    return res.status(400).json({ error: 'Each condition must be an id from /api/conditions.' });
+  }
+  if (!Array.isArray(drugs)) {
+    return res.status(400).json({ error: 'Need a drugs array.' });
+  }
+  if (drugs.length > MAX_STACK_SIZE) {
+    return res
+      .status(400)
+      .json({ error: `Too many medications — the limit is ${MAX_STACK_SIZE} per check.` });
+  }
+  if (!drugs.every(isDrugName)) {
+    return res.status(400).json({ error: 'Each medication must be a short text name.' });
+  }
+  res.json({ flags: checkDrugDisease(age, conditions, drugs) });
 });
 
 /**
