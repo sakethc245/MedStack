@@ -431,7 +431,7 @@
       "verified": "confirmed",
       "verifiedAgainst": "Table 3, row \"History of gastric or duodenal ulcers\" (non-COX-2 selective NSAIDs)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The table row also lists aspirin, which this entry leaves out."
+      "verificationNote": "The table row also lists aspirin, which this entry leaves out. Follow-up: aspirin now has its own entry, \"peptic-ulcer-aspirin\"."
     },
     {
       "id": "ckd-nsaids",
@@ -479,6 +479,83 @@
       "verifiedAgainst": "Table 3, row \"Urinary incontinence (all types) in women\" (avoid in women)",
       "verifiedOn": "2026-11-15",
       "verificationNote": "The table row also lists oral and transdermal estrogen, which this entry leaves out."
+    },
+    {
+      "id": "heart-failure-dextromethorphan-quinidine",
+      "conditionId": "heart-failure",
+      "generics": ["dextromethorphan quinidine", "dextromethorphan hydrobromide quinidine"],
+      "brands": ["nuedexta"],
+      "class": "Dextromethorphan-quinidine",
+      "reason": "Concerns about QT prolongation.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (dextromethorphan-quinidine: avoid); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row. It is the combination product, so a match needs both drug names together or the brand; dextromethorphan alone (cough medicine) and quinidine alone are not flagged. The alias with \"hydrobromide\" covers the way the generic product is labelled and is this file's own wording."
+    },
+    {
+      "id": "heart-failure-dronedarone",
+      "conditionId": "heart-failure",
+      "generics": ["dronedarone"],
+      "brands": ["multaq"],
+      "class": "Dronedarone",
+      "reason": "May increase the risk of death in older adults with heart failure.",
+      "recommendation": "Use with caution in heart failure without symptoms. Avoid in heart failure with symptoms.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (dronedarone: use with caution if asymptomatic, avoid if symptomatic); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. Qualifier: whether the heart failure has symptoms. The app cannot check that, so the recommendation states both cases."
+    },
+    {
+      "id": "delirium-opioids",
+      "conditionId": "delirium",
+      "drugClasses": ["opioids"],
+      "generics": [],
+      "brands": [],
+      "class": "Opioid",
+      "reason": "Can bring on or worsen delirium. Emerging data highlight an association between opioid use and delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it. For older adults with pain, the paper advises a balanced approach that includes non-drug approaches, to minimize opioid use.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (opioids; added in 2023 per Table 9)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. The row's recommendation is \"Avoid, except in situations listed under the rationale statement\"; the rationale for opioids is given in the recommendation. Drugs flagged are the opioids class list: codeine, fentanyl, hydrocodone, hydromorphone, meperidine, methadone, morphine, oxycodone, tapentadol, tramadol."
+    },
+    {
+      "id": "falls-anticholinergics",
+      "conditionId": "falls-fractures",
+      "drugClasses": ["anticholinergics-non-urinary", "urinary-antimuscarinics"],
+      "generics": [],
+      "brands": [],
+      "class": "Strongly anticholinergic medicine",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
+      "recommendation": "Avoid unless safer alternatives are not available.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (anticholinergics, see Table 7; added in 2023 per Table 9)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier beyond \"unless safer alternatives are not available\". Drugs flagged are the two anticholinergic class lists, every member of which is named in Table 7."
+    },
+    {
+      "id": "peptic-ulcer-aspirin",
+      "conditionId": "peptic-ulcer",
+      "generics": ["aspirin", "acetylsalicylic acid"],
+      "brands": ["ecotrin", "bufferin"],
+      "class": "Aspirin",
+      "reason": "May worsen existing ulcers or cause new ones.",
+      "recommendation": "Avoid unless other options are not effective and a stomach-protecting medicine (a proton-pump inhibitor or misoprostol) can be taken.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of gastric or duodenal ulcers\" (Aspirin); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. The 2023 row lists \"Aspirin\" with no dose limit, so none is applied."
     }
   ]
 }

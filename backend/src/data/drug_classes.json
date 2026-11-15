@@ -164,6 +164,38 @@
       "verifiedAgainst": "Table 5, rows \"Warfarin\" and \"Phenytoin\" (\"Trimethoprim-sulfamethoxazole\"); brand names checked in RxNorm (Bactrim and Septra contain sulfamethoxazole and trimethoprim)",
       "verifiedOn": "2026-11-15",
       "verificationNote": "Follow-up: the table names the combination, so a match now needs both drug names together (in either order) or a brand. \"sulfamethoxazole\" on its own no longer matches."
+    },
+    "theophylline": {
+      "generics": ["theophylline"],
+      "brands": [],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, rows \"Theophylline\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. A single named drug."
+    },
+    "cimetidine": {
+      "generics": ["cimetidine"],
+      "brands": ["tagamet"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Theophylline + Cimetidine\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. A single named drug."
+    },
+    "phenytoin": {
+      "generics": ["phenytoin"],
+      "brands": ["dilantin"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Phenytoin + Trimethoprim-sulfamethoxazole\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. A single named drug."
+    },
+    "ssris": {
+      "generics": ["citalopram", "escitalopram", "fluoxetine", "fluvoxamine", "paroxetine", "sertraline"],
+      "brands": ["celexa", "lexapro", "prozac", "luvox", "paxil", "zoloft"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Class named in Table 5, row \"Warfarin\" (\"SSRIs\"); each drug is in the ATC class \"Selective serotonin reuptake inhibitors\" (N06AB) in RxClass; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. The table names the class without listing members. This is a selection of six SSRIs, not the complete class."
     }
   }
 }

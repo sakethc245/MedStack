@@ -126,6 +126,51 @@
       "verifiedAgainst": "Table 5, row \"Warfarin + ... Macrolides (excluding azithromycin) / Trimethoprim-sulfamethoxazole ...\"",
       "verifiedOn": "2026-11-15",
       "verificationNote": "The same table row also lists ciprofloxacin and SSRIs, which this entry leaves out. Follow-up re-read of the reason against the table row: the row says only \"Increased risk of bleeding\"; the statement about increasing the effect of warfarin was not in it. Follow-up: trimethoprim-sulfamethoxazole now needs both drug names or a brand to match."
+    },
+    {
+      "id": "theophylline-cimetidine",
+      "label": "Theophylline with cimetidine",
+      "type": "pair",
+      "groupA": ["theophylline"],
+      "groupB": ["cimetidine"],
+      "reason": "Increased risk of theophylline toxicity.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Theophylline + Cimetidine\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row."
+    },
+    {
+      "id": "phenytoin-trimethoprim-sulfamethoxazole",
+      "label": "Phenytoin with trimethoprim-sulfamethoxazole",
+      "type": "pair",
+      "groupA": ["phenytoin"],
+      "groupB": ["trimethoprim-sulfamethoxazole"],
+      "reason": "Increased risk of phenytoin toxicity.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Phenytoin + Trimethoprim-sulfamethoxazole\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row."
+    },
+    {
+      "id": "warfarin-ssri",
+      "label": "Warfarin with an SSRI antidepressant",
+      "type": "pair",
+      "groupA": ["warfarin"],
+      "groupB": ["ssris"],
+      "reason": "Increased risk of bleeding.",
+      "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Warfarin + ... SSRIs\" (added in 2023 per Table 9)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row. Drugs flagged are the six SSRIs in the ssris class list."
     }
   ]
 }

@@ -300,6 +300,84 @@
       "verified": "confirmed",
       "verifiedAgainst": "Table 2, row \"Desmopressin\"; brand names checked in RxNorm",
       "verifiedOn": "2026-11-15"
+    },
+    {
+      "id": "rivaroxaban",
+      "generics": ["rivaroxaban"],
+      "brands": ["xarelto"],
+      "class": "Anticoagulant (rivaroxaban)",
+      "reason": "At doses used for long-term treatment of venous thromboembolism or nonvalvular atrial fibrillation, rivaroxaban appears to have a higher risk of major bleeding and gastrointestinal bleeding in older adults than other direct oral anticoagulants, particularly apixaban.",
+      "recommendation": "Avoid for long-term treatment of atrial fibrillation or venous thromboembolism in favor of safer anticoagulant alternatives. This applies only to long-term use for those two conditions. Rivaroxaban may be reasonable in special situations, for example when once-daily dosing is needed to help someone take it reliably.",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Rivaroxaban for long-term treatment of nonvalvular atrial fibrillation or venous thromboembolism (VTE)\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. Qualifier: long-term treatment of nonvalvular atrial fibrillation or VTE only. The app cannot check the indication or duration, so the recommendation states the qualifier."
+    },
+    {
+      "id": "dronedarone",
+      "generics": ["dronedarone"],
+      "brands": ["multaq"],
+      "class": "Dronedarone",
+      "reason": "Worse outcomes in people who have permanent atrial fibrillation or severe or recently decompensated heart failure. In some circumstances, worse outcomes have also been reported in people with heart failure with reduced ejection fraction who have milder symptoms.",
+      "recommendation": "Avoid in people with permanent atrial fibrillation or severe or recently decompensated heart failure. Use caution in heart failure with reduced ejection fraction with less severe symptoms (NYHA class I or II).",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Dronedarone\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. Qualifier: the type of atrial fibrillation and the severity of heart failure. The app cannot check either, so the recommendation states them."
+    },
+    {
+      "id": "meprobamate",
+      "generics": ["meprobamate"],
+      "brands": [],
+      "class": "Meprobamate",
+      "reason": "High rate of physical dependence; very sedating.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Meprobamate\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row."
+    },
+    {
+      "id": "anticholinergic-antiparkinsonian",
+      "generics": ["benztropine", "trihexyphenidyl"],
+      "brands": ["cogentin"],
+      "class": "Antiparkinsonian medicine with strong anticholinergic activity",
+      "reason": "Not recommended for preventing or treating extrapyramidal symptoms caused by antipsychotics. More effective medicines are available for treating Parkinson disease.",
+      "recommendation": "Avoid. For benztropine this applies to oral forms.",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Antiparkinsonian agents with strong anticholinergic activity\" (Benztropine (oral), Trihexyphenidyl); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. Qualifier: the row lists benztropine as \"(oral)\". A name cannot show the form, so the recommendation states it."
+    },
+    {
+      "id": "ergoloid-mesylates",
+      "generics": ["ergoloid mesylates", "ergoloid"],
+      "brands": ["hydergine"],
+      "class": "Ergoloid mesylates",
+      "reason": "Lack of efficacy.",
+      "recommendation": "Avoid.",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Ergoloid mesylates (dehydrogenated ergot alkaloids)\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. No qualifier in the row. \"ergoloid\" alone resolves to ergoloid mesylates in RxNorm."
+    },
+    {
+      "id": "androgens",
+      "generics": ["testosterone", "methyltestosterone"],
+      "brands": ["androgel"],
+      "class": "Androgen",
+      "reason": "Potential for cardiac problems, and potential risks in men with prostate cancer.",
+      "recommendation": "Avoid unless indicated for confirmed hypogonadism with clinical symptoms.",
+      "source": "AGS 2023 Beers Criteria, Table 2",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Androgens\" (Methyltestosterone, Testosterone); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up from the gaps listed in section 6 of docs/DATA_VERIFICATION.md. Qualifier: \"unless indicated for confirmed hypogonadism with clinical symptoms\". The app cannot check the indication, so the recommendation states it. The row rates this recommendation \"Weak\"."
     }
   ]
 }
