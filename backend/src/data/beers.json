@@ -90,13 +90,13 @@
       "generics": ["dexlansoprazole", "esomeprazole", "lansoprazole", "omeprazole", "pantoprazole", "rabeprazole"],
       "brands": ["dexilant", "nexium", "prevacid", "prilosec", "protonix", "aciphex"],
       "class": "Proton-pump inhibitor",
-      "reason": "Long-term use is linked to C. difficile infection, pneumonia, gastrointestinal cancers, bone loss and fractures.",
+      "reason": "Risk of C. difficile infection, pneumonia, gastrointestinal cancers, bone loss and fractures.",
       "recommendation": "Avoid scheduled use for more than 8 weeks unless for high-risk patients (such as those taking oral corticosteroids or long-term NSAIDs), erosive esophagitis, Barrett esophagitis, a pathologic hypersecretory condition, or a demonstrated need for maintenance treatment.",
       "source": "AGS 2023 Beers Criteria, Table 2",
       "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Proton-pump inhibitors\"; brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Added the \"pathologic hypersecretory condition\" exception, which the recommendation had left out."
+      "verificationNote": "Added the \"pathologic hypersecretory condition\" exception, which the recommendation had left out. Follow-up re-read of the reason against the table row: removed \"Long-term use is linked to\", which is not in the rationale."
     },
     {
       "id": "oral-nsaids",
@@ -116,38 +116,39 @@
       "generics": ["indomethacin", "ketorolac"],
       "brands": ["indocin", "toradol"],
       "class": "NSAID (indomethacin, ketorolac)",
-      "reason": "Higher risk of stomach or intestinal bleeding, ulcers and kidney injury in older adults. Of all NSAIDs, indomethacin has the most side effects, including effects on the brain.",
+      "reason": "Increased risk of stomach or intestinal bleeding, peptic ulcer disease and acute kidney injury in older adults. Of all the NSAIDs, indomethacin has the most adverse effects, including a higher risk of adverse effects on the central nervous system.",
       "recommendation": "Avoid. For ketorolac this applies to oral and injected forms.",
       "source": "AGS 2023 Beers Criteria, Table 2",
       "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Indomethacin / Ketorolac (oral and parenteral)\"; brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Added the table's \"oral and parenteral\" qualifier for ketorolac to the recommendation."
+      "verificationNote": "Added the table's \"oral and parenteral\" qualifier for ketorolac to the recommendation. Follow-up re-read of the reason against the table row: replaced \"effects on the brain\" with the row's \"adverse CNS effects\" and restored \"peptic ulcer disease\" and \"acute\"."
     },
     {
       "id": "aspirin-primary-prevention",
       "generics": ["aspirin", "acetylsalicylic acid"],
       "brands": ["ecotrin", "bufferin"],
       "class": "Aspirin for primary prevention of cardiovascular disease",
-      "reason": "The risk of major bleeding from aspirin rises sharply with age, and studies show no net benefit when it is started for primary prevention in older adults.",
+      "reason": "The risk of major bleeding from aspirin increases markedly in older age. Studies suggest a lack of net benefit, and possible net harm, when it is started for primary prevention in older adults.",
       "recommendation": "Avoid starting aspirin for primary prevention of cardiovascular disease, and consider stopping it in older adults already taking it for primary prevention. This does not apply to secondary prevention in people with established cardiovascular disease, where aspirin is generally indicated.",
       "source": "AGS 2023 Beers Criteria, Table 2",
       "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Aspirin for primary prevention of cardiovascular disease\"; brand names checked in RxNorm; \"acetylsalicylic acid\" resolves to aspirin in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Replaced \"after a heart attack, stroke or stent\" with the table's wording about secondary prevention in established cardiovascular disease."
+      "verificationNote": "Replaced \"after a heart attack, stroke or stent\" with the table's wording about secondary prevention in established cardiovascular disease. Follow-up re-read of the reason against the table row: the row says studies \"suggest a lack of net benefit and potential for net harm\"; the file said studies \"show no net benefit\"."
     },
     {
       "id": "warfarin",
       "generics": ["warfarin"],
       "brands": ["coumadin", "jantoven"],
       "class": "Anticoagulant (warfarin)",
-      "reason": "Compared with direct oral anticoagulants, warfarin has a higher risk of major bleeding, particularly bleeding in the brain, with similar or lower effectiveness for nonvalvular atrial fibrillation and venous thromboembolism.",
+      "reason": "Compared with direct oral anticoagulants (DOACs), warfarin has higher risks of major bleeding, particularly intracranial bleeding, and similar or lower effectiveness for nonvalvular atrial fibrillation and venous thromboembolism.",
       "recommendation": "Avoid starting warfarin as initial therapy for nonvalvular atrial fibrillation or venous thromboembolism unless alternatives are contraindicated or there are substantial barriers to their use. For people who have used warfarin long-term, it may be reasonable to continue it, particularly with well-controlled INRs and no adverse effects.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Warfarin for the treatment of nonvalvular atrial fibrillation or venous thromboembolism\"; brand names checked in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"intracranial bleeding\"; the file said \"bleeding in the brain\"."
     },
     {
       "id": "barbiturates",
@@ -216,24 +217,26 @@
       "generics": ["amiodarone"],
       "brands": ["pacerone"],
       "class": "Amiodarone",
-      "reason": "Effective for keeping a normal heart rhythm, but has greater toxicities than other medicines used for atrial fibrillation.",
+      "reason": "Effective for maintaining a normal heart rhythm, but has greater toxicities than other antiarrhythmic medicines used in atrial fibrillation.",
       "recommendation": "Avoid as first-line therapy for atrial fibrillation unless the person has heart failure or substantial thickening of the left ventricle.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Amiodarone\"; brand names checked in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row compares it with \"other antiarrhythmics\"; the file said \"other medicines\"."
     },
     {
       "id": "nitrofurantoin",
       "generics": ["nitrofurantoin"],
       "brands": ["macrobid", "macrodantin"],
       "class": "Nitrofurantoin",
-      "reason": "Potential for lung and liver toxicity and nerve damage, especially with long-term use.",
+      "reason": "Potential for lung toxicity, liver toxicity and peripheral neuropathy (nerve damage), especially with long-term use. Safer alternatives are available.",
       "recommendation": "Avoid in people with creatinine clearance below 30 mL/min, and avoid long-term use to suppress infections.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Nitrofurantoin\"; also Table 6, row \"Nitrofurantoin\"; brand names checked in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: named \"peripheral neuropathy\" as the row does and added \"safer alternatives available\"."
     },
     {
       "id": "antispasmodics",
@@ -253,12 +256,13 @@
       "generics": ["metoclopramide"],
       "brands": ["reglan"],
       "class": "Metoclopramide",
-      "reason": "Can cause movement disorders, including tardive dyskinesia. The risk may be greater in frail older adults and with prolonged use.",
+      "reason": "Can cause extrapyramidal effects (movement side effects), including tardive dyskinesia. The risk may be greater in frail older adults and with prolonged exposure.",
       "recommendation": "Avoid, unless for gastroparesis, and then generally for no longer than 12 weeks.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Metoclopramide\"; brand names checked in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"extrapyramidal effects\"; the file said \"movement disorders\"."
     },
     {
       "id": "megestrol",
@@ -277,12 +281,13 @@
       "generics": ["meperidine", "pethidine"],
       "brands": ["demerol"],
       "class": "Opioid (meperidine)",
-      "reason": "Not an effective oral pain reliever at commonly used doses, and has a higher risk of neurotoxicity, including delirium, than other opioids.",
+      "reason": "As an oral pain reliever it is not effective at commonly used doses, and it may have a higher risk of neurotoxicity, including delirium, than other opioids.",
       "recommendation": "Avoid.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Meperidine\"; brand names checked in RxNorm; \"pethidine\" resolves to meperidine in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says it \"may have\" a higher risk; the file stated it as fact."
     },
     {
       "id": "desmopressin",

@@ -15,13 +15,14 @@
       "type": "pair",
       "groupA": ["opioids"],
       "groupB": ["benzodiazepines"],
-      "reason": "Taking an opioid and a benzodiazepine together increases the risk of overdose and of dangerously slowed breathing and sedation.",
+      "reason": "Increased risk of overdose and adverse events.",
       "recommendation": "Avoid.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 5",
-      "verified": "confirmed",
-      "verifiedAgainst": "Table 5, row \"Opioids + Benzodiazepines\"; Table 2 row \"Benzodiazepines\" for sedation and respiratory depression",
-      "verifiedOn": "2026-11-15"
+      "verified": "corrected",
+      "verifiedAgainst": "Table 5, row \"Opioids + Benzodiazepines\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"Increased risk of overdose and adverse events\"; slowed breathing and sedation came from the Table 2 benzodiazepine row."
     },
     {
       "id": "opioid-gabapentinoid",
@@ -72,13 +73,14 @@
       "type": "pair",
       "groupA": ["lithium"],
       "groupB": ["acei-arb-arni"],
-      "reason": "These blood pressure and heart medicines can raise lithium levels and increase the risk of lithium toxicity.",
+      "reason": "Increased risk of lithium toxicity.",
       "recommendation": "Avoid. If used together, lithium levels should be monitored.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 5",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 5, row \"Lithium + ACEIs / ARBs / ARNIs\"",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"Increased risk of lithium toxicity\"; the statement that these medicines raise lithium levels was not in it."
     },
     {
       "id": "lithium-loop-diuretic",
@@ -86,13 +88,14 @@
       "type": "pair",
       "groupA": ["lithium"],
       "groupB": ["loop-diuretics"],
-      "reason": "Loop diuretics can raise lithium levels and increase the risk of lithium toxicity.",
+      "reason": "Increased risk of lithium toxicity.",
       "recommendation": "Avoid. If used together, lithium levels should be monitored.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 5",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 5, row \"Lithium + Loop diuretics\"",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"Increased risk of lithium toxicity\"; the statement that these medicines raise lithium levels was not in it."
     },
     {
       "id": "warfarin-amiodarone",
@@ -100,13 +103,14 @@
       "type": "pair",
       "groupA": ["warfarin"],
       "groupB": ["amiodarone"],
-      "reason": "Amiodarone increases the effect of warfarin and the risk of bleeding.",
+      "reason": "Increased risk of bleeding.",
       "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 5",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 5, row \"Warfarin + Amiodarone ...\"",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"Increased risk of bleeding\"; the statement about increasing the effect of warfarin was not in it."
     },
     {
       "id": "warfarin-antibiotics",
@@ -114,14 +118,14 @@
       "type": "pair",
       "groupA": ["warfarin"],
       "groupB": ["warfarin-interacting-antibiotics"],
-      "reason": "Clarithromycin and trimethoprim-sulfamethoxazole increase the effect of warfarin and the risk of bleeding.",
+      "reason": "Increased risk of bleeding.",
       "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 5",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 5, row \"Warfarin + ... Macrolides (excluding azithromycin) / Trimethoprim-sulfamethoxazole ...\"",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The same table row also lists ciprofloxacin and SSRIs, which this entry leaves out."
+      "verificationNote": "The same table row also lists ciprofloxacin and SSRIs, which this entry leaves out. Follow-up re-read of the reason against the table row: the row says only \"Increased risk of bleeding\"; the statement about increasing the effect of warfarin was not in it."
     }
   ]
 }

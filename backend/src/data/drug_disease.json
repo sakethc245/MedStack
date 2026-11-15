@@ -107,13 +107,14 @@
       "generics": [],
       "brands": [],
       "class": "Strongly anticholinergic medicine",
-      "reason": "Anticholinergic medicines have adverse effects on the brain and can worsen memory and thinking.",
+      "reason": "Adverse effects on the central nervous system.",
       "recommendation": "Avoid.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (anticholinergics, see Table 7)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"adverse CNS effects\"; \"can worsen memory and thinking\" was not in it."
     },
     {
       "id": "dementia-benzodiazepines",
@@ -122,14 +123,14 @@
       "generics": [],
       "brands": [],
       "class": "Benzodiazepine",
-      "reason": "Adverse effects on the brain; can worsen memory and thinking.",
+      "reason": "Adverse effects on the central nervous system.",
       "recommendation": "Avoid.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
       "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (benzodiazepines)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table."
+      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table. Follow-up re-read of the reason against the table row: the row says only \"adverse CNS effects\"; \"can worsen memory and thinking\" was not in it."
     },
     {
       "id": "dementia-z-drugs",
@@ -138,13 +139,14 @@
       "generics": [],
       "brands": [],
       "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
-      "reason": "Adverse effects on the brain; can worsen memory and thinking.",
+      "reason": "Adverse effects on the central nervous system.",
       "recommendation": "Avoid.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (Z-drugs)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says only \"adverse CNS effects\"; \"can worsen memory and thinking\" was not in it."
     },
     {
       "id": "dementia-antipsychotics",
@@ -153,14 +155,14 @@
       "generics": [],
       "brands": [],
       "class": "Antipsychotic",
-      "reason": "Antipsychotics are associated with a greater risk of stroke and death in people with dementia.",
+      "reason": "Increased risk of stroke, and a greater rate of cognitive decline and death in people with dementia.",
       "recommendation": "Avoid chronic use or persistent as-needed use. Avoid for behavioral problems of dementia unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
       "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (antipsychotics, chronic use or persistent as-needed use)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Added the table's qualifier \"chronic use or persistent as-needed use\" to the recommendation."
+      "verificationNote": "Added the table's qualifier \"chronic use or persistent as-needed use\" to the recommendation. Follow-up re-read of the reason against the table row: added \"greater rate of cognitive decline\", which the row states and the file left out."
     },
     {
       "id": "delirium-anticholinergics",
@@ -215,13 +217,14 @@
       "generics": [],
       "brands": [],
       "class": "Antipsychotic",
-      "reason": "Can bring on or worsen delirium, and antipsychotics carry a greater risk of stroke and death in people with dementia.",
+      "reason": "Can bring on or worsen delirium.",
       "recommendation": "Avoid for behavioral problems of delirium unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Delirium\" (antipsychotics); Table 2 row \"Antipsychotics\" for the stroke and mortality statement",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: removed the statement about stroke and death in dementia: it comes from other rows, not the delirium row."
     },
     {
       "id": "delirium-h2-blockers",
@@ -319,14 +322,14 @@
       "generics": [],
       "brands": [],
       "class": "Benzodiazepine",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
       "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (benzodiazepines)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table."
+      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table. Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "falls-z-drugs",
@@ -335,13 +338,14 @@
       "generics": [],
       "brands": [],
       "class": "Nonbenzodiazepine sleep medicine (\"Z-drug\")",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (Z-drugs)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "falls-antipsychotics",
@@ -350,13 +354,14 @@
       "generics": [],
       "brands": [],
       "class": "Antipsychotic",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antipsychotics)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "falls-antidepressants",
@@ -365,13 +370,14 @@
       "generics": [],
       "brands": [],
       "class": "Antidepressant (tricyclic, SSRI or SNRI)",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antidepressants: SNRIs, SSRIs, TCAs)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "falls-antiepileptics",
@@ -380,13 +386,14 @@
       "generics": [],
       "brands": [],
       "class": "Antiepileptic",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available. Does not apply when used for seizures or mood disorders.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antiepileptics: avoid except for seizures and mood disorders)",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "falls-opioids",
@@ -395,14 +402,14 @@
       "generics": [],
       "brands": [],
       "class": "Opioid",
-      "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
+      "reason": "May cause ataxia (unsteadiness), impaired psychomotor function, fainting, or additional falls.",
       "recommendation": "Avoid unless safer alternatives are not available, except for pain management in the setting of severe acute pain.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
       "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (opioids: avoid except for pain management in the setting of severe acute pain)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Removed the examples \"a recent fracture or joint replacement\": they are not in the 2023 table."
+      "verificationNote": "Removed the examples \"a recent fracture or joint replacement\": they are not in the 2023 table. Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
     },
     {
       "id": "peptic-ulcer-nsaids",
