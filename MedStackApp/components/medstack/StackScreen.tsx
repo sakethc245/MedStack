@@ -3,13 +3,16 @@ import { View, Text, TouchableOpacity, ScrollView, TextInput, StyleSheet } from 
 import { COLORS } from '@/constants/medstack-colors';
 import { sharedStyles } from '@/styles/shared';
 import { SEV_META, worstFor } from '@/lib/severity';
-import type { Drug, Group, Pair, Summary } from '@/types/medstack';
+import { flaggedNames, flagsForDrug } from '@/lib/beers';
+import { BeersBadge, BeersDetail, BeersSummary } from './Beers';
+import type { BeersFlag, Drug, Group, Pair, Summary } from '@/types/medstack';
 
 export default function StackScreen({
   drugs,
   groups,
   pairs,
   summary,
+  beersFlags,
   onRemove,
   onRename,
   onCreateGroup,
@@ -21,6 +24,7 @@ export default function StackScreen({
   groups: Group[];
   pairs: Pair[];
   summary: Summary;
+  beersFlags: BeersFlag[];
   onRemove: (id: string) => void;
   onRename: (id: string, displayName: string | null) => void;
   onCreateGroup: (name: string) => void;
@@ -32,6 +36,8 @@ export default function StackScreen({
   const [groupName, setGroupName] = useState('');
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameDraft, setRenameDraft] = useState('');
+  const [beersOpenId, setBeersOpenId] = useState<string | null>(null);
+  const beersCount = flaggedNames(beersFlags).size;
 
   const submitGroup = () => {
     if (!groupName.trim()) return;
@@ -115,6 +121,7 @@ export default function StackScreen({
           {summary.yellow > 0 && <Chip color="amber" text={`${summary.yellow} caution`} />}
           {summary.green > 0 && <Chip color="green" text={`${summary.green} safe`} />}
         </View>
+        <BeersSummary count={beersCount} />
       </View>
 
       <View style={{ gap: 10, marginTop: 12 }}>
@@ -122,6 +129,8 @@ export default function StackScreen({
           const sev = worstFor(d.name, pairs);
           const label = d.displayName || d.name;
           const isRenaming = renamingId === d.id;
+          const drugBeers = flagsForDrug(d.name, beersFlags);
+          const beersOpen = beersOpenId === d.id;
           return (
             <View key={d.id} style={[sharedStyles.card, { padding: 14, borderLeftWidth: 3, borderLeftColor: SEV_META[sev].dot }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
@@ -149,12 +158,22 @@ export default function StackScreen({
                     {[d.dosage, d.frequency].filter(Boolean).join(' - ') || 'No dosage recorded'}
                     {d.displayName ? ` - scanned as "${d.name}"` : ''}
                   </Text>
+                  {drugBeers.length > 0 && (
+                    <View style={{ marginTop: 7 }}>
+                      <BeersBadge
+                        label={beersOpen ? 'Beers - hide' : 'Beers - details'}
+                        onPress={() => setBeersOpenId(beersOpen ? null : d.id)}
+                      />
+                    </View>
+                  )}
                 </View>
                 <View style={{ width: 9, height: 9, borderRadius: 5, backgroundColor: SEV_META[sev].dot }} />
                 <TouchableOpacity onPress={() => onRemove(d.id)} hitSlop={8}>
                   <Text style={{ color: COLORS.inkFaint, fontSize: 18 }}>x</Text>
                 </TouchableOpacity>
               </View>
+
+              {beersOpen && <BeersDetail flags={drugBeers} />}
 
               {groups.length > 0 && (
                 <View style={styles.groupAssignRow}>

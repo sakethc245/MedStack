@@ -24,4 +24,6 @@ export const api = {
   scan: (image: string, mimeType: string) =>
     post("/api/scan", { image, mimeType }),
   stackCheck: (drugs: string[]) => post("/api/stack-check", { drugs }),
+  beersCheck: (age: number, drugs: string[]) =>
+    post("/api/beers-check", { age, drugs }),
 };

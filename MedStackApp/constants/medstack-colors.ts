@@ -15,4 +15,7 @@ export const COLORS = {
   green: '#3f8f6b',
   greenSoft: '#dcefe4',
   greenInk: '#2c6b4e',
+  beers: '#5f6f94',
+  beersSoft: '#e9edf5',
+  beersInk: '#3f4c6b',
 };

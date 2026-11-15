@@ -10,7 +10,9 @@ import Onboarding, { STEPS, type Rect } from '@/components/medstack/Onboarding';
 import ScanScreen from '@/components/medstack/ScanScreen';
 import StackScreen from '@/components/medstack/StackScreen';
 import MapScreen from '@/components/medstack/MapScreen';
-import type { Drug, Group, MapType, Pair, Summary, User } from '@/types/medstack';
+import { AgePrompt } from '@/components/medstack/Beers';
+import { BEERS_MIN_AGE } from '@/lib/beers';
+import type { BeersFlag, Drug, Group, MapType, Pair, Summary, User } from '@/types/medstack';
 
 const SEED: Drug[] = [
   { id: 'seed-1', name: 'metformin', dosage: '500 mg', frequency: '2x daily' },
@@ -19,6 +21,8 @@ const SEED: Drug[] = [
 ];
 
 type Tab = 'scan' | 'stack' | 'map';
+
+const NO_FLAGS: BeersFlag[] = [];
 
 function newId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -37,6 +41,8 @@ export default function HomeScreen() {
   const [summary, setSummary] = useState<Summary>({ red: 0, yellow: 0, green: 0 });
   const [loading, setLoading] = useState(false);
   const [mapType, setMapType] = useState<MapType>('node');
+  const [beersResult, setBeersResult] = useState<{ key: string; flags: BeersFlag[] } | null>(null);
+  const [editingAge, setEditingAge] = useState(false);
 
   const tab: Tab = showOnboarding ? (STEPS[onboardStep].tab as Tab) : selectedTab;
 
@@ -68,6 +74,45 @@ export default function HomeScreen() {
       setLoading(false);
     }
   }, []);
+
+  // Beers Criteria check (adults 65+). Runs on its own, separate from the scan
+  // and interaction flow: it never sets `loading`, and any failure just means
+  // no Beers badges.
+  const age = user?.age;
+  const beersKey =
+    typeof age === 'number' && age >= BEERS_MIN_AGE && drugs.length > 0
+      ? JSON.stringify([age, drugs.map((d) => d.name)])
+      : null;
+  useEffect(() => {
+    if (!beersKey) return;
+    const [checkAge, names] = JSON.parse(beersKey) as [number, string[]];
+    let cancelled = false;
+    api
+      .beersCheck(checkAge, names)
+      .then((data) => {
+        if (!cancelled) setBeersResult({ key: beersKey, flags: Array.isArray(data?.flags) ? data.flags : [] });
+      })
+      .catch(() => {
+        // Leave it empty: the rest of the app works without Beers badges.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [beersKey]);
+  // Only show flags that belong to the current age + stack.
+  const beersFlags = beersKey && beersResult?.key === beersKey ? beersResult.flags : NO_FLAGS;
+
+  // `age: null` records "asked and skipped" so the prompt only appears once.
+  const saveAge = useCallback(
+    (nextAge: number | null) => {
+      setEditingAge(false);
+      if (!user) return;
+      const next = { ...user, age: nextAge };
+      setUser(next);
+      storage.updateUser(next);
+    },
+    [user]
+  );
 
   const loadAccountData = useCallback(
     async (u: User) => {
@@ -141,6 +186,8 @@ export default function HomeScreen() {
     setGroups([]);
     setPairs([]);
     setSummary({ red: 0, yellow: 0, green: 0 });
+    setBeersResult(null);
+    setEditingAge(false);
     setSelectedTab('stack');
     setShowOnboarding(false);
   }, []);
@@ -256,9 +303,14 @@ export default function HomeScreen() {
           </Text>
         </View>
         {!showOnboarding && (
-          <TouchableOpacity onPress={signOut}>
-            <Text style={styles.signOut}>Sign out</Text>
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity onPress={() => setEditingAge(true)} hitSlop={6}>
+              <Text style={styles.ageLink}>{typeof user.age === 'number' ? `Age ${user.age} - Edit` : 'Add age'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={signOut} hitSlop={6}>
+              <Text style={styles.signOut}>Sign out</Text>
+            </TouchableOpacity>
+          </View>
         )}
       </View>
 
@@ -270,6 +322,7 @@ export default function HomeScreen() {
             groups={groups}
             pairs={pairs}
             summary={summary}
+            beersFlags={beersFlags}
             onRemove={removeDrug}
             onRename={renameDrug}
             onCreateGroup={createGroup}
@@ -284,6 +337,7 @@ export default function HomeScreen() {
             groups={groups}
             pairs={pairs}
             loading={loading}
+            beersFlags={beersFlags}
             mapType={mapType}
             onChangeMapType={changeMapType}
             labelFor={labelFor}
@@ -308,6 +362,15 @@ export default function HomeScreen() {
           <TabButton label="Map" icon="map" active={tab === 'map'} onPress={() => !showOnboarding && setSelectedTab('map')} />
         </View>
       </View>
+
+      {!showOnboarding && (editingAge || user.age === undefined) && (
+        <AgePrompt
+          visible
+          initialAge={editingAge ? user.age : null}
+          onSave={saveAge}
+          onSkip={() => (editingAge ? setEditingAge(false) : saveAge(null))}
+        />
+      )}
 
       {showOnboarding && (
         <Onboarding
@@ -375,7 +438,9 @@ const styles = StyleSheet.create({
   },
   brand: { fontSize: 23, fontWeight: '400', color: COLORS.ink, fontFamily: 'Georgia' },
   brandEm: { fontStyle: 'italic', color: COLORS.teal },
-  signOut: { fontSize: 12.5, color: COLORS.inkFaint, fontWeight: '500', marginBottom: 2 },
+  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 2 },
+  ageLink: { fontSize: 12.5, color: COLORS.teal, fontWeight: '500' },
+  signOut: { fontSize: 12.5, color: COLORS.inkFaint, fontWeight: '500' },
   body: { flex: 1, paddingHorizontal: 18 },
   tabbar: {
     flexDirection: 'row',

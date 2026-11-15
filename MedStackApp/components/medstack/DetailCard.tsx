@@ -1,18 +1,22 @@
 import { COLORS } from "@/constants/medstack-colors";
 import { SEV_META } from "@/lib/severity";
 import { sharedStyles } from "@/styles/shared";
-import type { Pair } from "@/types/medstack";
+import { flagsForDrug } from "@/lib/beers";
+import type { BeersFlag, Pair } from "@/types/medstack";
 import * as Speech from "expo-speech";
 import * as WebBrowser from "expo-web-browser";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { BeersDetail } from "./Beers";
 
 export default function DetailCard({
   pair,
   labelFor,
+  beersFlags = [],
 }: {
   pair: Pair;
   labelFor: (name: string) => string;
+  beersFlags?: BeersFlag[];
 }) {
   const meta = SEV_META[pair.severity];
   const [spoken, setSpoken] = useState(false);
@@ -20,6 +24,8 @@ export default function DetailCard({
   const nameB = labelFor(pair.drugB);
   const line = `${nameA} and ${nameB}. ${pair.summary} ${pair.action}`;
   const url = pair.sourceUrl;
+  const beersA = flagsForDrug(pair.drugA, beersFlags);
+  const beersB = flagsForDrug(pair.drugB, beersFlags);
 
   const toggleSpeak = () => {
     if (spoken) {
@@ -73,6 +79,8 @@ export default function DetailCard({
           <Text style={styles.sourceLink}>Source</Text>
         </TouchableOpacity>
       )}
+      <BeersDetail flags={beersA} drugLabel={nameA} />
+      <BeersDetail flags={beersB} drugLabel={nameB} />
     </View>
   );
 }

@@ -6,7 +6,9 @@ import { sortBySeverityDesc } from '@/lib/severity';
 import DetailCard from './DetailCard';
 import NodeMap from './maps/NodeMap';
 import ListMap from './maps/ListMap';
-import type { Drug, Group, MapType, Pair } from '@/types/medstack';
+import { flaggedNames } from '@/lib/beers';
+import { BeersSummary } from './Beers';
+import type { BeersFlag, Drug, Group, MapType, Pair } from '@/types/medstack';
 
 const MAP_TABS: { type: MapType; label: string }[] = [
   { type: 'node', label: 'Node' },
@@ -18,6 +20,7 @@ export default function MapScreen({
   groups,
   pairs,
   loading,
+  beersFlags,
   mapType,
   onChangeMapType,
   labelFor,
@@ -26,6 +29,7 @@ export default function MapScreen({
   groups: Group[];
   pairs: Pair[];
   loading: boolean;
+  beersFlags: BeersFlag[];
   mapType: MapType;
   onChangeMapType: (t: MapType) => void;
   labelFor: (name: string) => string;
@@ -50,6 +54,11 @@ export default function MapScreen({
       ),
     [viewPairs]
   );
+  const viewBeersFlags = useMemo(
+    () => beersFlags.filter((f) => viewNames.has(f.drug.toLowerCase())),
+    [beersFlags, viewNames]
+  );
+  const beersNames = useMemo(() => flaggedNames(viewBeersFlags), [viewBeersFlags]);
   const hottest = sortBySeverityDesc(viewPairs)[0];
   const active = (selected && viewPairs.includes(selected) ? selected : null) || hottest || null;
 
@@ -93,6 +102,8 @@ export default function MapScreen({
         </View>
       </View>
 
+      <BeersSummary count={beersNames.size} />
+
       <View style={styles.mapTypeRow}>
         {MAP_TABS.map((t) => {
           const isActive = mapType === t.type;
@@ -111,13 +122,13 @@ export default function MapScreen({
       ) : (
         <View style={[sharedStyles.card, { marginTop: 10, padding: mapType === 'node' ? 8 : 12 }]}>
           {loading && <Text style={styles.loadingText}>Checking live interactions...</Text>}
-          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} labelFor={labelFor} onSelectPair={setSelected} />}
-          {mapType === 'list' && <ListMap pairs={viewPairs} selected={selected} labelFor={labelFor} onSelectPair={setSelected} />}
+          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} beersNames={beersNames} labelFor={labelFor} onSelectPair={setSelected} />}
+          {mapType === 'list' && <ListMap pairs={viewPairs} selected={selected} beersNames={beersNames} labelFor={labelFor} onSelectPair={setSelected} />}
           <Text style={styles.mapHint}>Tap any medication pair for details</Text>
         </View>
       )}
 
-      {active && <DetailCard pair={active} labelFor={labelFor} />}
+      {active && <DetailCard pair={active} labelFor={labelFor} beersFlags={viewBeersFlags} />}
     </ScrollView>
   );
 }

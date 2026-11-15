@@ -33,6 +33,22 @@ export type User = {
   /** Demo-only local credential — there is no auth backend, so this never leaves the device. */
   password: string;
   name: string;
+  /**
+   * Age in years, used only for the Beers Criteria check (65+).
+   * `undefined` = never asked; `null` = asked and skipped.
+   */
+  age?: number | null;
+};
+
+/** One medication matched against the 2023 AGS Beers Criteria list. */
+export type BeersFlag = {
+  /** The drug name as it was sent (matches `Drug.name`). */
+  drug: string;
+  entryId: string;
+  class: string;
+  reason: string;
+  recommendation: string;
+  source: string;
 };
 
 export type Summary = { red: number; yellow: number; green: number };

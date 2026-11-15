@@ -30,6 +30,11 @@ async function writeJSON(key: string, value: unknown) {
 export const storage = {
   loadUsers: () => readJSON<User[]>(KEYS.users, []),
   saveUsers: (users: User[]) => writeJSON(KEYS.users, users),
+  /** Replace one user's saved record (e.g. after they set or change their age). */
+  updateUser: async (user: User) => {
+    const users = await readJSON<User[]>(KEYS.users, []);
+    await writeJSON(KEYS.users, users.map((u) => (u.id === user.id ? user : u)));
+  },
 
   loadSession: () => AsyncStorage.getItem(KEYS.session).catch(() => null),
   saveSession: (userId: string | null) =>

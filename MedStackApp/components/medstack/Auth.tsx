@@ -1,4 +1,5 @@
 import { COLORS } from "@/constants/medstack-colors";
+import { parseAge } from "@/lib/beers";
 import { storage } from "@/lib/storage";
 import { sharedStyles } from "@/styles/shared";
 import type { User } from "@/types/medstack";
@@ -19,6 +20,7 @@ export default function Auth({ onAuthed }: { onAuthed: (user: User) => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [age, setAge] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -27,6 +29,12 @@ export default function Auth({ onAuthed }: { onAuthed: (user: User) => void }) {
     const cleanEmail = email.trim().toLowerCase();
     if (!cleanEmail || !password) {
       setError("Enter an email and password.");
+      return;
+    }
+    // Age is optional at sign-up; an empty field means "ask me later".
+    const parsedAge = mode === "signup" ? parseAge(age) : null;
+    if (parsedAge === "invalid") {
+      setError("Enter an age from 0 to 120, or leave it blank.");
       return;
     }
     setBusy(true);
@@ -42,6 +50,7 @@ export default function Auth({ onAuthed }: { onAuthed: (user: User) => void }) {
           email: cleanEmail,
           password,
           name: name.trim() || cleanEmail.split("@")[0],
+          ...(parsedAge !== null ? { age: parsedAge } : {}),
         };
         await storage.saveUsers([...users, user]);
         onAuthed(user);
@@ -117,6 +126,23 @@ export default function Auth({ onAuthed }: { onAuthed: (user: User) => void }) {
               secureTextEntry
             />
           </View>
+          {mode === "signup" && (
+            <View style={{ marginTop: 14 }}>
+              <Text style={sharedStyles.eyebrow}>AGE (OPTIONAL)</Text>
+              <TextInput
+                style={sharedStyles.input}
+                value={age}
+                onChangeText={setAge}
+                placeholder="e.g. 72"
+                placeholderTextColor={COLORS.inkFaint}
+                keyboardType="number-pad"
+                maxLength={3}
+              />
+              <Text style={styles.fieldHint}>
+                Used to mark medications on the Beers list for adults 65+.
+              </Text>
+            </View>
+          )}
 
           {!!error && <Text style={sharedStyles.errorText}>{error}</Text>}
 
@@ -180,6 +206,7 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   card: { padding: 22 },
+  fieldHint: { fontSize: 11, color: COLORS.inkFaint, marginTop: 5 },
   switchMode: { alignItems: "center", marginTop: 16 },
   switchModeText: { fontSize: 13, color: COLORS.inkSoft },
   note: {

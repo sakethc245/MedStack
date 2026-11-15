@@ -2,16 +2,20 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS } from '@/constants/medstack-colors';
 import { SEV_META, sortBySeverityDesc } from '@/lib/severity';
+import { BeersBadge } from '../Beers';
 import type { Pair } from '@/types/medstack';
 
 export default function ListMap({
   pairs,
   selected,
+  beersNames,
   labelFor,
   onSelectPair,
 }: {
   pairs: Pair[];
   selected: Pair | null;
+  /** Lowercased names of medications on the Beers list. */
+  beersNames: Set<string>;
   labelFor: (name: string) => string;
   onSelectPair: (p: Pair) => void;
 }) {
@@ -22,6 +26,7 @@ export default function ListMap({
       {sorted.map((p, i) => {
         const meta = SEV_META[p.severity];
         const isActive = selected && selected.drugA === p.drugA && selected.drugB === p.drugB;
+        const beersDrugs = [p.drugA, p.drugB].filter((d) => beersNames.has(d.toLowerCase()));
         return (
           <TouchableOpacity
             key={i}
@@ -38,6 +43,13 @@ export default function ListMap({
               <Text style={styles.pairSummary} numberOfLines={2}>
                 {p.summary}
               </Text>
+              {beersDrugs.length > 0 && (
+                <View style={styles.beersRow}>
+                  {beersDrugs.map((d) => (
+                    <BeersBadge key={d} label={`Beers: ${labelFor(d)}`} />
+                  ))}
+                </View>
+              )}
             </View>
           </TouchableOpacity>
         );
@@ -61,4 +73,5 @@ const styles = StyleSheet.create({
   gradeText: { fontSize: 15, fontWeight: '700' },
   pairNames: { fontSize: 14, fontWeight: '600', color: COLORS.ink, textTransform: 'capitalize' },
   pairSummary: { fontSize: 12, color: COLORS.inkSoft, marginTop: 2, lineHeight: 16 },
+  beersRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 6 },
 });

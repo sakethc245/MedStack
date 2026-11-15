@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Line, Circle, Text as SvgText, Polygon } from 'react-native-svg';
+import Svg, { Line, Circle, Rect, Text as SvgText, Polygon } from 'react-native-svg';
 import { COLORS } from '@/constants/medstack-colors';
 import { SEV_META } from '@/lib/severity';
 import type { Drug, Pair } from '@/types/medstack';
@@ -29,11 +29,14 @@ function octagonPoints(cx: number, cy: number, r: number) {
 export default function NodeMap({
   drugs,
   pairs,
+  beersNames,
   labelFor,
   onSelectPair,
 }: {
   drugs: Drug[];
   pairs: Pair[];
+  /** Lowercased names of medications on the Beers list. */
+  beersNames: Set<string>;
   labelFor: (name: string) => string;
   onSelectPair: (p: Pair) => void;
 }) {
@@ -85,6 +88,15 @@ export default function NodeMap({
               <SvgText x={pos[i].x} y={pos[i].y + 12} fontSize={8.5} fill={COLORS.inkFaint} textAnchor="middle">
                 {d.dosage}
               </SvgText>
+            )}
+            {beersNames.has(d.name.toLowerCase()) && (
+              <React.Fragment>
+                {/* Calm slate pill above the node; not a severity color. */}
+                <Rect x={pos[i].x - 17} y={pos[i].y - 41} width={34} height={14} rx={7} fill={COLORS.beersSoft} stroke={COLORS.beers} strokeWidth={1} />
+                <SvgText x={pos[i].x} y={pos[i].y - 31} fontSize={8.5} fontWeight="700" fill={COLORS.beersInk} textAnchor="middle">
+                  Beers
+                </SvgText>
+              </React.Fragment>
             )}
           </React.Fragment>
         );
