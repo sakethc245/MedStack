@@ -61,14 +61,14 @@
       "generics": ["diltiazem", "verapamil"],
       "brands": ["cardizem", "tiazac", "calan", "verelan"],
       "class": "Non-dihydropyridine calcium channel blocker",
-      "reason": "Can weaken the heart's pumping action and worsen heart failure.",
-      "recommendation": "Avoid in heart failure with reduced ejection fraction. This does not apply to heart failure with preserved ejection fraction.",
+      "reason": "May promote fluid retention and worsen heart failure.",
+      "recommendation": "Avoid in heart failure with reduced ejection fraction.",
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"Heart failure\" (nondihydropyridine CCBs: avoid in heart failure with reduced ejection fraction); brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit."
+      "verificationNote": "Corrected after the independent re-check (docs/RECHECK.md): the reason said the drugs \"weaken the heart's pumping action\", which is not in the table; it now gives the table's rationale. Removed a sentence about preserved ejection fraction that was an inference. The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit."
     },
     {
       "id": "heart-failure-nsaids",

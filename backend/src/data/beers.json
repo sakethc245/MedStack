@@ -203,12 +203,13 @@
       "generics": ["digoxin"],
       "brands": ["lanoxin"],
       "class": "Digoxin",
-      "reason": "Safer and more effective options exist for atrial fibrillation and heart failure. Older adults clear digoxin more slowly, and higher doses add risk of toxicity without added benefit.",
+      "reason": "For atrial fibrillation there are safer and more effective alternatives for rate control, and for heart failure other medicines have strong evidence as first-line therapy. Decreased clearance of digoxin by the kidneys may raise the risk of toxic effects, and in heart failure higher doses bring no added benefit and may increase the risk of toxicity.",
       "recommendation": "Avoid as first-line therapy for atrial fibrillation or heart failure. If used, avoid doses above 0.125 mg per day.",
       "source": "AGS 2023 Beers Criteria, Table 2",
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Table 2, row \"Digoxin for first-line treatment of atrial fibrillation or heart failure\"; brand names checked in RxNorm",
-      "verifiedOn": "2026-11-15"
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Corrected after the independent re-check (docs/RECHECK.md): the reason said \"older adults clear digoxin more slowly\", which the table does not say; it now follows the table's rationale (decreased renal clearance may raise the risk of toxic effects)."
     },
     {
       "id": "amiodarone",

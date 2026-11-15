@@ -48,12 +48,14 @@ The paper states that the criteria are intended for adults 65 years old and olde
 
 | File | Entries | Confirmed | Corrected | Removed | Unverified |
 |---|---|---|---|---|---|
-| Beers entries (`beers.json`) | 23 | 17 | 6 | 0 | 0 |
-| Drug-disease entries (`drug_disease.json`) | 30 | 20 | 10 | 0 | 0 |
+| Beers entries (`beers.json`) | 23 | 16 | 7 | 0 | 0 |
+| Drug-disease entries (`drug_disease.json`) | 30 | 19 | 11 | 0 | 0 |
 | Stack patterns (`stack_patterns.json`) | 8 | 8 | 0 | 0 | 0 |
 | Drug class lists (`drug_classes.json`) | 20 | 16 | 4 | 0 | 0 |
 | Conditions and ICD-10 codes (`conditions.json`) | 10 | 9 | 1 | 0 | 0 |
-| **Total** | **91** | **70** | **21** | **0** | **0** |
+| **Total** | **91** | **68** | **23** | **0** | **0** |
+
+An independent re-check of a sample of entries (`docs/RECHECK.md`) later found two entries whose reason text went beyond the table, `digoxin` and `heart-failure-nondihydropyridine-ccb`. Both had been marked confirmed; both are now corrected and counted as corrected above. The first audit compared drug lists and recommendations with the tables more closely than it compared reason sentences, and the reason sentences of entries outside that sample have not had a second look.
 
 No whole entry was removed. Individual drugs and aliases were removed from within entries and class lists:
 
@@ -87,7 +89,7 @@ Nothing was added to any drug list. The only additions are wording inside recomm
 | `antipsychotics` | aripiprazole, haloperidol, olanzapine, quetiapine, risperidone, ziprasidone | confirmed | Table 2, row "Antipsychotics, first- (typical) and second- (atypical) generation" and footnote d; brand names checked in RxNorm | No change. Note: Ziprasidone is named in footnote d rather than in the row itself. |
 | `peripheral-alpha-1-blockers` | doxazosin, prazosin, terazosin | confirmed | Table 2, row "Non-selective peripheral alpha-1 blockers for the treatment of hypertension"; brand names checked in RxNorm | No change. |
 | `central-alpha-agonists` | clonidine, guanfacine | confirmed | Table 2, row "Central alpha-agonists for the treatment of hypertension"; brand names checked in RxNorm | No change. |
-| `digoxin` | digoxin | confirmed | Table 2, row "Digoxin for first-line treatment of atrial fibrillation or heart failure"; brand names checked in RxNorm | No change. |
+| `digoxin` | digoxin | corrected | Table 2, row "Digoxin for first-line treatment of atrial fibrillation or heart failure"; brand names checked in RxNorm | Corrected after the independent re-check (docs/RECHECK.md): the reason said "older adults clear digoxin more slowly", which the table does not say; it now follows the table's rationale (decreased renal clearance may raise the risk of toxic effects). |
 | `amiodarone` | amiodarone | confirmed | Table 2, row "Amiodarone"; brand names checked in RxNorm | No change. |
 | `nitrofurantoin` | nitrofurantoin | confirmed | Table 2, row "Nitrofurantoin"; also Table 6, row "Nitrofurantoin"; brand names checked in RxNorm | No change. |
 | `antispasmodics` | dicyclomine, hyoscyamine, scopolamine | confirmed | Table 2, row "GI antispasmodics with strong anticholinergic activity"; brand names checked in RxNorm | No change. Note: The table row also lists atropine (excluding ophthalmic) and clidinium-chlordiazepoxide, which this entry leaves out. |
@@ -103,7 +105,7 @@ Nothing was added to any drug list. The only additions are wording inside recomm
 | `parkinson-antiemetics` | metoclopramide, prochlorperazine, promethazine | Parkinson disease | confirmed | Table 3, row "Parkinson disease" (antiemetics); brand names checked in RxNorm | No change. |
 | `parkinson-antipsychotics` | [class: antipsychotics-except-parkinson-exempt] | Parkinson disease | confirmed | Table 3, row "Parkinson disease" (antipsychotics except clozapine, pimavanserin and quetiapine) | No change. Note: The exception wording matches the table. The class list it uses was corrected (thioridazine removed). |
 | `heart-failure-cilostazol` | cilostazol | Heart failure | corrected | Table 3, row "Heart failure" (cilostazol: avoid); brand names checked in RxNorm | Reason corrected: the table ties cilostazol to increased mortality in heart failure, not to fluid retention. |
-| `heart-failure-nondihydropyridine-ccb` | diltiazem, verapamil | Heart failure | confirmed | Table 3, row "Heart failure" (nondihydropyridine CCBs: avoid in heart failure with reduced ejection fraction); brand names checked in RxNorm | No change. Note: The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit. |
+| `heart-failure-nondihydropyridine-ccb` | diltiazem, verapamil | Heart failure | corrected | Table 3, row "Heart failure" (nondihydropyridine CCBs: avoid in heart failure with reduced ejection fraction); brand names checked in RxNorm | Corrected after the independent re-check (docs/RECHECK.md): the reason said the drugs "weaken the heart's pumping action", which is not in the table; it now gives the table's rationale. Removed a sentence about preserved ejection fraction that was an inference. The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit. |
 | `heart-failure-nsaids` | [class: oral-nsaids-nonselective], [class: cox2-inhibitors] | Heart failure | confirmed | Table 3, row "Heart failure" (NSAIDs and COX-2 inhibitors) | No change. |
 | `heart-failure-thiazolidinediones` | pioglitazone | Heart failure | corrected | Table 3, row "Heart failure" (thiazolidinediones: pioglitazone); Table 8; brand names checked in RxNorm | Removed rosiglitazone and its brand "avandia": the 2023 table names only pioglitazone, and Table 8 records rosiglitazone as removed (not on the U.S. market). |
 | `dementia-anticholinergics` | [class: anticholinergics-non-urinary], [class: urinary-antimuscarinics] | Dementia or cognitive impairment | confirmed | Table 3, row "Dementia or cognitive impairment" (anticholinergics, see Table 7) | No change. |
@@ -232,7 +234,7 @@ Coverage notes:
 | Prednisone and methylprednisolone under delirium and dementia | Table 3 lists "Corticosteroids (oral and parenteral)" under **delirium only**, with a footnote excluding inhaled and topical forms. It names no individual corticosteroid. | Under delirium only. The two drugs are corticosteroids in RxClass. The exclusion of inhaled and topical forms was added to the recommendation. Corrected. |
 | "Except quetiapine and clozapine" for Parkinson disease | Table 3: antipsychotics "except clozapine, pimavanserin, and quetiapine". | The entry's text names all three. The class list excludes clozapine and quetiapine and never contained pimavanserin. Confirmed. |
 | Kidney threshold: stage 4+ or CrCl under 30 | The 2023 paper has no kidney row in Table 3. The NSAID criterion is in Table 6 with the threshold **CrCl below 30 mL/min**, recommendation "Avoid". The paper does not use CKD stages for it. | Source string, recommendation and condition label corrected to CrCl below 30 mL/min. |
-| Diltiazem and verapamil in heart failure | Table 3: "Avoid in heart failure with reduced ejection fraction". | The recommendation says this. The app's condition is heart failure of any type, so the flag also appears for preserved ejection fraction, with the limit stated in the text. Confirmed, with this caveat. |
+| Diltiazem and verapamil in heart failure | Table 3: "Avoid in heart failure with reduced ejection fraction". | The recommendation says this. The app's condition is heart failure of any type, so the flag also appears for preserved ejection fraction, with the limit stated in the text. The entry's reason text was corrected after the independent re-check. |
 | Sex-specific entries | Table 3: alpha-1 blockers "Avoid in women" (urinary incontinence, all types); strongly anticholinergic drugs "Avoid in men" (lower urinary tract symptoms, benign prostatic hyperplasia). | Both recommendations match. The app does not know the user's sex; it relies on the condition labels. Confirmed. |
 
 ## 5. Uncertain or unresolved
