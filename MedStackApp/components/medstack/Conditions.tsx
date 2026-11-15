@@ -109,6 +109,7 @@ export function ConditionDetail({ flags, drugLabel }: { flags: ConditionFlag[]; 
             <Text style={styles.detailLabel}>Condition: </Text>
             {f.conditionLabel}
           </Text>
+          {!!f.qualifier && <Text style={styles.qualifier}>{f.qualifier}</Text>}
           <Text style={styles.detailBody}>
             <Text style={styles.detailLabel}>Why it is listed: </Text>
             {f.reason}
@@ -220,7 +221,8 @@ export function ConditionsPicker({
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={styles.rowLabel}>{c.label}</Text>
-                    <Text style={styles.rowCodes}>ICD-10: {c.codes.join(', ')}</Text>
+                    {!!c.hint && <Text style={styles.rowHint}>{c.hint}</Text>}
+                    {c.codes.length > 0 && <Text style={styles.rowCodes}>ICD-10: {c.codes.join(', ')}</Text>}
                   </View>
                 </TouchableOpacity>
               );
@@ -312,5 +314,16 @@ const styles = StyleSheet.create({
   checkmark: { color: '#fff', fontSize: 13, fontWeight: '700', lineHeight: 16 },
   rowLabel: { fontSize: 14, fontWeight: '500', color: COLORS.ink },
   rowCodes: { fontSize: 11.5, color: COLORS.inkFaint, marginTop: 1 },
+  rowHint: { fontSize: 12, lineHeight: 16, color: COLORS.inkSoft, marginTop: 1 },
+  qualifier: {
+    fontSize: 13,
+    lineHeight: 19,
+    fontWeight: '600',
+    color: COLORS.conditionInk,
+    backgroundColor: COLORS.conditionSoft,
+    borderRadius: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
   retry: { color: COLORS.teal, fontSize: 13, fontWeight: '600' },
 });

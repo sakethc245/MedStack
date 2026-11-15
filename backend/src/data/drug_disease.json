@@ -1,5 +1,5 @@
 {
-  "_notes": "Drug-disease and drug-syndrome entries from the 2023 AGS Beers Criteria (Table 3, and Table 6 for the kidney-function entry). Each entry was checked against the published table on the date in its `verifiedOn` field; see docs/DATA_VERIFICATION.md. This is a partial list and the wording is paraphrased. Drugs whose name alone cannot separate a flagged form from an unflagged one were left out on purpose. An absent flag does not mean a medication is safe. Not medical advice.",
+  "_notes": "Drug-disease and drug-syndrome entries from the 2023 AGS Beers Criteria (Table 3, and Table 6 for the kidney-function entry). Each entry was checked against the published table on the date in its `verifiedOn` field; see docs/DATA_VERIFICATION.md. This is a partial list and the wording is paraphrased. Drugs whose name alone cannot separate a flagged form from an unflagged one were left out on purpose. An absent flag does not mean a medication is safe. Not medical advice. An entry may carry `alsoShowFor`: other conditions under which the flag is still shown, each with a `qualifier` sentence that tells the user when it applies.",
   "verification": {
     "verifiedOn": "2026-11-15",
     "sources": ["American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Full text read from PubMed Central (author manuscript): https://pmc.ncbi.nlm.nih.gov/articles/PMC12478568/", "NLM RxNorm and RxClass (https://rxnav.nlm.nih.gov/) for brand-name ingredients and for membership of classes the paper names without listing drugs."],
@@ -57,7 +57,13 @@
     },
     {
       "id": "heart-failure-nondihydropyridine-ccb",
-      "conditionId": "heart-failure",
+      "conditionId": "heart-failure-reduced-ef",
+      "alsoShowFor": [
+        {
+          "conditionId": "heart-failure",
+          "qualifier": "Applies if your heart failure has reduced ejection fraction - ask your doctor."
+        }
+      ],
       "generics": ["diltiazem", "verapamil"],
       "brands": ["cardizem", "tiazac", "calan", "verelan"],
       "class": "Non-dihydropyridine calcium channel blocker",
@@ -66,9 +72,9 @@
       "minAge": 65,
       "source": "AGS 2023 Beers Criteria, Table 3",
       "verified": "corrected",
-      "verifiedAgainst": "Table 3, row \"Heart failure\" (nondihydropyridine CCBs: avoid in heart failure with reduced ejection fraction); brand names checked in RxNorm",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (nondihydropyridine CCBs: \"Avoid in heart failure with reduced ejection fraction\")",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Corrected after the independent re-check (docs/RECHECK.md): the reason said the drugs \"weaken the heart's pumping action\", which is not in the table; it now gives the table's rationale. Removed a sentence about preserved ejection fraction that was an inference. The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit."
+      "verificationNote": "The table says \"Avoid in heart failure with reduced ejection fraction\". The entry now belongs to the reduced-ejection-fraction condition and is a normal flag there. For someone who selected only general heart failure it is still shown, with the qualifier in `alsoShowFor`, so it is not silently dropped. Earlier corrections: the reason now gives the table's rationale, and an inferred sentence about preserved ejection fraction was removed (docs/RECHECK.md)."
     },
     {
       "id": "heart-failure-nsaids",

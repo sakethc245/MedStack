@@ -54,6 +54,8 @@ export type Condition = {
   label: string;
   codes: string[];
   synonyms?: string[];
+  /** Short plain-English line shown under the label in the picker. */
+  hint?: string;
 };
 
 /** One medication flagged as a possible concern with a selected condition. */
@@ -78,6 +80,12 @@ export type BeersFlag = {
   reason: string;
   recommendation: string;
   source: string;
+  /**
+   * Present when the source limits this flag to a narrower condition than the
+   * one the user selected (e.g. reduced-ejection-fraction heart failure). It
+   * says when the flag applies, and must be shown with the flag.
+   */
+  qualifier?: string;
 };
 
 /** A stacked-drug pattern returned by /api/stack-patterns. */

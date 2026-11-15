@@ -1,5 +1,5 @@
 {
-  "_notes": "Condition list for the drug-disease check. Every ICD-10-CM code and code prefix was checked against the official CMS FY2027 ICD-10-CM code description file on the date in each condition's `verifiedOn` field; `codeDescriptions` holds the official description of each. A value such as \"I50\" is a category header used as a prefix that covers every code beneath it. Labels are plain-English and are not the official code descriptions. See docs/DATA_VERIFICATION.md.",
+  "_notes": "Condition list for the drug-disease check. Every ICD-10-CM code and code prefix was checked against the official CMS FY2027 ICD-10-CM code description file on the date in each condition's `verifiedOn` field; `codeDescriptions` holds the official description of each. A value such as \"I50\" is a category header used as a prefix that covers every code beneath it. Labels are plain-English and are not the official code descriptions. See docs/DATA_VERIFICATION.md. A condition may carry `hint` (a short line shown in the picker) and `includes` (ids of broader conditions whose entries also apply when it is selected).",
   "verification": {
     "verifiedOn": "2026-11-15",
     "sources": ["CMS ICD-10-CM FY2027 code descriptions in tabular order: https://www.cms.gov/files/zip/2027-code-descriptions-tabular-order.zip (linked from https://www.cms.gov/medicare/coding-billing/icd-10-codes)"],
@@ -30,7 +30,24 @@
       "verified": "confirmed",
       "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Covers all heart failure. The table's diltiazem and verapamil entry applies only to reduced ejection fraction (systolic codes I50.2x and combined codes I50.4x)."
+      "verificationNote": "Covers all heart failure. Entries the paper limits to reduced ejection fraction belong to the separate condition \"heart-failure-reduced-ef\".",
+      "hint": "Any type of heart failure. Choose this one if you are not sure of the type."
+    },
+    {
+      "id": "heart-failure-reduced-ef",
+      "label": "Heart failure with reduced ejection fraction (HFrEF)",
+      "hint": "Your doctor may have mentioned an ejection fraction number, or called it systolic heart failure.",
+      "codes": ["I50.2", "I50.4"],
+      "synonyms": ["hfref", "reduced ejection fraction", "ejection fraction", "low ejection fraction", "systolic heart failure", "ef"],
+      "includes": ["heart-failure"],
+      "codeDescriptions": {
+        "I50.2": "Systolic (congestive) heart failure (category header; 4 codes beneath it)",
+        "I50.4": "Combined systolic (congestive) and diastolic (congestive) heart failure (category header; 4 codes beneath it)"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027: code descriptions (icd10cm_order_2027.txt) and tabular list (icd10cm_tabular_2027.xml); criterion wording from AGS 2023 Beers Criteria, Table 3, row \"Heart failure\"",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added in the follow-up. The CMS tabular list gives \"Heart failure with reduced ejection fraction [HFrEF]\" as an inclusion term of I50.2, and \"Heart failure with reduced ejection fraction and diastolic dysfunction\" as an inclusion term of I50.4. I50.3 (diastolic; inclusion term \"Heart failure with preserved ejection fraction [HFpEF]\") is not included. `includes` means that selecting this condition also applies every entry for general heart failure."
     },
     {
       "id": "dementia",
