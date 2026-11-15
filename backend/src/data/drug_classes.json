@@ -1,104 +1,161 @@
 {
-  "_notes": "Drug class lists shared by the static-data checks (drug-disease, stack patterns). Each class lists its generic and brand names explicitly; nothing is inferred. These lists were entered by hand, are selections rather than complete classes, and MUST be verified before anyone relies on them. A drug whose name alone cannot separate a flagged form from an unflagged one (for example oral vs. topical or eye-drop forms) is left out on purpose.",
+  "_notes": "Drug class lists shared by the static-data checks (drug-disease, stack patterns). Each class lists its generic and brand names explicitly; nothing is inferred. Each list was checked on the date in its `verifiedOn` field against the 2023 AGS Beers Criteria where the paper lists the drugs, and against NLM RxClass where the paper only names the class; see docs/DATA_VERIFICATION.md. Several lists are selections rather than complete classes. A drug whose name alone cannot separate a flagged form from an unflagged one is left out on purpose.",
+  "verification": {
+    "verifiedOn": "2026-11-15",
+    "sources": ["American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Full text read from PubMed Central (author manuscript): https://pmc.ncbi.nlm.nih.gov/articles/PMC12478568/", "NLM RxNorm and RxClass (https://rxnav.nlm.nih.gov/) for brand-name ingredients and for membership of classes the paper names without listing drugs."],
+    "rule": "Matchers ignore any entry whose `verified` value is not \"confirmed\" or \"corrected\"."
+  },
   "classes": {
     "antipsychotics": {
-      "generics": ["aripiprazole", "chlorpromazine", "clozapine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "quetiapine", "risperidone", "thioridazine", "ziprasidone"],
-      "brands": ["abilify", "clozaril", "haldol", "latuda", "zyprexa", "invega", "seroquel", "risperdal", "geodon"]
+      "generics": ["aripiprazole", "chlorpromazine", "clozapine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "quetiapine", "risperidone", "ziprasidone"],
+      "brands": ["abilify", "clozaril", "haldol", "latuda", "zyprexa", "invega", "seroquel", "risperdal", "geodon"],
+      "verified": "corrected",
+      "verifiedAgainst": "Table 2, row \"Antipsychotics\" and footnote d (list of antipsychotics used in the United States); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed thioridazine: it is not in the paper's list, and Table 8 records it as removed for low use. The paper's list also names brexpiprazole, cariprazine and pimavanserin, which this list leaves out."
     },
     "antipsychotics-except-parkinson-exempt": {
-      "generics": ["aripiprazole", "chlorpromazine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "risperidone", "thioridazine", "ziprasidone"],
-      "brands": ["abilify", "haldol", "latuda", "zyprexa", "invega", "risperdal", "geodon"]
+      "generics": ["aripiprazole", "chlorpromazine", "fluphenazine", "haloperidol", "lurasidone", "olanzapine", "paliperidone", "perphenazine", "risperidone", "ziprasidone"],
+      "brands": ["abilify", "haldol", "latuda", "zyprexa", "invega", "risperdal", "geodon"],
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Parkinson disease\" (all antipsychotics except clozapine, pimavanserin and quetiapine) with Table 2 footnote d; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed thioridazine for the same reason as in the antipsychotics list. Brexpiprazole and cariprazine are in the paper's list but not here."
     },
     "benzodiazepines": {
       "generics": ["alprazolam", "chlordiazepoxide", "clobazam", "clonazepam", "clorazepate", "diazepam", "estazolam", "lorazepam", "midazolam", "oxazepam", "temazepam", "triazolam"],
-      "brands": ["xanax", "librium", "klonopin", "valium", "ativan", "restoril", "halcion"]
+      "brands": ["xanax", "librium", "klonopin", "valium", "ativan", "restoril", "halcion"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Benzodiazepines\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "z-drugs": {
       "generics": ["eszopiclone", "zaleplon", "zolpidem"],
-      "brands": ["lunesta", "sonata", "ambien"]
+      "brands": ["lunesta", "sonata", "ambien"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Nonbenzodiazepine benzodiazepine receptor agonist hypnotics (Z-drugs)\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "anticholinergics-non-urinary": {
-      "generics": [
-        "brompheniramine", "chlorpheniramine", "cyproheptadine", "dimenhydrinate", "diphenhydramine", "doxylamine", "hydroxyzine", "meclizine", "promethazine", "triprolidine",
-        "amitriptyline", "amoxapine", "clomipramine", "desipramine", "imipramine", "nortriptyline", "paroxetine",
-        "dicyclomine", "hyoscyamine", "scopolamine",
-        "benztropine", "trihexyphenidyl",
-        "cyclobenzaprine", "orphenadrine",
-        "prochlorperazine"
-      ],
-      "brands": [
-        "benadryl", "zzzquil", "tylenol pm", "advil pm", "aleve pm", "unisom", "chlor-trimeton", "dramamine", "vistaril", "atarax", "antivert", "phenergan",
-        "elavil", "anafranil", "norpramin", "tofranil", "pamelor", "paxil",
-        "bentyl", "levsin", "cogentin", "flexeril", "norflex", "compazine"
-      ]
+      "generics": ["brompheniramine", "chlorpheniramine", "cyproheptadine", "dimenhydrinate", "diphenhydramine", "doxylamine", "hydroxyzine", "meclizine", "promethazine", "triprolidine", "amitriptyline", "amoxapine", "clomipramine", "desipramine", "imipramine", "nortriptyline", "paroxetine", "dicyclomine", "hyoscyamine", "scopolamine", "benztropine", "trihexyphenidyl", "cyclobenzaprine", "orphenadrine", "prochlorperazine"],
+      "brands": ["benadryl", "zzzquil", "tylenol pm", "aleve pm", "unisom", "chlor-trimeton", "dramamine", "vistaril", "atarax", "antivert", "phenergan", "elavil", "anafranil", "norpramin", "tofranil", "pamelor", "paxil", "bentyl", "levsin", "cogentin", "flexeril", "norflex", "compazine"],
+      "verified": "corrected",
+      "verifiedAgainst": "Table 7 (drugs with strong anticholinergic properties); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed the brand alias \"advil pm\" (not resolvable in RxNorm this session). Every generic here is in Table 7. Table 7 also lists doxepin above 6 mg/day, chlorpromazine, clozapine, olanzapine, perphenazine, atropine, clidinium-chlordiazepoxide and homatropine, which this list leaves out."
     },
     "urinary-antimuscarinics": {
       "generics": ["darifenacin", "fesoterodine", "flavoxate", "oxybutynin", "solifenacin", "tolterodine", "trospium"],
-      "brands": ["enablex", "toviaz", "ditropan", "vesicare", "detrol", "sanctura"]
+      "brands": ["enablex", "toviaz", "ditropan", "vesicare", "detrol", "sanctura"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 7 (drugs with strong anticholinergic properties), group \"Antimuscarinics (urinary incontinence)\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "oral-nsaids-nonselective": {
       "generics": ["diflunisal", "etodolac", "flurbiprofen", "ibuprofen", "indomethacin", "meloxicam", "nabumetone", "naproxen", "oxaprozin", "piroxicam", "sulindac"],
-      "brands": ["advil", "motrin", "aleve", "naprosyn", "mobic", "feldene", "indocin"]
+      "brands": ["advil", "motrin", "aleve", "naprosyn", "mobic", "feldene", "indocin"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Non-COX-2-selective NSAIDs, oral\" and Table 6 footnote a; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper's list also names aspirin above 325 mg/day, diclofenac and ketorolac, left out because a name alone cannot separate the flagged form or dose."
     },
     "cox2-inhibitors": {
       "generics": ["celecoxib"],
-      "brands": ["celebrex"]
+      "brands": ["celebrex"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 6 footnote a (\"COX-2 selective: celecoxib\"); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "peripheral-alpha-1-blockers": {
       "generics": ["doxazosin", "prazosin", "terazosin"],
-      "brands": ["cardura", "minipress", "hytrin"]
+      "brands": ["cardura", "minipress", "hytrin"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Non-selective peripheral alpha-1 blockers\"; Table 3 rows \"Syncope\" and \"Urinary incontinence (all types) in women\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "antidepressants-tca-ssri-snri": {
-      "generics": [
-        "amitriptyline", "clomipramine", "desipramine", "imipramine", "nortriptyline",
-        "citalopram", "escitalopram", "fluoxetine", "fluvoxamine", "paroxetine", "sertraline",
-        "desvenlafaxine", "duloxetine", "venlafaxine"
-      ],
-      "brands": ["elavil", "anafranil", "norpramin", "tofranil", "pamelor", "celexa", "lexapro", "prozac", "luvox", "paxil", "zoloft", "pristiq", "cymbalta", "effexor"]
+      "generics": ["amitriptyline", "clomipramine", "desipramine", "imipramine", "nortriptyline", "citalopram", "escitalopram", "fluoxetine", "fluvoxamine", "paroxetine", "sertraline", "desvenlafaxine", "duloxetine", "venlafaxine"],
+      "brands": ["elavil", "anafranil", "norpramin", "tofranil", "pamelor", "celexa", "lexapro", "prozac", "luvox", "paxil", "zoloft", "pristiq", "cymbalta", "effexor"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Classes named in Table 3 row \"History of falls or fractures\" and Table 5; members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper names the classes (TCAs, SSRIs, SNRIs) without listing members. Each drug here is classed as a tricyclic antidepressant, SSRI or SNRI in RxClass. This is a selection, not the complete classes; doxepin is left out."
     },
     "antiepileptics": {
       "generics": ["carbamazepine", "divalproex", "gabapentin", "lamotrigine", "levetiracetam", "oxcarbazepine", "phenytoin", "pregabalin", "topiramate", "valproate", "valproic acid"],
-      "brands": ["tegretol", "depakote", "neurontin", "lamictal", "keppra", "trileptal", "dilantin", "lyrica", "topamax", "depakene"]
+      "brands": ["tegretol", "depakote", "neurontin", "lamictal", "keppra", "trileptal", "dilantin", "lyrica", "topamax", "depakene"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Class named in Table 3 row \"History of falls or fractures\" and Table 5 (\"antiepileptics (including gabapentinoids)\"); members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper names the class without listing members. Each drug is an antiepileptic in RxClass, except gabapentin and pregabalin, which ATC now classes as gabapentinoids and which Table 5 explicitly counts among antiepileptics. This is a selection, not the complete class."
     },
     "opioids": {
       "generics": ["codeine", "fentanyl", "hydrocodone", "hydromorphone", "meperidine", "methadone", "morphine", "oxycodone", "tapentadol", "tramadol"],
-      "brands": ["norco", "vicodin", "dilaudid", "demerol", "ms contin", "oxycontin", "percocet", "nucynta", "ultram", "duragesic"]
+      "brands": ["norco", "vicodin", "dilaudid", "demerol", "ms contin", "oxycontin", "percocet", "nucynta", "ultram", "duragesic"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Class named in Table 3 rows \"Delirium\" and \"History of falls or fractures\" and in Table 5; members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper names the class without listing members (it names meperidine and tramadol elsewhere). Each drug is an opioid in RxClass. This is a selection, not the complete class."
     },
     "gabapentinoids": {
       "generics": ["gabapentin", "pregabalin"],
-      "brands": ["neurontin", "gralise", "horizant", "lyrica"]
+      "brands": ["neurontin", "gralise", "horizant", "lyrica"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Opioids + Gabapentin, Pregabalin\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "skeletal-muscle-relaxants": {
       "generics": ["carisoprodol", "chlorzoxazone", "cyclobenzaprine", "metaxalone", "methocarbamol", "orphenadrine"],
-      "brands": ["soma", "flexeril", "skelaxin", "robaxin", "norflex"]
+      "brands": ["soma", "flexeril", "skelaxin", "robaxin", "norflex"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 2, row \"Skeletal muscle relaxants\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table excludes baclofen and tizanidine from this criterion; neither is listed here."
     },
     "acei-arb-arni": {
-      "generics": [
-        "benazepril", "captopril", "enalapril", "fosinopril", "lisinopril", "perindopril", "quinapril", "ramipril",
-        "azilsartan", "candesartan", "irbesartan", "losartan", "olmesartan", "telmisartan", "valsartan",
-        "sacubitril"
-      ],
-      "brands": ["lotensin", "vasotec", "zestril", "prinivil", "accupril", "altace", "edarbi", "atacand", "avapro", "cozaar", "benicar", "micardis", "diovan", "entresto"]
+      "generics": ["benazepril", "captopril", "enalapril", "fosinopril", "lisinopril", "perindopril", "quinapril", "ramipril", "azilsartan", "candesartan", "irbesartan", "losartan", "olmesartan", "telmisartan", "valsartan", "sacubitril"],
+      "brands": ["lotensin", "vasotec", "zestril", "prinivil", "accupril", "altace", "edarbi", "atacand", "avapro", "cozaar", "benicar", "micardis", "diovan", "entresto"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Classes named in Table 5, row \"Lithium + ACEIs / ARBs / ARNIs\"; members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper names the classes without listing members. Each drug is an ACE inhibitor or ARB in RxClass; sacubitril appears only as the sacubitril/valsartan combination. This is a selection, not the complete classes."
     },
     "loop-diuretics": {
       "generics": ["bumetanide", "ethacrynic acid", "furosemide", "torsemide"],
-      "brands": ["bumex", "edecrin", "lasix", "demadex"]
+      "brands": ["bumex", "edecrin", "lasix", "demadex"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Class named in Table 5, row \"Lithium + Loop diuretics\"; members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The paper names the class without listing members. Each drug is a loop diuretic in RxClass."
     },
     "lithium": {
       "generics": ["lithium"],
-      "brands": ["lithobid"]
+      "brands": ["lithobid"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, rows \"Lithium\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "warfarin": {
       "generics": ["warfarin"],
-      "brands": ["coumadin", "jantoven"]
+      "brands": ["coumadin", "jantoven"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Warfarin\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "amiodarone": {
       "generics": ["amiodarone"],
-      "brands": ["pacerone"]
+      "brands": ["pacerone"],
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 5, row \"Warfarin + Amiodarone ...\"; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     "warfarin-interacting-antibiotics": {
-      "generics": ["clarithromycin", "sulfamethoxazole", "co-trimoxazole", "cotrimoxazole"],
-      "brands": ["biaxin", "bactrim", "septra"]
+      "generics": ["clarithromycin", "sulfamethoxazole"],
+      "brands": ["biaxin", "bactrim", "septra"],
+      "verified": "corrected",
+      "verifiedAgainst": "Table 5, row \"Warfarin\" (macrolides excluding azithromycin; trimethoprim-sulfamethoxazole); clarithromycin is a macrolide in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed the aliases \"co-trimoxazole\" and \"cotrimoxazole\": RxNorm did not resolve them (the second matched clotrimazole, an unrelated antifungal). The table row also lists ciprofloxacin and SSRIs, and erythromycin is a macrolide; these are left out."
     }
   }
 }

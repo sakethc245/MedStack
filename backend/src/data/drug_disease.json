@@ -1,7 +1,13 @@
 {
-  "_notes": "Entered by hand from Table 3 of the published 2023 AGS Beers Criteria (drugs to avoid in older adults with certain diseases or syndromes). This is a partial list, the wording is paraphrased, and every entry and every drug name MUST be verified against the published table before anyone relies on it. Drugs whose name alone cannot separate a flagged form from an unflagged one (for example oral vs. topical, or a dose threshold) were left out on purpose. An absent flag does not mean a medication is safe. Not medical advice.",
+  "_notes": "Drug-disease and drug-syndrome entries from the 2023 AGS Beers Criteria (Table 3, and Table 6 for the kidney-function entry). Each entry was checked against the published table on the date in its `verifiedOn` field; see docs/DATA_VERIFICATION.md. This is a partial list and the wording is paraphrased. Drugs whose name alone cannot separate a flagged form from an unflagged one were left out on purpose. An absent flag does not mean a medication is safe. Not medical advice.",
+  "verification": {
+    "verifiedOn": "2026-11-15",
+    "sources": ["American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Full text read from PubMed Central (author manuscript): https://pmc.ncbi.nlm.nih.gov/articles/PMC12478568/", "NLM RxNorm and RxClass (https://rxnav.nlm.nih.gov/) for brand-name ingredients and for membership of classes the paper names without listing drugs."],
+    "rule": "Matchers ignore any entry whose `verified` value is not \"confirmed\" or \"corrected\"."
+  },
   "sources": {
-    "beers-2023-table-3": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Table 3."
+    "beers-2023-table-3": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Table 3.",
+    "beers-2023-table-6": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Table 6."
   },
   "entries": [
     {
@@ -13,7 +19,10 @@
       "reason": "These medicines block dopamine receptors and can worsen Parkinson disease symptoms.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Parkinson disease\" (antiemetics); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "parkinson-antipsychotics",
@@ -25,7 +34,11 @@
       "reason": "Antipsychotics block dopamine receptors and can worsen Parkinson disease symptoms. Quetiapine, clozapine and pimavanserin are exceptions and are not flagged.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Parkinson disease\" (antipsychotics except clozapine, pimavanserin and quetiapine)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The exception wording matches the table. The class list it uses was corrected (thioridazine removed)."
     },
     {
       "id": "heart-failure-cilostazol",
@@ -33,10 +46,14 @@
       "generics": ["cilostazol"],
       "brands": ["pletal"],
       "class": "Cilostazol",
-      "reason": "May promote fluid retention or worsen heart failure, and may increase the risk of death in people with heart failure.",
+      "reason": "May increase the risk of death in older adults with heart failure.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (cilostazol: avoid); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Reason corrected: the table ties cilostazol to increased mortality in heart failure, not to fluid retention."
     },
     {
       "id": "heart-failure-nondihydropyridine-ccb",
@@ -47,7 +64,11 @@
       "reason": "Can weaken the heart's pumping action and worsen heart failure.",
       "recommendation": "Avoid in heart failure with reduced ejection fraction. This does not apply to heart failure with preserved ejection fraction.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (nondihydropyridine CCBs: avoid in heart failure with reduced ejection fraction); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table applies this only to heart failure with reduced ejection fraction. The app's condition is heart failure of any type, so the recommendation states the limit."
     },
     {
       "id": "heart-failure-nsaids",
@@ -59,18 +80,25 @@
       "reason": "May promote fluid retention and worsen heart failure.",
       "recommendation": "Use with caution in heart failure without symptoms. Avoid in heart failure with symptoms.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (NSAIDs and COX-2 inhibitors)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "heart-failure-thiazolidinediones",
       "conditionId": "heart-failure",
-      "generics": ["pioglitazone", "rosiglitazone"],
-      "brands": ["actos", "avandia"],
+      "generics": ["pioglitazone"],
+      "brands": ["actos"],
       "class": "Thiazolidinedione (diabetes medicine)",
       "reason": "May promote fluid retention and worsen heart failure.",
       "recommendation": "Use with caution in heart failure without symptoms. Avoid in heart failure with symptoms.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Heart failure\" (thiazolidinediones: pioglitazone); Table 8; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed rosiglitazone and its brand \"avandia\": the 2023 table names only pioglitazone, and Table 8 records rosiglitazone as removed (not on the U.S. market)."
     },
     {
       "id": "dementia-anticholinergics",
@@ -82,7 +110,10 @@
       "reason": "Anticholinergic medicines have adverse effects on the brain and can worsen memory and thinking.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (anticholinergics, see Table 7)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "dementia-benzodiazepines",
@@ -92,9 +123,13 @@
       "brands": [],
       "class": "Benzodiazepine",
       "reason": "Adverse effects on the brain; can worsen memory and thinking.",
-      "recommendation": "Avoid. Do not stop suddenly.",
+      "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (benzodiazepines)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table."
     },
     {
       "id": "dementia-z-drugs",
@@ -106,7 +141,10 @@
       "reason": "Adverse effects on the brain; can worsen memory and thinking.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (Z-drugs)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "dementia-antipsychotics",
@@ -116,9 +154,13 @@
       "brands": [],
       "class": "Antipsychotic",
       "reason": "Antipsychotics are associated with a greater risk of stroke and death in people with dementia.",
-      "recommendation": "Avoid for behavioral problems of dementia unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
+      "recommendation": "Avoid chronic use or persistent as-needed use. Avoid for behavioral problems of dementia unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Dementia or cognitive impairment\" (antipsychotics, chronic use or persistent as-needed use)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added the table's qualifier \"chronic use or persistent as-needed use\" to the recommendation."
     },
     {
       "id": "delirium-anticholinergics",
@@ -130,7 +172,10 @@
       "reason": "Can bring on or worsen delirium.",
       "recommendation": "Avoid in people with delirium or at high risk of it.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (anticholinergics, see Table 7)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "delirium-benzodiazepines",
@@ -140,9 +185,13 @@
       "brands": [],
       "class": "Benzodiazepine",
       "reason": "Can bring on or worsen delirium.",
-      "recommendation": "Avoid in people with delirium or at high risk of it. Do not stop suddenly.",
+      "recommendation": "Avoid in people with delirium or at high risk of it.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (benzodiazepines)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table."
     },
     {
       "id": "delirium-z-drugs",
@@ -154,7 +203,10 @@
       "reason": "Can bring on or worsen delirium.",
       "recommendation": "Avoid in people with delirium or at high risk of it.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (Z-drugs)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "delirium-antipsychotics",
@@ -166,7 +218,10 @@
       "reason": "Can bring on or worsen delirium, and antipsychotics carry a greater risk of stroke and death in people with dementia.",
       "recommendation": "Avoid for behavioral problems of delirium unless non-drug options have failed or are not possible and the person is threatening substantial harm to self or others.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (antipsychotics); Table 2 row \"Antipsychotics\" for the stroke and mortality statement",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "delirium-h2-blockers",
@@ -177,7 +232,11 @@
       "reason": "Can bring on or worsen delirium.",
       "recommendation": "Avoid in people with delirium or at high risk of it.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (H2-receptor antagonists: cimetidine, famotidine, nizatidine); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table lists H2-receptor antagonists under delirium only, not under dementia; this file has no dementia entry for them."
     },
     {
       "id": "delirium-corticosteroids",
@@ -186,9 +245,13 @@
       "brands": ["medrol", "deltasone"],
       "class": "Corticosteroid (oral or injected)",
       "reason": "Can bring on or worsen delirium.",
-      "recommendation": "Avoid in people with delirium or at high risk of it. If needed, use the lowest dose for the shortest time and watch for delirium.",
+      "recommendation": "Avoid in people with delirium or at high risk of it. If needed, use the lowest dose for the shortest time and watch for delirium. Applies to oral and injected corticosteroids, not inhaled or topical forms.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Delirium\" (corticosteroids, oral and parenteral) and footnote d; prednisone and methylprednisolone are corticosteroids in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Added the footnote's exclusion of inhaled and topical forms to the recommendation. The table lists corticosteroids under delirium only, not under dementia. It names the class without listing drugs."
     },
     {
       "id": "syncope-cholinesterase-inhibitors",
@@ -199,7 +262,10 @@
       "reason": "Can slow the heart rate, and should be avoided in people whose fainting may be caused by a slow heart rate.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Syncope\" (cholinesterase inhibitors); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "syncope-alpha-1-blockers",
@@ -211,7 +277,10 @@
       "reason": "Can cause a drop in blood pressure on standing, and should be avoided in people whose fainting may be caused by this.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Syncope\" (non-selective peripheral alpha-1 blockers)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "syncope-tertiary-tcas",
@@ -222,18 +291,26 @@
       "reason": "Increases the risk of a drop in blood pressure on standing.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Syncope\" (tertiary tricyclic antidepressants); brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table row also lists doxepin, which this entry leaves out."
     },
     {
       "id": "syncope-antipsychotics",
       "conditionId": "syncope",
-      "generics": ["chlorpromazine", "olanzapine", "thioridazine"],
+      "generics": ["chlorpromazine", "olanzapine"],
       "brands": ["zyprexa"],
-      "class": "Antipsychotic (chlorpromazine, olanzapine, thioridazine)",
+      "class": "Antipsychotic (chlorpromazine, olanzapine)",
       "reason": "Increases the risk of a drop in blood pressure on standing.",
       "recommendation": "Avoid.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"Syncope\" (antipsychotics, selected: chlorpromazine, olanzapine); Table 8; brand names checked in RxNorm",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed thioridazine: the 2023 table lists only chlorpromazine and olanzapine, and Table 8 records thioridazine as removed."
     },
     {
       "id": "falls-benzodiazepines",
@@ -243,9 +320,13 @@
       "brands": [],
       "class": "Benzodiazepine",
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
-      "recommendation": "Avoid unless safer alternatives are not available. Do not stop suddenly.",
+      "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (benzodiazepines)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed \"Do not stop suddenly\" from the recommendation: it is not in the table."
     },
     {
       "id": "falls-z-drugs",
@@ -257,7 +338,10 @@
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (Z-drugs)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "falls-antipsychotics",
@@ -269,7 +353,10 @@
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antipsychotics)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "falls-antidepressants",
@@ -281,7 +368,10 @@
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
       "recommendation": "Avoid unless safer alternatives are not available.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antidepressants: SNRIs, SSRIs, TCAs)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "falls-antiepileptics",
@@ -293,7 +383,10 @@
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
       "recommendation": "Avoid unless safer alternatives are not available. Does not apply when used for seizures or mood disorders.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antiepileptics: avoid except for seizures and mood disorders)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "falls-opioids",
@@ -303,9 +396,13 @@
       "brands": [],
       "class": "Opioid",
       "reason": "May cause unsteadiness, slowed reactions, fainting and more falls.",
-      "recommendation": "Avoid unless safer alternatives are not available, except for severe acute pain such as a recent fracture or joint replacement.",
+      "recommendation": "Avoid unless safer alternatives are not available, except for pain management in the setting of severe acute pain.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (opioids: avoid except for pain management in the setting of severe acute pain)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Removed the examples \"a recent fracture or joint replacement\": they are not in the 2023 table."
     },
     {
       "id": "peptic-ulcer-nsaids",
@@ -317,7 +414,11 @@
       "reason": "May worsen existing ulcers or cause new ones.",
       "recommendation": "Avoid unless other options are not effective and a stomach-protecting medicine can be taken.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"History of gastric or duodenal ulcers\" (non-COX-2 selective NSAIDs)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table row also lists aspirin, which this entry leaves out."
     },
     {
       "id": "ckd-nsaids",
@@ -327,9 +428,13 @@
       "brands": [],
       "class": "NSAID or COX-2 inhibitor",
       "reason": "May increase the risk of acute kidney injury and further loss of kidney function.",
-      "recommendation": "Avoid.",
+      "recommendation": "Avoid when creatinine clearance is below 30 mL/min.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 6",
+      "verified": "corrected",
+      "verifiedAgainst": "Table 6, row \"NSAIDs (non-selective, COX-2 selective, and nonacetylated salicylates, oral and parenteral)\" and footnote a",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "This criterion is not in Table 3 of the 2023 paper: Table 10 records that it moved to Table 6. The threshold in the paper is creatinine clearance below 30 mL/min, not a CKD stage. Source string and recommendation corrected to say so."
     },
     {
       "id": "bph-anticholinergics",
@@ -341,7 +446,10 @@
       "reason": "May decrease urine flow and cause urinary retention.",
       "recommendation": "Avoid in men. Antimuscarinic medicines prescribed for urinary incontinence are an exception and are not flagged.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Lower urinary tract symptoms, benign prostatic hyperplasia\" (avoid in men; except antimuscarinics for urinary incontinence)",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "incontinence-alpha-1-blockers",
@@ -353,7 +461,11 @@
       "reason": "Can make urinary incontinence worse.",
       "recommendation": "Avoid in women.",
       "minAge": 65,
-      "source": "AGS 2023 Beers Criteria, Table 3"
+      "source": "AGS 2023 Beers Criteria, Table 3",
+      "verified": "confirmed",
+      "verifiedAgainst": "Table 3, row \"Urinary incontinence (all types) in women\" (avoid in women)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The table row also lists oral and transdermal estrogen, which this entry leaves out."
     }
   ]
 }
