@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractLabel, summarizeInteraction } from './groq.js';
@@ -9,8 +10,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Render / Cloud Run sit behind one reverse proxy; trust it so rate limiting
+// keys on the real client IP instead of the proxy's.
+app.set('trust proxy', 1);
+
 app.use(cors());
 app.use(express.json({ limit: '12mb' })); // base64 images can be large
+
+// ---- Rate limiting ----
+// Every API call below spends Groq / Firecrawl credits, so cap per-IP usage.
+const limiter = (max) =>
+  rateLimit({
+    windowMs: 60 * 1000,
+    max,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests — please wait a minute and try again.' },
+  });
+const scanLimiter = limiter(10); // vision call per request
+const interactionLimiter = limiter(30); // up to 3 scrapes + 1 LLM call per request
+const stackLimiter = limiter(10); // fans out to every pair in the stack
+
+const MAX_STACK_SIZE = 10; // 10 drugs = 45 pairs
+const MAX_DRUG_NAME_LENGTH = 80;
+const isDrugName = (d) =>
+  typeof d === 'string' && d.trim().length > 0 && d.length <= MAX_DRUG_NAME_LENGTH;
 
 // ---- Health check (Cloud Run readiness) ----
 app.get('/api/health', (_req, res) => {
@@ -23,7 +47,7 @@ app.get('/api/health', (_req, res) => {
 
 // ---- Scan a pill bottle label ----
 // Body: { image: "<base64>", mimeType?: "image/jpeg" }
-app.post('/api/scan', async (req, res) => {
+app.post('/api/scan', scanLimiter, async (req, res) => {
   try {
     const { image, mimeType } = req.body || {};
     if (!image) return res.status(400).json({ error: 'Missing image' });
@@ -43,9 +67,11 @@ app.post('/api/scan', async (req, res) => {
 // Body: { drugA, drugB }
 // Strategy: resolve the specific pairwise page live via Firecrawl, then Groq
 // rewrites it into plain English + severity. No hardcoded answers.
-app.post('/api/interaction', async (req, res) => {
+app.post('/api/interaction', interactionLimiter, async (req, res) => {
   const { drugA, drugB } = req.body || {};
-  if (!drugA || !drugB) return res.status(400).json({ error: 'Need drugA and drugB' });
+  if (!isDrugName(drugA) || !isDrugName(drugB)) {
+    return res.status(400).json({ error: 'Need drugA and drugB' });
+  }
 
   const result = await resolveInteraction(drugA, drugB);
   res.json({ drugA, drugB, ...result });
@@ -53,10 +79,18 @@ app.post('/api/interaction', async (req, res) => {
 
 // ---- Check an entire stack: every pair ----
 // Body: { drugs: ["warfarin", "ibuprofen", ...] }
-app.post('/api/stack-check', async (req, res) => {
+app.post('/api/stack-check', stackLimiter, async (req, res) => {
   const { drugs } = req.body || {};
   if (!Array.isArray(drugs) || drugs.length < 2) {
     return res.json({ pairs: [], summary: { red: 0, yellow: 0, green: 0 } });
+  }
+  if (drugs.length > MAX_STACK_SIZE) {
+    return res
+      .status(400)
+      .json({ error: `Too many medications — the limit is ${MAX_STACK_SIZE} per check.` });
+  }
+  if (!drugs.every(isDrugName)) {
+    return res.status(400).json({ error: 'Each medication must be a short text name.' });
   }
 
 const pairs = [];
