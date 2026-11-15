@@ -23,6 +23,8 @@ export type Pair = {
   summary: string;
   action: string;
   sourceUrl?: string;
+  /** 'live' for a real lookup; 'unknown' when the lookup failed (reported as yellow). */
+  source?: string;
 };
 
 export type MapType = 'node' | 'list';
