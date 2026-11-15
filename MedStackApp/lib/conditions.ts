@@ -1,4 +1,5 @@
 import { api } from '@/lib/api';
+import { SAFETY_LINE } from '@/lib/safety';
 import type { BeersFlag, Condition, ConditionFlag } from '@/types/medstack';
 
 export const CONDITION_DISCLAIMER = 'Informational tool, not medical advice.';
@@ -51,5 +52,5 @@ export function conditionFlaggedCount(flags: ConditionFlag[]): number {
 
 export function conditionSummaryLine(count: number): string {
   const subject = count === 1 ? '1 medication' : `${count} medications`;
-  return `${subject} may be a concern with your conditions. Talk to your clinician or pharmacist before changing anything.`;
+  return `${subject} may be a concern with your conditions. ${SAFETY_LINE}`;
 }

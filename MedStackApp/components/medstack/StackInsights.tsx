@@ -6,6 +6,7 @@ import { sharedStyles } from '@/styles/shared';
 import type { StackPattern } from '@/types/medstack';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafetyLine } from './SafetyLine';
 
 /**
  * One collapsible card of whole-stack insights: hub drugs first, then
@@ -70,6 +71,7 @@ export function StackInsightsCard({
                       {insight.recommendation}
                     </Text>
                     <Text style={styles.finePrint}>Source: {insight.source}.</Text>
+                    <SafetyLine />
                   </View>
                 )}
               </View>
@@ -155,6 +157,7 @@ export function PairPatternNote({ patterns }: { patterns: StackPattern[] }) {
         </View>
       ))}
       <Text style={styles.finePrint}>{INSIGHTS_DISCLAIMER}</Text>
+      <SafetyLine />
     </View>
   );
 }

@@ -22,6 +22,7 @@ import {
   View,
 } from 'react-native';
 import { BeersBadge } from './Beers';
+import { SafetyLine } from './SafetyLine';
 
 /**
  * Small "Condition" tag. Squared and plum so it reads differently from the
@@ -120,8 +121,9 @@ export function ConditionDetail({ flags, drugLabel }: { flags: ConditionFlag[]; 
         </View>
       ))}
       <Text style={styles.finePrint}>
-        {CONDITION_DISCLAIMER} {CONDITION_INCOMPLETE_NOTE} Talk to your clinician or pharmacist before changing anything.
+        {CONDITION_DISCLAIMER} {CONDITION_INCOMPLETE_NOTE}
       </Text>
+      <SafetyLine />
     </View>
   );
 }

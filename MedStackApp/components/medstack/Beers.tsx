@@ -1,6 +1,7 @@
 import { COLORS } from '@/constants/medstack-colors';
 import { BEERS_DISCLAIMER, BEERS_SOURCE_LABEL, beersSummaryLine, parseAge } from '@/lib/beers';
 import { sharedStyles } from '@/styles/shared';
+import { SafetyLine } from './SafetyLine';
 import type { BeersFlag } from '@/types/medstack';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -58,10 +59,9 @@ export function BeersDetail({ flags, drugLabel }: { flags: BeersFlag[]; drugLabe
           </Text>
         </View>
       ))}
-      <Text style={styles.finePrint}>
-        Source: {BEERS_SOURCE_LABEL}. Applies to adults 65+. {BEERS_DISCLAIMER} Talk to your clinician or pharmacist before
-        changing anything.
-      </Text>
+      <Text style={styles.finePrint}>Source: {BEERS_SOURCE_LABEL}. Applies to adults 65+.</Text>
+      <Text style={styles.finePrint}>{BEERS_DISCLAIMER}</Text>
+      <SafetyLine />
     </View>
   );
 }

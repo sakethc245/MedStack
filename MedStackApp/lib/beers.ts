@@ -1,3 +1,4 @@
+import { SAFETY_LINE } from '@/lib/safety';
 import type { BeersFlag } from '@/types/medstack';
 
 /** The Beers Criteria apply to adults this age and older. */
@@ -29,5 +30,5 @@ export function flaggedNames(flags: BeersFlag[]): Set<string> {
 
 export function beersSummaryLine(count: number): string {
   const subject = count === 1 ? '1 medication is' : `${count} medications are`;
-  return `${subject} on the Beers list for adults 65+. Talk to your clinician or pharmacist before changing anything.`;
+  return `${subject} on the Beers list for adults 65+. ${SAFETY_LINE}`;
 }
