@@ -82,12 +82,12 @@
       "verificationNote": "The paper names the classes (TCAs, SSRIs, SNRIs) without listing members. Each drug here is classed as a tricyclic antidepressant, SSRI or SNRI in RxClass. This is a selection, not the complete classes; doxepin is left out."
     },
     "antiepileptics": {
-      "generics": ["carbamazepine", "divalproex", "gabapentin", "lamotrigine", "levetiracetam", "oxcarbazepine", "phenytoin", "pregabalin", "topiramate", "valproate", "valproic acid"],
-      "brands": ["tegretol", "depakote", "neurontin", "lamictal", "keppra", "trileptal", "dilantin", "lyrica", "topamax", "depakene"],
-      "verified": "confirmed",
-      "verifiedAgainst": "Class named in Table 3 row \"History of falls or fractures\" and Table 5 (\"antiepileptics (including gabapentinoids)\"); members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "generics": ["carbamazepine", "divalproex", "lamotrigine", "levetiracetam", "oxcarbazepine", "phenytoin", "topiramate", "valproate", "valproic acid"],
+      "brands": ["tegretol", "depakote", "lamictal", "keppra", "trileptal", "dilantin", "topamax", "depakene"],
+      "verified": "corrected",
+      "verifiedAgainst": "Class named in Table 3 row \"History of falls or fractures\" and in Table 5; members checked in RxClass (ATC group N03 antiepileptics, or FDA class \"Anti-epileptic Agent\"); brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The paper names the class without listing members. Each drug is an antiepileptic in RxClass, except gabapentin and pregabalin, which ATC now classes as gabapentinoids and which Table 5 explicitly counts among antiepileptics. This is a selection, not the complete class."
+      "verificationNote": "The paper names the class without listing members. Each drug is an antiepileptic in RxClass, except gabapentin and pregabalin, which ATC now classes as gabapentinoids and which Table 5 explicitly counts among antiepileptics. This is a selection, not the complete class. Follow-up: removed gabapentin and pregabalin (and brands \"neurontin\", \"lyrica\"). Table 3's falls row says only \"Antiepileptics\", and RxClass puts both drugs in the ATC class \"Gabapentinoids\", not among antiepileptics. Table 5 does count them (\"antiepileptics (including gabapentinoids)\"), so the three-CNS-drugs pattern now cites the separate gabapentinoids list."
     },
     "opioids": {
       "generics": ["codeine", "fentanyl", "hydrocodone", "hydromorphone", "meperidine", "methadone", "morphine", "oxycodone", "tapentadol", "tramadol"],
@@ -113,12 +113,12 @@
       "verificationNote": "The table excludes baclofen and tizanidine from this criterion; neither is listed here."
     },
     "acei-arb-arni": {
-      "generics": ["benazepril", "captopril", "enalapril", "fosinopril", "lisinopril", "perindopril", "quinapril", "ramipril", "azilsartan", "candesartan", "irbesartan", "losartan", "olmesartan", "telmisartan", "valsartan", "sacubitril"],
+      "generics": ["benazepril", "captopril", "enalapril", "fosinopril", "lisinopril", "perindopril", "quinapril", "ramipril", "azilsartan", "candesartan", "irbesartan", "losartan", "olmesartan", "telmisartan", "valsartan"],
       "brands": ["lotensin", "vasotec", "zestril", "prinivil", "accupril", "altace", "edarbi", "atacand", "avapro", "cozaar", "benicar", "micardis", "diovan", "entresto"],
-      "verified": "confirmed",
+      "verified": "corrected",
       "verifiedAgainst": "Classes named in Table 5, row \"Lithium + ACEIs / ARBs / ARNIs\"; members checked in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The paper names the classes without listing members. Each drug is an ACE inhibitor or ARB in RxClass; sacubitril appears only as the sacubitril/valsartan combination. This is a selection, not the complete classes."
+      "verificationNote": "The paper names the classes without listing members. Each drug is an ACE inhibitor or ARB in RxClass; sacubitril appears only as the sacubitril/valsartan combination. This is a selection, not the complete classes. Follow-up: removed \"sacubitril\" as a stand-alone name. RxClass has no class for sacubitril alone; it appears only as sacubitril/valsartan under ARB combinations. The combination still matches through \"valsartan\" and the brand \"entresto\"."
     },
     "loop-diuretics": {
       "generics": ["bumetanide", "ethacrynic acid", "furosemide", "torsemide"],
@@ -149,13 +149,21 @@
       "verifiedAgainst": "Table 5, row \"Warfarin + Amiodarone ...\"; brand names checked in RxNorm",
       "verifiedOn": "2026-11-15"
     },
-    "warfarin-interacting-antibiotics": {
-      "generics": ["clarithromycin", "sulfamethoxazole"],
-      "brands": ["biaxin", "bactrim", "septra"],
+    "macrolides-except-azithromycin": {
+      "generics": ["clarithromycin"],
+      "brands": ["biaxin"],
       "verified": "corrected",
-      "verifiedAgainst": "Table 5, row \"Warfarin\" (macrolides excluding azithromycin; trimethoprim-sulfamethoxazole); clarithromycin is a macrolide in RxClass (ATC / FDA Established Pharmacologic Class); brand names checked in RxNorm",
+      "verifiedAgainst": "Table 5, row \"Warfarin\" (\"Macrolides (excluding azithromycin)\"); clarithromycin is in the ATC class \"Macrolides\" and the FDA class \"Macrolide Antimicrobial\" in RxClass; brand names checked in RxNorm",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Removed the aliases \"co-trimoxazole\" and \"cotrimoxazole\": RxNorm did not resolve them (the second matched clotrimazole, an unrelated antifungal). The table row also lists ciprofloxacin and SSRIs, and erythromycin is a macrolide; these are left out."
+      "verificationNote": "Follow-up: split out of the former \"warfarin-interacting-antibiotics\" list. Erythromycin is also a macrolide but is left out because the name does not separate tablets from skin and eye forms."
+    },
+    "trimethoprim-sulfamethoxazole": {
+      "generics": ["sulfamethoxazole trimethoprim", "trimethoprim sulfamethoxazole"],
+      "brands": ["bactrim", "septra"],
+      "verified": "corrected",
+      "verifiedAgainst": "Table 5, rows \"Warfarin\" and \"Phenytoin\" (\"Trimethoprim-sulfamethoxazole\"); brand names checked in RxNorm (Bactrim and Septra contain sulfamethoxazole and trimethoprim)",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Follow-up: the table names the combination, so a match now needs both drug names together (in either order) or a brand. \"sulfamethoxazole\" on its own no longer matches."
     }
   }
 }

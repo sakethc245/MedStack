@@ -56,7 +56,7 @@
       "id": "three-cns-active",
       "label": "Three or more medicines that act on the central nervous system",
       "type": "count",
-      "groups": ["antiepileptics", "antidepressants-tca-ssri-snri", "antipsychotics", "benzodiazepines", "z-drugs", "opioids", "skeletal-muscle-relaxants"],
+      "groups": ["antiepileptics", "gabapentinoids", "antidepressants-tca-ssri-snri", "antipsychotics", "benzodiazepines", "z-drugs", "opioids", "skeletal-muscle-relaxants"],
       "minCount": 3,
       "reason": "Taking three or more of these medicines together (antiepileptics including gabapentin and pregabalin, antidepressants, antipsychotics, benzodiazepines, Z-drug sleep medicines, opioids and skeletal muscle relaxants) increases the risk of falls and fractures.",
       "recommendation": "Avoid taking three or more at the same time. Keep the number of these medicines to a minimum.",
@@ -65,7 +65,7 @@
       "verified": "confirmed",
       "verifiedAgainst": "Table 5, row \"Any combination of 3 or more of these CNS-active drugs\"",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The seven drug types match the table row exactly."
+      "verificationNote": "The seven drug types match the table row exactly. Follow-up: gabapentin and pregabalin are now cited through the separate gabapentinoids list, because the table row says \"Antiepileptics (including gabapentinoids)\". Behaviour is unchanged."
     },
     {
       "id": "lithium-acei-arb",
@@ -117,7 +117,7 @@
       "label": "Warfarin with certain antibiotics",
       "type": "pair",
       "groupA": ["warfarin"],
-      "groupB": ["warfarin-interacting-antibiotics"],
+      "groupB": ["macrolides-except-azithromycin", "trimethoprim-sulfamethoxazole"],
       "reason": "Increased risk of bleeding.",
       "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
       "minAge": 65,
@@ -125,7 +125,7 @@
       "verified": "corrected",
       "verifiedAgainst": "Table 5, row \"Warfarin + ... Macrolides (excluding azithromycin) / Trimethoprim-sulfamethoxazole ...\"",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "The same table row also lists ciprofloxacin and SSRIs, which this entry leaves out. Follow-up re-read of the reason against the table row: the row says only \"Increased risk of bleeding\"; the statement about increasing the effect of warfarin was not in it."
+      "verificationNote": "The same table row also lists ciprofloxacin and SSRIs, which this entry leaves out. Follow-up re-read of the reason against the table row: the row says only \"Increased risk of bleeding\"; the statement about increasing the effect of warfarin was not in it. Follow-up: trimethoprim-sulfamethoxazole now needs both drug names or a brand to match."
     }
   ]
 }

@@ -399,7 +399,7 @@
       "verified": "corrected",
       "verifiedAgainst": "Table 3, row \"History of falls or fractures\" (antiepileptics: avoid except for seizures and mood disorders)",
       "verifiedOn": "2026-11-15",
-      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\"."
+      "verificationNote": "Follow-up re-read of the reason against the table row: the row says \"ataxia, impaired psychomotor function, syncope, or additional falls\"; the file said \"slowed reactions\". Follow-up: gabapentin and pregabalin are no longer flagged by this entry; the table row does not state that they are covered."
     },
     {
       "id": "falls-opioids",
