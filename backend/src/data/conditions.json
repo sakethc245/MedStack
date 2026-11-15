@@ -1,65 +1,152 @@
 {
-  "_notes": "Condition list for the drug-disease check. The ICD-10-CM codes and code prefixes were entered by hand and MUST be checked against the official CMS ICD-10-CM code list before anyone relies on them. A value such as \"I50\" is a prefix that covers every code beneath it. Labels are plain-English and are not the official code descriptions.",
+  "_notes": "Condition list for the drug-disease check. Every ICD-10-CM code and code prefix was checked against the official CMS FY2027 ICD-10-CM code description file on the date in each condition's `verifiedOn` field; `codeDescriptions` holds the official description of each. A value such as \"I50\" is a category header used as a prefix that covers every code beneath it. Labels are plain-English and are not the official code descriptions. See docs/DATA_VERIFICATION.md.",
+  "verification": {
+    "verifiedOn": "2026-11-15",
+    "sources": ["CMS ICD-10-CM FY2027 code descriptions in tabular order: https://www.cms.gov/files/zip/2027-code-descriptions-tabular-order.zip (linked from https://www.cms.gov/medicare/coding-billing/icd-10-codes)"],
+    "rule": "The conditions list offered to users leaves out any condition whose `verified` value is not \"confirmed\" or \"corrected\"."
+  },
   "conditions": [
     {
       "id": "parkinson-disease",
       "label": "Parkinson disease",
       "codes": ["G20"],
-      "synonyms": ["parkinsons", "parkinson's", "pd", "parkinsonism"]
+      "synonyms": ["parkinsons", "parkinson's", "pd", "parkinsonism"],
+      "codeDescriptions": {
+        "G20": "Parkinson's disease (category header; 7 codes beneath it)"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "The G20 category also contains G20.C \"Parkinsonism, unspecified\", which is broader than Parkinson disease."
     },
     {
       "id": "heart-failure",
       "label": "Heart failure",
       "codes": ["I50"],
-      "synonyms": ["chf", "congestive heart failure", "hf", "weak heart", "cardiac failure"]
+      "synonyms": ["chf", "congestive heart failure", "hf", "weak heart", "cardiac failure"],
+      "codeDescriptions": {
+        "I50": "Heart failure (category header; 28 codes beneath it)"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Covers all heart failure. The table's diltiazem and verapamil entry applies only to reduced ejection fraction (systolic codes I50.2x and combined codes I50.4x)."
     },
     {
       "id": "dementia",
       "label": "Dementia or cognitive impairment",
       "codes": ["F01", "F02", "F03", "G30", "G31.84"],
-      "synonyms": ["alzheimer", "alzheimers", "alzheimer's", "memory loss", "mild cognitive impairment", "mci", "vascular dementia"]
+      "synonyms": ["alzheimer", "alzheimers", "alzheimer's", "memory loss", "mild cognitive impairment", "mci", "vascular dementia"],
+      "codeDescriptions": {
+        "F01": "Vascular dementia (category header; 32 codes beneath it)",
+        "F02": "Dementia in other diseases classified elsewhere (category header; 32 codes beneath it)",
+        "F03": "Unspecified dementia (category header; 32 codes beneath it)",
+        "G30": "Alzheimer's disease (category header; 4 codes beneath it)",
+        "G31.84": "Mild cognitive impairment of uncertain or unknown etiology"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Does not cover every code for cognitive impairment (for example G31.83, neurocognitive disorder with Lewy bodies; G31.0, frontotemporal dementia; and R41.81, age-related cognitive decline)."
     },
     {
       "id": "delirium",
       "label": "Delirium",
       "codes": ["F05"],
-      "synonyms": ["acute confusion", "confusional state", "sudden confusion"]
+      "synonyms": ["acute confusion", "confusional state", "sudden confusion"],
+      "codeDescriptions": {
+        "F05": "Delirium due to known physiological condition"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "F05 is \"Delirium due to known physiological condition\"; substance-induced delirium is coded elsewhere and is not covered."
     },
     {
       "id": "syncope",
       "label": "Syncope (fainting)",
       "codes": ["R55"],
-      "synonyms": ["fainting", "passing out", "blackout", "blackouts", "collapse"]
+      "synonyms": ["fainting", "passing out", "blackout", "blackouts", "collapse"],
+      "codeDescriptions": {
+        "R55": "Syncope and collapse"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15"
     },
     {
       "id": "falls-fractures",
       "label": "History of falls or fractures",
       "codes": ["Z91.81", "Z87.81", "Z87.31"],
-      "synonyms": ["fall", "falling", "broken bone", "broken hip", "hip fracture", "fracture"]
+      "synonyms": ["fall", "falling", "broken bone", "broken hip", "hip fracture", "fracture"],
+      "codeDescriptions": {
+        "Z91.81": "History of falling",
+        "Z87.81": "Personal history of (healed) traumatic fracture",
+        "Z87.31": "Personal history of (healed) nontraumatic fracture (category header; 3 codes beneath it)"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Z87.31 is a category header (nontraumatic fracture) used as a prefix. Current fractures are coded elsewhere and are not covered."
     },
     {
       "id": "peptic-ulcer",
       "label": "History of stomach or duodenal ulcer",
       "codes": ["K25", "K26", "K27", "Z87.11"],
-      "synonyms": ["gastric ulcer", "peptic ulcer", "duodenal ulcer", "stomach ulcer", "pud", "ulcers"]
+      "synonyms": ["gastric ulcer", "peptic ulcer", "duodenal ulcer", "stomach ulcer", "pud", "ulcers"],
+      "codeDescriptions": {
+        "K25": "Gastric ulcer (category header; 9 codes beneath it)",
+        "K26": "Duodenal ulcer (category header; 9 codes beneath it)",
+        "K27": "Peptic ulcer, site unspecified (category header; 9 codes beneath it)",
+        "Z87.11": "Personal history of peptic ulcer disease"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "K25 to K27 are current ulcers and Z87.11 is a history of peptic ulcer disease; the paper says \"history of gastric or duodenal ulcers\". K27 is \"peptic ulcer, site unspecified\"."
     },
     {
       "id": "ckd-stage-4-5",
-      "label": "Chronic kidney disease, stage 4 or higher",
+      "label": "Severe kidney disease (creatinine clearance below 30 mL/min)",
       "codes": ["N18.4", "N18.5", "N18.6"],
-      "synonyms": ["ckd", "kidney disease", "kidney failure", "renal failure", "esrd", "dialysis", "low kidney function"]
+      "synonyms": ["ckd", "kidney disease", "kidney failure", "renal failure", "esrd", "dialysis", "low kidney function", "creatinine clearance", "crcl", "stage 4", "stage 5"],
+      "codeDescriptions": {
+        "N18.4": "Chronic kidney disease, stage 4 (severe)",
+        "N18.5": "Chronic kidney disease, stage 5",
+        "N18.6": "End stage renal disease"
+      },
+      "verified": "corrected",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt; threshold from AGS 2023 Beers Criteria, Table 6",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "Label changed from \"Chronic kidney disease, stage 4 or higher\" to the paper's threshold (creatinine clearance below 30 mL/min). The codes are valid CMS codes for CKD stage 4, stage 5 and end-stage renal disease, but the CMS file does not define the stages by kidney function, so their match to the paper's threshold was NOT verified."
     },
     {
       "id": "bph",
       "label": "Enlarged prostate with urinary symptoms (BPH)",
       "codes": ["N40.1"],
-      "synonyms": ["bph", "benign prostatic hyperplasia", "prostate", "luts", "trouble urinating", "weak stream"]
+      "synonyms": ["bph", "benign prostatic hyperplasia", "prostate", "luts", "trouble urinating", "weak stream"],
+      "codeDescriptions": {
+        "N40.1": "Benign prostatic hyperplasia with lower urinary tract symptoms"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "N40.1 matches the label exactly. N40.3 (nodular prostate with lower urinary tract symptoms) is not covered."
     },
     {
       "id": "urinary-incontinence-women",
       "label": "Urinary incontinence (women)",
       "codes": ["N39.3", "N39.4", "R32"],
-      "synonyms": ["incontinence", "bladder leakage", "leaking urine", "stress incontinence", "urge incontinence", "overactive bladder"]
+      "synonyms": ["incontinence", "bladder leakage", "leaking urine", "stress incontinence", "urge incontinence", "overactive bladder"],
+      "codeDescriptions": {
+        "N39.3": "Stress incontinence (female) (male)",
+        "N39.4": "Other specified urinary incontinence (category header; 11 codes beneath it)",
+        "R32": "Unspecified urinary incontinence"
+      },
+      "verified": "confirmed",
+      "verifiedAgainst": "CMS ICD-10-CM FY2027 code descriptions, file icd10cm_order_2027.txt",
+      "verifiedOn": "2026-11-15",
+      "verificationNote": "These codes are not sex-specific (N39.3 is \"Stress incontinence (female) (male)\"); the paper's criterion applies to women. N39.4 is a category header used as a prefix and includes N39.44 nocturnal enuresis."
     }
   ]
 }
