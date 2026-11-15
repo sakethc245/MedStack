@@ -11,8 +11,9 @@ import ScanScreen from '@/components/medstack/ScanScreen';
 import StackScreen from '@/components/medstack/StackScreen';
 import MapScreen from '@/components/medstack/MapScreen';
 import { AgePrompt } from '@/components/medstack/Beers';
+import { ConditionsPicker } from '@/components/medstack/Conditions';
 import { BEERS_MIN_AGE } from '@/lib/beers';
-import type { BeersFlag, Drug, Group, MapType, Pair, Summary, User } from '@/types/medstack';
+import type { BeersFlag, ConditionFlag, Drug, Group, MapType, Pair, Summary, User } from '@/types/medstack';
 
 const SEED: Drug[] = [
   { id: 'seed-1', name: 'metformin', dosage: '500 mg', frequency: '2x daily' },
@@ -23,6 +24,7 @@ const SEED: Drug[] = [
 type Tab = 'scan' | 'stack' | 'map';
 
 const NO_FLAGS: BeersFlag[] = [];
+const NO_CONDITION_FLAGS: ConditionFlag[] = [];
 
 function newId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -43,6 +45,8 @@ export default function HomeScreen() {
   const [mapType, setMapType] = useState<MapType>('node');
   const [beersResult, setBeersResult] = useState<{ key: string; flags: BeersFlag[] } | null>(null);
   const [editingAge, setEditingAge] = useState(false);
+  const [conditionResult, setConditionResult] = useState<{ key: string; flags: ConditionFlag[] } | null>(null);
+  const [editingConditions, setEditingConditions] = useState(false);
 
   const tab: Tab = showOnboarding ? (STEPS[onboardStep].tab as Tab) : selectedTab;
 
@@ -101,6 +105,46 @@ export default function HomeScreen() {
   }, [beersKey]);
   // Only show flags that belong to the current age + stack.
   const beersFlags = beersKey && beersResult?.key === beersKey ? beersResult.flags : NO_FLAGS;
+
+  // Drug-disease check. Same shape as the Beers check above: separate from the
+  // scan and interaction flow, and a failure just means no condition badges.
+  // Conditions are health data: they go only to MedStack's own backend.
+  const conditionIds = user?.conditions;
+  const conditionKey =
+    typeof age === 'number' && conditionIds && conditionIds.length > 0 && drugs.length > 0
+      ? JSON.stringify([age, conditionIds, drugs.map((d) => d.name)])
+      : null;
+  useEffect(() => {
+    if (!conditionKey) return;
+    const [checkAge, ids, names] = JSON.parse(conditionKey) as [number, string[], string[]];
+    let cancelled = false;
+    api
+      .drugDiseaseCheck(checkAge, ids, names)
+      .then((data) => {
+        if (!cancelled) setConditionResult({ key: conditionKey, flags: Array.isArray(data?.flags) ? data.flags : [] });
+      })
+      .catch(() => {
+        // Leave it empty: the rest of the app works without condition badges.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [conditionKey]);
+  // Only show flags that belong to the current age + conditions + stack.
+  const conditionsChecked = !!conditionKey && conditionResult?.key === conditionKey;
+  const conditionFlags = conditionsChecked && conditionResult ? conditionResult.flags : NO_CONDITION_FLAGS;
+
+  // `conditions: []` records "asked, none selected" so the prompt only appears once.
+  const saveConditions = useCallback(
+    (ids: string[]) => {
+      setEditingConditions(false);
+      if (!user) return;
+      const next = { ...user, conditions: ids };
+      setUser(next);
+      storage.updateUser(next);
+    },
+    [user]
+  );
 
   // `age: null` records "asked and skipped" so the prompt only appears once.
   const saveAge = useCallback(
@@ -188,6 +232,8 @@ export default function HomeScreen() {
     setSummary({ red: 0, yellow: 0, green: 0 });
     setBeersResult(null);
     setEditingAge(false);
+    setConditionResult(null);
+    setEditingConditions(false);
     setSelectedTab('stack');
     setShowOnboarding(false);
   }, []);
@@ -307,6 +353,9 @@ export default function HomeScreen() {
             <TouchableOpacity onPress={() => setEditingAge(true)} hitSlop={6}>
               <Text style={styles.ageLink}>{typeof user.age === 'number' ? `Age ${user.age} - Edit` : 'Add age'}</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => setEditingConditions(true)} hitSlop={6}>
+              <Text style={styles.ageLink}>{user.conditions?.length ? 'Edit conditions' : 'Add conditions'}</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={signOut} hitSlop={6}>
               <Text style={styles.signOut}>Sign out</Text>
             </TouchableOpacity>
@@ -323,6 +372,8 @@ export default function HomeScreen() {
             pairs={pairs}
             summary={summary}
             beersFlags={beersFlags}
+            conditionFlags={conditionFlags}
+            conditionsChecked={conditionsChecked}
             onRemove={removeDrug}
             onRename={renameDrug}
             onCreateGroup={createGroup}
@@ -338,6 +389,8 @@ export default function HomeScreen() {
             pairs={pairs}
             loading={loading}
             beersFlags={beersFlags}
+            conditionFlags={conditionFlags}
+            conditionsChecked={conditionsChecked}
             mapType={mapType}
             onChangeMapType={changeMapType}
             labelFor={labelFor}
@@ -371,6 +424,19 @@ export default function HomeScreen() {
           onSkip={() => (editingAge ? setEditingAge(false) : saveAge(null))}
         />
       )}
+
+      {/* Offered once, right after the age question, and from the header link. */}
+      {!showOnboarding &&
+        !editingAge &&
+        user.age !== undefined &&
+        (editingConditions || user.conditions === undefined) && (
+          <ConditionsPicker
+            initialSelected={user.conditions || []}
+            isFirstTime={!editingConditions}
+            onSave={saveConditions}
+            onCancel={() => (editingConditions ? setEditingConditions(false) : saveConditions([]))}
+          />
+        )}
 
       {showOnboarding && (
         <Onboarding
@@ -438,7 +504,17 @@ const styles = StyleSheet.create({
   },
   brand: { fontSize: 23, fontWeight: '400', color: COLORS.ink, fontFamily: 'Georgia' },
   brandEm: { fontStyle: 'italic', color: COLORS.teal },
-  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 2 },
+  headerActions: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    columnGap: 14,
+    rowGap: 4,
+    marginLeft: 12,
+    marginBottom: 2,
+  },
   ageLink: { fontSize: 12.5, color: COLORS.teal, fontWeight: '500' },
   signOut: { fontSize: 12.5, color: COLORS.inkFaint, fontWeight: '500' },
   body: { flex: 1, paddingHorizontal: 18 },

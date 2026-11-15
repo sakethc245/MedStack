@@ -2,20 +2,21 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS } from '@/constants/medstack-colors';
 import { SEV_META, sortBySeverityDesc } from '@/lib/severity';
-import { BeersBadge } from '../Beers';
+import type { NoteCounts } from '@/lib/conditions';
+import { MedNoteBadge } from '../Conditions';
 import type { Pair } from '@/types/medstack';
 
 export default function ListMap({
   pairs,
   selected,
-  beersNames,
+  notes,
   labelFor,
   onSelectPair,
 }: {
   pairs: Pair[];
   selected: Pair | null;
-  /** Lowercased names of medications on the Beers list. */
-  beersNames: Set<string>;
+  /** Beers and condition flag counts per medication, keyed by lowercased name. */
+  notes: NoteCounts;
   labelFor: (name: string) => string;
   onSelectPair: (p: Pair) => void;
 }) {
@@ -26,7 +27,7 @@ export default function ListMap({
       {sorted.map((p, i) => {
         const meta = SEV_META[p.severity];
         const isActive = selected && selected.drugA === p.drugA && selected.drugB === p.drugB;
-        const beersDrugs = [p.drugA, p.drugB].filter((d) => beersNames.has(d.toLowerCase()));
+        const notedDrugs = [p.drugA, p.drugB].filter((d) => notes.has(d.toLowerCase()));
         return (
           <TouchableOpacity
             key={i}
@@ -43,11 +44,12 @@ export default function ListMap({
               <Text style={styles.pairSummary} numberOfLines={2}>
                 {p.summary}
               </Text>
-              {beersDrugs.length > 0 && (
+              {notedDrugs.length > 0 && (
                 <View style={styles.beersRow}>
-                  {beersDrugs.map((d) => (
-                    <BeersBadge key={d} label={`Beers: ${labelFor(d)}`} />
-                  ))}
+                  {notedDrugs.map((d) => {
+                    const n = notes.get(d.toLowerCase())!;
+                    return <MedNoteBadge key={d} beers={n.beers} conditions={n.conditions} suffix={`: ${labelFor(d)}`} />;
+                  })}
                 </View>
               )}
             </View>

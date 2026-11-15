@@ -2,6 +2,7 @@ import React from 'react';
 import Svg, { Line, Circle, Rect, Text as SvgText, Polygon } from 'react-native-svg';
 import { COLORS } from '@/constants/medstack-colors';
 import { SEV_META } from '@/lib/severity';
+import type { NoteCounts } from '@/lib/conditions';
 import type { Drug, Pair } from '@/types/medstack';
 
 const LINE_WIDTH = 3;
@@ -29,14 +30,14 @@ function octagonPoints(cx: number, cy: number, r: number) {
 export default function NodeMap({
   drugs,
   pairs,
-  beersNames,
+  notes,
   labelFor,
   onSelectPair,
 }: {
   drugs: Drug[];
   pairs: Pair[];
-  /** Lowercased names of medications on the Beers list. */
-  beersNames: Set<string>;
+  /** Beers and condition flag counts per medication, keyed by lowercased name. */
+  notes: NoteCounts;
   labelFor: (name: string) => string;
   onSelectPair: (p: Pair) => void;
 }) {
@@ -78,6 +79,10 @@ export default function NodeMap({
       {drugs.map((d, i) => {
         const label = labelFor(d.name);
         const short = label.length > 9 ? label.slice(0, 8) + '.' : label;
+        const note = notes.get(d.name.toLowerCase());
+        const beersOnly = !!note && note.beers > 0 && note.conditions === 0;
+        const hasCondition = !!note && note.conditions > 0;
+        const tagText = note && note.beers > 0 ? `${note.beers + note.conditions} notes` : 'Condition';
         return (
           <React.Fragment key={d.id}>
             <Circle cx={pos[i].x} cy={pos[i].y} r={30} fill="#fff" stroke={COLORS.inkFaint} strokeWidth={2} />
@@ -89,12 +94,21 @@ export default function NodeMap({
                 {d.dosage}
               </SvgText>
             )}
-            {beersNames.has(d.name.toLowerCase()) && (
+            {beersOnly && (
               <React.Fragment>
                 {/* Calm slate pill above the node; not a severity color. */}
                 <Rect x={pos[i].x - 17} y={pos[i].y - 41} width={34} height={14} rx={7} fill={COLORS.beersSoft} stroke={COLORS.beers} strokeWidth={1} />
                 <SvgText x={pos[i].x} y={pos[i].y - 31} fontSize={8.5} fontWeight="700" fill={COLORS.beersInk} textAnchor="middle">
                   Beers
+                </SvgText>
+              </React.Fragment>
+            )}
+            {hasCondition && (
+              <React.Fragment>
+                {/* Squared plum tag: a condition note, or a combined count when the medication also has a Beers note. */}
+                <Rect x={pos[i].x - 23} y={pos[i].y - 41} width={46} height={14} rx={2} fill={COLORS.conditionSoft} stroke={COLORS.condition} strokeWidth={1} />
+                <SvgText x={pos[i].x} y={pos[i].y - 31} fontSize={8.5} fontWeight="700" fill={COLORS.conditionInk} textAnchor="middle">
+                  {tagText}
                 </SvgText>
               </React.Fragment>
             )}

@@ -7,8 +7,10 @@ import DetailCard from './DetailCard';
 import NodeMap from './maps/NodeMap';
 import ListMap from './maps/ListMap';
 import { flaggedNames } from '@/lib/beers';
+import { conditionFlaggedCount, countNotes } from '@/lib/conditions';
 import { BeersSummary } from './Beers';
-import type { BeersFlag, Drug, Group, MapType, Pair } from '@/types/medstack';
+import { ConditionSummary } from './Conditions';
+import type { BeersFlag, ConditionFlag, Drug, Group, MapType, Pair } from '@/types/medstack';
 
 const MAP_TABS: { type: MapType; label: string }[] = [
   { type: 'node', label: 'Node' },
@@ -21,6 +23,8 @@ export default function MapScreen({
   pairs,
   loading,
   beersFlags,
+  conditionFlags,
+  conditionsChecked,
   mapType,
   onChangeMapType,
   labelFor,
@@ -30,6 +34,8 @@ export default function MapScreen({
   pairs: Pair[];
   loading: boolean;
   beersFlags: BeersFlag[];
+  conditionFlags: ConditionFlag[];
+  conditionsChecked: boolean;
   mapType: MapType;
   onChangeMapType: (t: MapType) => void;
   labelFor: (name: string) => string;
@@ -59,6 +65,11 @@ export default function MapScreen({
     [beersFlags, viewNames]
   );
   const beersNames = useMemo(() => flaggedNames(viewBeersFlags), [viewBeersFlags]);
+  const viewConditionFlags = useMemo(
+    () => conditionFlags.filter((f) => viewNames.has(f.drug.toLowerCase())),
+    [conditionFlags, viewNames]
+  );
+  const notes = useMemo(() => countNotes(viewBeersFlags, viewConditionFlags), [viewBeersFlags, viewConditionFlags]);
   const hottest = sortBySeverityDesc(viewPairs)[0];
   const active = (selected && viewPairs.includes(selected) ? selected : null) || hottest || null;
 
@@ -103,6 +114,7 @@ export default function MapScreen({
       </View>
 
       <BeersSummary count={beersNames.size} />
+      <ConditionSummary count={conditionFlaggedCount(viewConditionFlags)} checked={conditionsChecked} />
 
       <View style={styles.mapTypeRow}>
         {MAP_TABS.map((t) => {
@@ -122,13 +134,13 @@ export default function MapScreen({
       ) : (
         <View style={[sharedStyles.card, { marginTop: 10, padding: mapType === 'node' ? 8 : 12 }]}>
           {loading && <Text style={styles.loadingText}>Checking live interactions...</Text>}
-          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} beersNames={beersNames} labelFor={labelFor} onSelectPair={setSelected} />}
-          {mapType === 'list' && <ListMap pairs={viewPairs} selected={selected} beersNames={beersNames} labelFor={labelFor} onSelectPair={setSelected} />}
+          {mapType === 'node' && <NodeMap drugs={viewDrugs} pairs={viewPairs} notes={notes} labelFor={labelFor} onSelectPair={setSelected} />}
+          {mapType === 'list' && <ListMap pairs={viewPairs} selected={selected} notes={notes} labelFor={labelFor} onSelectPair={setSelected} />}
           <Text style={styles.mapHint}>Tap any medication pair for details</Text>
         </View>
       )}
 
-      {active && <DetailCard pair={active} labelFor={labelFor} beersFlags={viewBeersFlags} />}
+      {active && <DetailCard pair={active} labelFor={labelFor} beersFlags={viewBeersFlags} conditionFlags={viewConditionFlags} />}
     </ScrollView>
   );
 }

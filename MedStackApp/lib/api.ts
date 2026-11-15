@@ -20,10 +20,19 @@ async function post(path: string, body: any) {
   }
 }
 
+async function get(path: string) {
+  const res = await fetch(`${BACKEND_URL}${path}`);
+  if (!res.ok) throw new Error(`Request failed (${res.status})`);
+  return res.json();
+}
+
 export const api = {
   scan: (image: string, mimeType: string) =>
     post("/api/scan", { image, mimeType }),
   stackCheck: (drugs: string[]) => post("/api/stack-check", { drugs }),
   beersCheck: (age: number, drugs: string[]) =>
     post("/api/beers-check", { age, drugs }),
+  conditions: () => get("/api/conditions"),
+  drugDiseaseCheck: (age: number, conditions: string[], drugs: string[]) =>
+    post("/api/drug-disease-check", { age, conditions, drugs }),
 };

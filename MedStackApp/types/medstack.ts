@@ -38,6 +38,33 @@ export type User = {
    * `undefined` = never asked; `null` = asked and skipped.
    */
   age?: number | null;
+  /**
+   * Ids of the conditions the user selected, for the drug-disease check.
+   * `undefined` = never asked; `[]` = asked and none selected / skipped.
+   * Health data: kept on this device, like `age`.
+   */
+  conditions?: string[];
+};
+
+/** A condition the user can select, with its ICD-10-CM codes or code prefixes. */
+export type Condition = {
+  id: string;
+  label: string;
+  codes: string[];
+  synonyms?: string[];
+};
+
+/** One medication flagged as a possible concern with a selected condition. */
+export type ConditionFlag = {
+  /** The drug name as it was sent (matches `Drug.name`). */
+  drug: string;
+  conditionId: string;
+  conditionLabel: string;
+  entryId: string;
+  class: string;
+  reason: string;
+  recommendation: string;
+  source: string;
 };
 
 /** One medication matched against the 2023 AGS Beers Criteria list. */

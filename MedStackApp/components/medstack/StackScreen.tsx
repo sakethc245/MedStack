@@ -4,8 +4,10 @@ import { COLORS } from '@/constants/medstack-colors';
 import { sharedStyles } from '@/styles/shared';
 import { SEV_META, worstFor } from '@/lib/severity';
 import { flaggedNames, flagsForDrug } from '@/lib/beers';
-import { BeersBadge, BeersDetail, BeersSummary } from './Beers';
-import type { BeersFlag, Drug, Group, Pair, Summary } from '@/types/medstack';
+import { conditionFlaggedCount, conditionFlagsForDrug } from '@/lib/conditions';
+import { BeersDetail, BeersSummary } from './Beers';
+import { ConditionDetail, ConditionSummary, MedNoteBadge } from './Conditions';
+import type { BeersFlag, ConditionFlag, Drug, Group, Pair, Summary } from '@/types/medstack';
 
 export default function StackScreen({
   drugs,
@@ -13,6 +15,8 @@ export default function StackScreen({
   pairs,
   summary,
   beersFlags,
+  conditionFlags,
+  conditionsChecked,
   onRemove,
   onRename,
   onCreateGroup,
@@ -25,6 +29,9 @@ export default function StackScreen({
   pairs: Pair[];
   summary: Summary;
   beersFlags: BeersFlag[];
+  conditionFlags: ConditionFlag[];
+  /** True once the drug-disease check has run for the current stack. */
+  conditionsChecked: boolean;
   onRemove: (id: string) => void;
   onRename: (id: string, displayName: string | null) => void;
   onCreateGroup: (name: string) => void;
@@ -122,6 +129,7 @@ export default function StackScreen({
           {summary.green > 0 && <Chip color="green" text={`${summary.green} safe`} />}
         </View>
         <BeersSummary count={beersCount} />
+        <ConditionSummary count={conditionFlaggedCount(conditionFlags)} checked={conditionsChecked} />
       </View>
 
       <View style={{ gap: 10, marginTop: 12 }}>
@@ -130,6 +138,7 @@ export default function StackScreen({
           const label = d.displayName || d.name;
           const isRenaming = renamingId === d.id;
           const drugBeers = flagsForDrug(d.name, beersFlags);
+          const drugConditions = conditionFlagsForDrug(d.name, conditionFlags);
           const beersOpen = beersOpenId === d.id;
           return (
             <View key={d.id} style={[sharedStyles.card, { padding: 14, borderLeftWidth: 3, borderLeftColor: SEV_META[sev].dot }]}>
@@ -158,10 +167,12 @@ export default function StackScreen({
                     {[d.dosage, d.frequency].filter(Boolean).join(' - ') || 'No dosage recorded'}
                     {d.displayName ? ` - scanned as "${d.name}"` : ''}
                   </Text>
-                  {drugBeers.length > 0 && (
+                  {(drugBeers.length > 0 || drugConditions.length > 0) && (
                     <View style={{ marginTop: 7 }}>
-                      <BeersBadge
-                        label={beersOpen ? 'Beers - hide' : 'Beers - details'}
+                      <MedNoteBadge
+                        beers={drugBeers.length}
+                        conditions={drugConditions.length}
+                        suffix={beersOpen ? ' - hide' : ' - details'}
                         onPress={() => setBeersOpenId(beersOpen ? null : d.id)}
                       />
                     </View>
@@ -174,6 +185,7 @@ export default function StackScreen({
               </View>
 
               {beersOpen && <BeersDetail flags={drugBeers} />}
+              {beersOpen && <ConditionDetail flags={drugConditions} />}
 
               {groups.length > 0 && (
                 <View style={styles.groupAssignRow}>
