@@ -2,12 +2,13 @@
 // with a condition the user has selected.
 //
 // Deterministic by design: every rule comes from the static data files in
-// ./data (conditions.json, drug_disease.json). This module never calls an LLM
-// or any network service, and never logs its inputs — conditions are health
-// data.
+// ./data (conditions.json, drug_disease.json, and the shared class lists in
+// drug_classes.json). This module never calls an LLM or any network service,
+// and never logs its inputs — conditions are health data.
 
 import { readFileSync } from 'node:fs';
 import { tokenize, compileNames } from './drugNames.js';
+import { classNames } from './drugClasses.js';
 
 const readData = (file) => JSON.parse(readFileSync(new URL(`./data/${file}`, import.meta.url), 'utf8'));
 
@@ -28,12 +29,11 @@ export const isKnownCondition = (id) => typeof id === 'string' && CONDITION_LABE
 
 // Resolve each entry's own names plus the names of any drug classes it cites.
 const ENTRIES = ruleData.entries.map((entry) => {
-  const names = [...entry.generics, ...entry.brands];
-  for (const key of entry.drugClasses || []) {
-    const cls = ruleData.classes[key];
-    if (!cls) throw new Error(`drug_disease.json: entry "${entry.id}" cites unknown class "${key}"`);
-    names.push(...cls.generics, ...cls.brands);
-  }
+  const names = [
+    ...entry.generics,
+    ...entry.brands,
+    ...classNames(entry.drugClasses || [], `drug_disease.json: entry "${entry.id}"`),
+  ];
   if (!CONDITION_LABELS.has(entry.conditionId)) {
     throw new Error(`drug_disease.json: entry "${entry.id}" cites unknown condition "${entry.conditionId}"`);
   }

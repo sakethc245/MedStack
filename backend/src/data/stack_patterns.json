@@ -1,0 +1,96 @@
+{
+  "_notes": "Entered by hand from Table 5 of the published 2023 AGS Beers Criteria (potentially clinically important drug-drug interactions to avoid in older adults). This is a partial list, the wording is paraphrased, and every entry MUST be verified against the published table before anyone relies on it. The drug groups refer to class lists in drug_classes.json, which are hand-entered selections and must be verified too. Rule types: \"pair\" fires when the stack has at least one drug from groupA and a different drug from groupB; \"count\" fires when at least minCount different drugs in the stack belong to any of the listed groups. An absent insight does not mean a stack is safe. Not medical advice.",
+  "sources": {
+    "beers-2023-table-5": "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. Table 5."
+  },
+  "patterns": [
+    {
+      "id": "opioid-benzodiazepine",
+      "label": "Opioid with a benzodiazepine",
+      "type": "pair",
+      "groupA": ["opioids"],
+      "groupB": ["benzodiazepines"],
+      "reason": "Taking an opioid and a benzodiazepine together increases the risk of overdose and of dangerously slowed breathing and sedation.",
+      "recommendation": "Avoid.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "opioid-gabapentinoid",
+      "label": "Opioid with gabapentin or pregabalin",
+      "type": "pair",
+      "groupA": ["opioids"],
+      "groupB": ["gabapentinoids"],
+      "reason": "Taking an opioid with gabapentin or pregabalin increases the risk of severe sedation, slowed breathing and death.",
+      "recommendation": "Avoid. Exceptions are when changing over from an opioid to gabapentin or pregabalin, or when using them to reduce the opioid dose, although caution is needed in all cases.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "multiple-anticholinergics",
+      "label": "Two or more strongly anticholinergic medicines",
+      "type": "count",
+      "groups": ["anticholinergics-non-urinary", "urinary-antimuscarinics"],
+      "minCount": 2,
+      "reason": "Using more than one anticholinergic medicine increases the risk of cognitive decline, delirium, and falls or fractures.",
+      "recommendation": "Avoid. Keep the number of anticholinergic medicines to a minimum.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "three-cns-active",
+      "label": "Three or more medicines that act on the central nervous system",
+      "type": "count",
+      "groups": ["antiepileptics", "antidepressants-tca-ssri-snri", "antipsychotics", "benzodiazepines", "z-drugs", "opioids", "skeletal-muscle-relaxants"],
+      "minCount": 3,
+      "reason": "Taking three or more of these medicines together (antiepileptics including gabapentin and pregabalin, antidepressants, antipsychotics, benzodiazepines, Z-drug sleep medicines, opioids and skeletal muscle relaxants) increases the risk of falls and fractures.",
+      "recommendation": "Avoid taking three or more at the same time. Keep the number of these medicines to a minimum.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "lithium-acei-arb",
+      "label": "Lithium with an ACE inhibitor, ARB or ARNI",
+      "type": "pair",
+      "groupA": ["lithium"],
+      "groupB": ["acei-arb-arni"],
+      "reason": "These blood pressure and heart medicines can raise lithium levels and increase the risk of lithium toxicity.",
+      "recommendation": "Avoid. If used together, lithium levels should be monitored.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "lithium-loop-diuretic",
+      "label": "Lithium with a loop diuretic",
+      "type": "pair",
+      "groupA": ["lithium"],
+      "groupB": ["loop-diuretics"],
+      "reason": "Loop diuretics can raise lithium levels and increase the risk of lithium toxicity.",
+      "recommendation": "Avoid. If used together, lithium levels should be monitored.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "warfarin-amiodarone",
+      "label": "Warfarin with amiodarone",
+      "type": "pair",
+      "groupA": ["warfarin"],
+      "groupB": ["amiodarone"],
+      "reason": "Amiodarone increases the effect of warfarin and the risk of bleeding.",
+      "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    },
+    {
+      "id": "warfarin-antibiotics",
+      "label": "Warfarin with certain antibiotics",
+      "type": "pair",
+      "groupA": ["warfarin"],
+      "groupB": ["warfarin-interacting-antibiotics"],
+      "reason": "Clarithromycin and trimethoprim-sulfamethoxazole increase the effect of warfarin and the risk of bleeding.",
+      "recommendation": "Avoid when possible. If used together, the INR should be monitored closely.",
+      "minAge": 65,
+      "source": "AGS 2023 Beers Criteria, Table 5"
+    }
+  ]
+}

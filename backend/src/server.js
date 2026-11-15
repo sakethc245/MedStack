@@ -7,6 +7,7 @@ import { extractLabel, summarizeInteraction } from './groq.js';
 import { fetchInteractionText } from './firecrawl.js';
 import { checkBeers, beersApplies, BEERS_SOURCE } from './beers.js';
 import { CONDITIONS, isKnownCondition, checkDrugDisease } from './drugDisease.js';
+import { checkStackPatterns } from './stackPatterns.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -35,6 +36,7 @@ const stackLimiter = limiter(10); // fans out to every pair in the stack
 const beersLimiter = limiter(30); // local lookup only, no upstream calls
 const conditionsLimiter = limiter(30); // static list
 const drugDiseaseLimiter = limiter(30); // local lookup only, no upstream calls
+const stackPatternsLimiter = limiter(30); // local lookup only, no upstream calls
 
 const MAX_STACK_SIZE = 10; // 10 drugs = 45 pairs
 const MAX_DRUG_NAME_LENGTH = 80;
@@ -186,6 +188,30 @@ app.post('/api/drug-disease-check', drugDiseaseLimiter, (req, res) => {
     return res.status(400).json({ error: 'Each medication must be a short text name.' });
   }
   res.json({ flags: checkDrugDisease(age, conditions, drugs) });
+});
+
+// ---- Stack patterns (drugs that add up across the whole stack) ----
+// Body: { age: 72, drugs: ["oxycodone", "lorazepam", ...] }
+// Pure lookup against static data files. Medications are health data: the
+// request is never logged, stored, or passed to Groq, Firecrawl or any other
+// service.
+app.post('/api/stack-patterns', stackPatternsLimiter, (req, res) => {
+  const { age, drugs } = req.body || {};
+  if (!isValidAge(age)) {
+    return res.status(400).json({ error: 'Age must be a whole number from 0 to 120.' });
+  }
+  if (!Array.isArray(drugs)) {
+    return res.status(400).json({ error: 'Need a drugs array.' });
+  }
+  if (drugs.length > MAX_STACK_SIZE) {
+    return res
+      .status(400)
+      .json({ error: `Too many medications — the limit is ${MAX_STACK_SIZE} per check.` });
+  }
+  if (!drugs.every(isDrugName)) {
+    return res.status(400).json({ error: 'Each medication must be a short text name.' });
+  }
+  res.json({ insights: checkStackPatterns(age, drugs) });
 });
 
 /**
