@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://medstack-x86l.onrender.com";
+const BACKEND_URL = "https://medstack-hackathon.onrender.com";
 
 async function post(path: string, body: any) {
   console.log("API call:", `${BACKEND_URL}${path}`);
